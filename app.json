@@ -1,0 +1,35 @@
+{
+    "name": "Django VueJs Template",
+    "description": "",
+    "repository": "https://github.com/gtalarico/django-vue-template",
+    "keywords": ["django", "vue", "vuejs", "template", "django rest framework"],
+    "env": {
+      "DISABLE_COLLECTSTATIC": {
+        "description": "Disable Static",
+        "value": "1"
+      },
+      "YARN_PRODUCTION": {
+        "description": "Install Yarn Dependencies",
+        "value": "true"
+      },
+      "DJANGO_SETTINGS_MODULE": {
+        "description": "Set Django Settings to Production",
+        "value": "project.settings.prod"
+      }
+     },
+     "engines": {
+        "yarn": "1.4.0",
+        "npm": "6.2.0"
+     },
+    "addons": [
+
+     ],
+     "buildpacks": [
+        {
+          "url": "heroku/python"
+        },
+        {
+          "url": "heroku/nodejs"
+        }
+    ]
+  }
