@@ -51,10 +51,11 @@ $ yarn serve
 The Vuejs template will be served from `localhost:8080` and the Django Api
 will be served form `localhost:8000`.
 
-The dual dev server setup allows you to take advantage of webpack's devserver
-with hot module reload. If you would rather run a single dev server, you
-can run django's dev server only on `:8000`, but you have to build build the
-Vue app first
+The dual dev server setup allows you to take advantage of
+webpack's development server with hot module reload.
+
+If you would rather run a single dev server, you can run Django's
+development server only on `:8000`, but you have to build build the Vue app first
 
 ```
 $ yarn build
@@ -90,7 +91,7 @@ production setup.
 
 The strategy we take is to use Django Whitenoise to serve all static files at `/static/`.
 
-This may seem inefficient for a production server, but that's immediatly solved
+This may seem inefficient for a production server, but that's immediately solved
 by adding a CDN.
 Create CDN distribution with Cloudfront or similar, configure the `vue.config.js` `baseUrl` options to set your point to the CDN, and set your CDN's origin back to your domains `/static` url.
 

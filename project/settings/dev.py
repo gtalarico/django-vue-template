@@ -121,8 +121,6 @@ USE_TZ = True
 # http://whitenoise.evans.io/en/stable/django.html?highlight=django
 
 STATIC_URL = '/static/'
+# Serve `dist` as is, built by webpack
 STATIC_ROOT = os.path.join(BASE_DIR, 'dist', 'static')
-# No Need to Collect, serve dist as is
-# STATICFILES_DIRS = [
-    # os.path.join(BASE_DIR, 'dist', 'static'),
-# ]
+STATICFILES_DIRS = []
