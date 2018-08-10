@@ -95,8 +95,8 @@ $ heroku addons:create heroku-postgresql:hobby-dev
 $ heroku config:set DJANGO_SETTINGS_MODULE=project.settings.prod
 
 $ git push heroku
-``
-`
+```
+
 Since nodejs buidlpack was added, heroku will handle install for all the dependencies from the `packages.json` file. 
 It will then trigger the `postinstall` command which calls `yarn build`. 
 This will create the bundled `dist` folder which will be served by whitenoise. 
