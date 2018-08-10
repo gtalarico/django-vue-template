@@ -105,7 +105,7 @@ The python buildpack will detect the `pipfile` and install all the python depend
 
 ## Static Assets
 
-See `settings.prod` and `vue.config.js` for notes on static assets strategy.
+See `settings.dev` and `vue.config.js` for notes on static assets strategy.
 
 This template implements the approach suggested by Whitenoise Django.
 For more details see [WhiteNoise Documentation](http://whitenoise.evans.io/en/stable/django.html)
