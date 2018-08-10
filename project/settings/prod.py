@@ -29,6 +29,7 @@ ALLOWED_HOSTS = ['django-vue-template-demo.herokuapp.com']
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+WHITENOISE_ROOT = STATICFILES_DIRS[0]
 
 # Insert Whitenoise Middleware at top but below Security Middleware
 MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware',)
