@@ -1,23 +1,13 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="@/assets/logo.png">
-    <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
-    <Messages />
+    <h1>Django VueJs Template</h1>
+    <div id="nav">
+      <router-link to="/">Vue</router-link> |
+      <router-link to="/messages">Django Rest</router-link>
+    </div>
+    <router-view/>
   </div>
 </template>
-
-<script>
-// import HelloWorld from '@/components/HelloWorld'
-import Messages from '@/components/Messages'
-
-export default {
-  name: 'app',
-  components: {
-    // HelloWorld,
-    Messages
-  }
-}
-</script>
 
 <style>
 #app {

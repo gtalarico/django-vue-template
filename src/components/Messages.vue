@@ -1,6 +1,8 @@
 <template>
   <div class="hello">
-
+    <img src='@/assets/logo-django.png' style="width: 250px" />
+    <p>The data below is added/removed from the Postgres Database using Django's ORM and Restframork.</p>
+    <br/>
     <p>Subject</p>
     <input type="text" placeholder="Hello" v-model="subject">
     <p>Message</p>
@@ -9,7 +11,7 @@
     <input type="submit" value="Add" @click="postMessage" :disabled="!subject || !msgBody">
 
     <hr/>
-    <h3>Messages</h3>
+    <h3>Messages on Database</h3>
     <p v-if="messages.length ===0">No Messages</p>
     <div class="msg" v-for="(msg, index) in messages" :key="index">
         <p class="msg-index">[{{index}}]</p>
@@ -22,7 +24,7 @@
 
 <script>
 export default {
-  name: "HelloWorld",
+  name: "Messages",
   data() {
     return {
       subject: "",
@@ -74,13 +76,10 @@ hr {
   /* margin-bottom: 0; */
 }
 
-.msg-subject {
-  /* margin-top: 0px; */
-  /* margin-bottom: 5px; */
-}
-.msg-body {
-  /* margin-top: 0px; */
-  /* margin-bottom: 1rem; */
+img {
+  width: 250px;
+  padding-top: 50px;
+  padding-bottom: 50px;
 }
 
 </style>

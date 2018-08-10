@@ -21,14 +21,3 @@ DATABASES = {
 DEBUG = False
 # Set to your Domain
 ALLOWED_HOSTS = ['django-vue-template-demo.herokuapp.com']
-
-##########
-# STATIC #
-##########
-
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-# Insert Whitenoise Middleware at top but below Security Middleware
-MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware',)
-# http://whitenoise.evans.io/en/stable/django.html#make-sure-staticfiles-is-configured-correctly
-
