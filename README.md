@@ -82,7 +82,7 @@ $ python manage.py runserver
 
 ## Deploy
 
-* Set `ALLOWED_HOSTS` on `project.settings.production.py`
+* Set `ALLOWED_HOSTS` on `backend.settings.prod.py`
 
 ### Heroku Server
 
@@ -92,7 +92,7 @@ $ heroku git:remote --app django-vue-template-demo
 $ heroku buildpacks:add --index 1 heroku/nodejs
 $ heroku buildpacks:add --index 2 heroku/python
 $ heroku addons:create heroku-postgresql:hobby-dev
-$ heroku config:set DJANGO_SETTINGS_MODULE=project.settings.prod
+$ heroku config:set DJANGO_SETTINGS_MODULE=backend.settings.prod
 
 $ git push heroku
 ```
