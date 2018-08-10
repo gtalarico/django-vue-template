@@ -3,10 +3,10 @@
 ![Vue Logo](/src/assets/logo-vue.png "Vue Logo")
 ![Django Logo](/src/assets/logo-django.png "Django Logo")
 
-This template is a minimal example for structuring an application using VueJs and Django (RestFramework).
+This template is a minimal example for an application using VueJs and Django (RestFramework).
 
 The goal is to have a clear separation: let Vue, Yarn, and Webpack handle the frontend and asset bundling,
-and use Django + Rest Framework to manage a Data Models, API, and Static files.
+and use Django + Django ORM, and Rest Framework to manage a Data Models, API, and serving Static files.
 
 Vue Cli and Django `createproject`template are kept as close as possible to their
 original state, with the exception of some configuration that is critical
