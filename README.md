@@ -46,7 +46,7 @@ $ cd django-vue
 Setup
 ```
 $ yarn install
-$ pipenv install
+$ pipenv install --dev & pipenv shell
 $ python manage.py migrate
 ```
 
@@ -97,13 +97,13 @@ $ heroku config:set DJANGO_SETTINGS_MODULE=project.settings.prod
 $ git push heroku
 ```
 
-Heroku's nodejs buidlpack will handle install for all the dependencies from the `packages.json` file. 
-It will then trigger the `postinstall` command which calls `yarn build`. 
-This will create the bundled `dist` folder which will be served by whitenoise. 
+Heroku's nodejs buidlpack will handle install for all the dependencies from the `packages.json` file.
+It will then trigger the `postinstall` command which calls `yarn build`.
+This will create the bundled `dist` folder which will be served by whitenoise.
 
-The python buildpack will detect the `pipfile` and install all the python dependencies. 
+The python buildpack will detect the `pipfile` and install all the python dependencies.
 
-The `Procfile` will run Django migrations and then launch Django'S app using gunicorn, as recommended by heroku. 
+The `Procfile` will run Django migrations and then launch Django'S app using gunicorn, as recommended by heroku.
 
 ## Static Assets
 
