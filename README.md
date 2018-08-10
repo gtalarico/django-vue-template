@@ -5,10 +5,10 @@
 
 This template is a minimal example for structuring an application using VueJs and Django (RestFramework).
 
-The goal is to let Vue + Vue Cli handle the frontend and asset bundling,
+The goal is to have a clear separation: let Vue, Yarn, and Webpack handle the frontend and asset bundling,
 and use Django + Rest Framework to manage a Data Models, API, and Static files.
 
-Vue Cli and Django Project template are kept as close as possible to their
+Vue Cli and Django `createproject`template are kept as close as possible to their
 original state, with the exception of some configuration that is critical
 to the integration of the two frameworks.
 
@@ -67,8 +67,8 @@ and static files will be served from `localhost:8000`.
 
 The dual dev server setup allows you to take advantage of
 webpack's development server with hot module replacement.
-Proxy config in `vue.config.js` is used to router the requests
-back to django's Api.
+Proxy config in `vue.config.js` is used to route the requests
+back to django's Api on port 8000.
 
 If you would rather run a single dev server, you can run Django's
 development server only on `:8000`, but you have to build build the Vue app first
@@ -97,11 +97,13 @@ $ heroku config:set DJANGO_SETTINGS_MODULE=project.settings.prod
 $ git push heroku
 ```
 
-Since nodejs buidlpack was added, heroku will handle install for all the dependencies from the `packages.json` file. 
+Heroku's nodejs buidlpack will handle install for all the dependencies from the `packages.json` file. 
 It will then trigger the `postinstall` command which calls `yarn build`. 
 This will create the bundled `dist` folder which will be served by whitenoise. 
 
 The python buildpack will detect the `pipfile` and install all the python dependencies. 
+
+The `Procfile` will run Django migrations and then launch Django'S app using gunicorn, as recommended by heroku. 
 
 ## Static Assets
 
