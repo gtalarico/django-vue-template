@@ -77,6 +77,7 @@ $ heroku git:remote --app django-vue-template-demo
 $ heroku addons:create heroku-postgresql:hobby-dev
 $ heroku config:set YARN_PRODUCTION=true
 $ heroku config:set DJANGO_SETTINGS_MODULE=project.settings.prod
+$ heroku config:set DISABLE_COLLECTSTATIC=1
 
 $ git push heroku
 ```

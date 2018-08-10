@@ -11,6 +11,10 @@
       "DJANGO_SETTINGS_MODULE": {
         "description": "Set Django Settings to Production",
         "value": "project.settings.prod"
+      },
+      "DISABLE_COLLECTSTATIC": {
+        "description": "Do not collect",
+        "value": "1"
       }
      },
      "engines": {
@@ -21,11 +25,11 @@
 
      ],
      "buildpacks": [
-        {
-          "url": "heroku/python"
+       {
+         "url": "heroku/nodejs"
         },
         {
-          "url": "heroku/nodejs"
+          "url": "heroku/python"
         }
     ]
   }
