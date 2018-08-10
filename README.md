@@ -95,7 +95,13 @@ $ heroku addons:create heroku-postgresql:hobby-dev
 $ heroku config:set DJANGO_SETTINGS_MODULE=project.settings.prod
 
 $ git push heroku
-```
+``
+`
+Since nodejs buidlpack was added, heroku will handle install for all the dependencies from the `packages.json` file. 
+It will then trigger the `postinstall` command which calls `yarn build`. 
+This will create the bundled `dist` folder which will be served by whitenoise. 
+
+The python buildpack will detect the `pipfile` and install all the python dependencies. 
 
 ## Static Assets
 
@@ -104,7 +110,7 @@ See `settings.prod` and `vue.config.js` for notes on static assets strategy.
 This template implements the approach suggested by Whitenoise Django.
 For more details see [WhiteNoise Documentation](http://whitenoise.evans.io/en/stable/django.html)
 
-It uses Whitenoise to serve all static files and Vue bundled files at `/static/`.
+It uses Django Whitenoise to serve all static files and Vue bundled files at `/static/`.
 While it might seem inefficient, the issue is immediately solved by adding a CDN
 with Cloudfront or similar.
 Use `vue.config.js` > `baseUrl` option to set point all your assets to the CDN,
