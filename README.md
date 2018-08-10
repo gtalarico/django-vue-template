@@ -62,7 +62,7 @@ From another tab in the same directory:
 $ yarn serve
 ```
 
-The Vuejs template will be served from `localhost:8080` and the Django Api
+The Vuejs application will be served from `localhost:8080` and the Django Api
 and static files will be served from `localhost:8000`.
 
 The dual dev server setup allows you to take advantage of
