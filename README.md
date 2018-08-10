@@ -88,11 +88,10 @@ $ python manage.py runserver
 
 ```
 $ heroku apps:create django-vue-template-demo
+$ heroku git:remote --app django-vue-template-demo
 $ heroku buildpacks:add --index 1 heroku/nodejs
 $ heroku buildpacks:add --index 2 heroku/python
-$ heroku git:remote --app django-vue-template-demo
 $ heroku addons:create heroku-postgresql:hobby-dev
-$ heroku config:set YARN_PRODUCTION=true
 $ heroku config:set DJANGO_SETTINGS_MODULE=project.settings.prod
 
 $ git push heroku

@@ -4,10 +4,6 @@
     "repository": "https://github.com/gtalarico/django-vue-template",
     "keywords": ["django", "vue", "vuejs", "template", "django rest framework"],
     "env": {
-      "YARN_PRODUCTION": {
-        "description": "Install Yarn Dependencies",
-        "value": "true"
-      },
       "DJANGO_SETTINGS_MODULE": {
         "description": "Set Django Settings to Production",
         "value": "project.settings.prod"
