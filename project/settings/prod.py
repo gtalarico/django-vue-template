@@ -22,7 +22,6 @@ DEBUG = False
 # Set to your Domain
 ALLOWED_HOSTS = ['django-vue-template-demo.herokuapp.com']
 
-
 ##########
 # STATIC #
 ##########

@@ -121,7 +121,8 @@ USE_TZ = True
 # http://whitenoise.evans.io/en/stable/django.html?highlight=django
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'dist', 'static'),
-]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'dist', 'static')
+# No Need to Collect, serve dist as is
+# STATICFILES_DIRS = [
+    # os.path.join(BASE_DIR, 'dist', 'static'),
+# ]
