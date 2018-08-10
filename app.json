@@ -4,10 +4,6 @@
     "repository": "https://github.com/gtalarico/django-vue-template",
     "keywords": ["django", "vue", "vuejs", "template", "django rest framework"],
     "env": {
-      "DISABLE_COLLECTSTATIC": {
-        "description": "Disable Static",
-        "value": "1"
-      },
       "YARN_PRODUCTION": {
         "description": "Install Yarn Dependencies",
         "value": "true"
