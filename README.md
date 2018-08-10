@@ -1,5 +1,8 @@
 # Django Vue Template 🐍✌️
 
+![Vue Logo](/src/assets/logo-vue.png "Vue Logo")
+![Django Logo](/src/assets/logo-django.png "Django Logo")
+
 This template is a minimal example for structuring a VueJs + Django Rest Framework.
 
 The goal is to let Vue + Vue Cli handle the frontend and asset bundling,
