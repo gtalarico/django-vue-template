@@ -1,16 +1,27 @@
-# Django Vue Template 🐍✌️
+# Django Vue Template ✌️ 🐍
 
 ![Vue Logo](/src/assets/logo-vue.png "Vue Logo")
 ![Django Logo](/src/assets/logo-django.png "Django Logo")
 
 This template is a minimal example for an application using VueJs and Django (RestFramework).
 
-The goal is to have a clear separation: let Vue, Yarn, and Webpack handle the frontend and asset bundling,
-and use Django + Django ORM, and Rest Framework to manage a Data Models, API, and serving Static files.
+It's setup to have a clear separation: use Vue, Yarn, and Webpack to handle all frontend logic and asset bundling,
+and use Django and RestFramework to manage a Data Models, Web API, and serve static files.
 
-Vue Cli and Django `createproject`template are kept as close as possible to their
-original state, with the exception of some configuration that is critical
-to the integration of the two frameworks.
+While it's possible to add endpoints to serve django-rendered html responses, the intention is to use Django primarily for the backend, and have view rendering and routing and handled by Vue + Vue Router as an Single Page Application (SPA).
+
+Out of the box, Django will serve the application entry point (`index.html` + bundled assets) at `/` , 
+data at `/api/`, and static files at `/static/`. Django admin panel is also available at `/admin/` and can be extended as needed.
+
+The application templates from Vue Cli `create` and Django `createproject` are kept as close as possible to their
+original state, except where a different configuration is needed for better integration of the two frameworks.
+
+#### Alternatives
+
+If this setup is what you are looking for, you might want look at other similar projects:
+
+* [ariera/django-vue-template](https://github.com/ariera/django-vue-template)
+* [vchaptsev/cookiecutter-django-vue](https://github.com/vchaptsev/cookiecutter-django-vue)
 
 ### Demo
 
@@ -20,12 +31,25 @@ to the integration of the two frameworks.
 
 * Django
 * Django Restframework
-* Django Whitenoise
-* Gunicorn
+* Django Whitenoise, CDN Ready
 * Vue Cli 3
 * Vue Router
+* Gunicorn
 * Configuration for Heroku Deployment
 
+
+### Template Structure
+
+
+| Location             |  Content                                   |
+|----------------------|--------------------------------------------|
+| `/backend`           | Django Project & Backend Config            |
+| `/backend/api`       | Django App (`/api`)                        |
+| `/src`               | Vue App .                                  |
+| `/src/main.js`       | JS Application Entry Point                 |
+| `/public/index.html` | Html Application Entry Point (`/`)         |
+| `/public/static`     | Static Assets                              |
+| `/dist/`             | Bundled Assets Output (generated at `yarn build` |
 
 ## Prerequisites
 
