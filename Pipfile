@@ -7,7 +7,7 @@ name = "pypi"
 django = "*"
 djangorestframework = "*"
 gunicorn = "*"
-whitenoise = "*"
+whitenoise = "==4.0"
 dj-database-url = "*"
 "psycopg2" = "*"
 
