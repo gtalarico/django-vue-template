@@ -6,7 +6,7 @@
     "env": {
       "DJANGO_SETTINGS_MODULE": {
         "description": "Set Django Settings to Production",
-        "value": "project.settings.prod"
+        "value": "backend.settings.prod"
       }
      },
      "engines": {
