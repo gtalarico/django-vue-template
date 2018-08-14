@@ -8,7 +8,7 @@ This template is a minimal example for an application using VueJs and Django (Re
 It's setup to have a clear separation: use Vue, Yarn, and Webpack to handle all frontend logic and asset bundling,
 and use Django and RestFramework to manage a Data Models, Web API, and serve static files.
 
-While it's possible to add endpoints to serve django-rendered html responses, the intention is to use Django primarily for the backend, and have view rendering and routing and handled by Vue + Vue Router as an Single Page Application (SPA).
+While it's possible to add endpoints to serve django-rendered html responses, the intention is to use Django primarily for the backend, and have view rendering and routing and handled by Vue + Vue Router as a Single Page Application (SPA).
 
 Out of the box, Django will serve the application entry point (`index.html` + bundled assets) at `/` , 
 data at `/api/`, and static files at `/static/`. Django admin panel is also available at `/admin/` and can be extended as needed.
@@ -18,7 +18,7 @@ original state, except where a different configuration is needed for better inte
 
 #### Alternatives
 
-If this setup is what you are looking for, you might want look at other similar projects:
+If this setup is not what you are looking for, you might want look at other similar projects:
 
 * [ariera/django-vue-template](https://github.com/ariera/django-vue-template)
 * [vchaptsev/cookiecutter-django-vue](https://github.com/vchaptsev/cookiecutter-django-vue)
