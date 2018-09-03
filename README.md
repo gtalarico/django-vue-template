@@ -152,3 +152,5 @@ Whitenoise will serve static files to your CDN once, but then those assets are c
 and served directly by the CDN.
 
 This allows for an extremely simple setup without the need for a separate static server.
+
+[Cloudfront Setup Wiki](https://github.com/gtalarico/django-vue-template/wiki/Setup-CDN-on-Cloud-Front)
