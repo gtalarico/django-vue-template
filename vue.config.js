@@ -1,5 +1,6 @@
 // Vue-cli3 customized configuration
 // const IS_PRODUCTION = process.env.NODE_ENV === 'production'
+// yarn add stylus stylus-loader vuetify-loader
 
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
 
