@@ -1,7 +1,9 @@
 <template>
 <div id="messages">
     <v-toolbar color="indigo" dark fixed app>
-      <v-toolbar-side-icon></v-toolbar-side-icon>
+      <v-btn icon class="hidden-xs-only" @click="$router.back(-1)">
+              <v-icon>arrow_back</v-icon>
+      </v-btn>
       <v-toolbar-title>Messages</v-toolbar-title>
     </v-toolbar>
     <v-content>
