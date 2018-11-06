@@ -6596,6 +6596,11 @@ vue@^2.5.17:
   version "2.5.17"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.5.17.tgz#0f8789ad718be68ca1872629832ed533589c6ada"
 
+vuetify@^1.3.5:
+  version "1.3.5"
+  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-1.3.5.tgz#9f0466b83255e8b0aab76a7378039f12bb12f42a"
+  integrity sha512-81otPD6/hTiDGzFWyqATEMgsOsKdj+MLJrgOkR7zmwIDnKBlE04HWhhpTosKPugxI3g+SXdY8ha0cf3WWNhMzA==
+
 watchpack@^1.5.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/watchpack/-/watchpack-1.6.0.tgz#4bc12c2ebe8aa277a71f1d3f14d685c7b446cd00"

@@ -11,7 +11,8 @@
   "dependencies": {
     "axios": "^0.18.0",
     "vue": "^2.5.17",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vuetify": "^1.3.5"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.0-rc.12",

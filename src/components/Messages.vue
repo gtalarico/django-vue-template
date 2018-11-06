@@ -1,6 +1,17 @@
 <template>
-  <div class="hello">
-    <img src='@/assets/logo-django.png' style="width: 250px" />
+<div id="messages">
+    <v-toolbar color="indigo" dark fixed app>
+      <v-toolbar-side-icon></v-toolbar-side-icon>
+      <v-toolbar-title>Messages</v-toolbar-title>
+    </v-toolbar>
+    <v-content>
+      <v-container fluid fill-height>
+        <v-layout
+          justify-center
+          align-center
+        >
+          <v-flex text-xs-center>
+              <img src='@/assets/logo-django.png' style="width: 250px" />
     <p>The data below is added/removed from the Postgres Database using Django's ORM and Restframork.</p>
     <br/>
     <p>Subject</p>
@@ -19,7 +30,11 @@
         <p class="msg-body" v-html="msg.body"></p>
         <input type="submit" @click="deleteMsg(msg.pk)" value="Delete" />
     </div>
-  </div>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-content>
+    </div>
 </template>
 
 <script>
