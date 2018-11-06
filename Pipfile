@@ -10,6 +10,8 @@ gunicorn = "*"
 whitenoise = "==4.0"
 dj-database-url = "*"
 "psycopg2" = "*"
+django-environ = "*"
+django-redis = "*"
 
 [dev-packages]
 
