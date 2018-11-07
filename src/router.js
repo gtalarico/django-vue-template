@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home'
-import Messages from '@/components/Messages'
+// import Messages from '@/components/Messages'
 import VueDemo from '@/components/VueDemo'
 
 Vue.use(Router)
@@ -16,7 +16,7 @@ export default new Router({
     {
       path: '/messages',
       name: 'messages',
-      component: Messages
+      component: () => import('@/components/Messages')
     },
     {
       path: '/vue',
