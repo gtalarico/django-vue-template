@@ -30,4 +30,14 @@ $backend.$deleteMessage = (msgId) => {
         .then(response => response.data)
 }
 
+$backend.$getJWTToken = (payload) => {
+    return $backend.post(`jwt-auth/`, payload)
+        .then(response => response.data)
+}
+
+$backend.$fetchMsgJWT = (token) => {
+    return $backend.get(`authmessages/`, 
+      {headers: {'Authorization': 'JWT '+token}}
+      ).then(response => response.data)
+}
 export default $backend

@@ -32,18 +32,27 @@ ALLOWED_HOSTS = ['*']
 
 
 # Application definition
-
-INSTALLED_APPS = [
+DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'whitenoise.runserver_nostatic',  # < Per Whitenoise, to disable built in
     'django.contrib.staticfiles',
-    'rest_framework',
-    'backend.api',
 ]
+
+THIRD_PARTY_APPS = [
+    'whitenoise.runserver_nostatic',  # < Per Whitenoise, to disable built in
+    'rest_framework',
+]
+
+# Apps specific for this project go here.
+LOCAL_APPS = [
+    'backend.api',
+    'backend.users',
+]
+
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
     'django.middleware.gzip.GZipMiddleware',
@@ -95,7 +104,6 @@ DATABASES['default']['ATOMIC_REQUESTS'] = True
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -110,12 +118,19 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+AUTH_USER_MODEL = 'users.CustomUser'
 
+AUTHENTICATION_BACKENDS = (
+    # 'users.views.CustomBackend',
+    # 'social_core.backends.weibo.WeiboOAuth2',
+    # 'social_core.backends.qq.QQOAuth2',
+    # 'social_core.backends.weixin.WeixinOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
-
-LANGUAGE_CODE = 'en-us' # 'zh-hans'
+LANGUAGE_CODE = 'en-us' # 'zh_CN'
 TIME_ZONE = 'Asia/Shanghai'
 USE_I18N = True
 USE_L10N = True

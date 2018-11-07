@@ -26,7 +26,8 @@
     </v-navigation-drawer>
     <v-toolbar color="indigo" dark fixed app>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <v-toolbar-title>My Application</v-toolbar-title>
+      <v-toolbar-title>Home - {{username}}</v-toolbar-title>
+      <v-btn @click="login">Login</v-btn>
     </v-toolbar>
     <v-content>
       <v-container fluid fill-height>
@@ -55,6 +56,14 @@
             </v-tooltip>
           </v-flex>
         </v-layout>
+        <v-layout justify-center align-center>
+          <v-flex text-xs-center>
+          <v-btn @click="fetchMsgJWT">REST protected messages</v-btn>
+          </v-flex>
+          <v-flex text-xs-center>
+          {{protectedMsg}}
+          </v-flex>
+        </v-layout>
       </v-container>
     </v-content>
     </div>
@@ -64,10 +73,43 @@
   export default {
     name: "Home",
     data: () => ({
-      drawer: null
+      drawer: null,
+      username: 'Anonymous',
+      token: '',
+      protectedMsg: '',
     }),
     props: {
       source: String
+    },
+    methods: {
+      login() {
+        const payload = { username: 'test1', password: '12345678t' };
+        this.$backend.$getJWTToken(payload).then(responseData => {
+          // eslint-disable-next-line
+          console.log(responseData)
+          if (responseData.token) {
+            this.username = 'Welcome'
+            this.token = responseData.token
+          } else alert('Invalid login!')
+        }).catch(error => {
+          // eslint-disable-next-line
+          console.log(error)  // 400
+          alert('Error!')
+        });
+      },
+      fetchMsgJWT() {
+        this.$backend.$fetchMsgJWT(this.token).then(responseData => {
+          // eslint-disable-next-line
+          console.log(responseData)
+          if (responseData) {
+            this.protectedMsg = responseData
+          } else alert('Invalid login!')
+        }).catch(error => {
+          // eslint-disable-next-line
+          console.log(error)  // 400
+          alert('Error!')
+        });
+      },
     }
   }
 </script>

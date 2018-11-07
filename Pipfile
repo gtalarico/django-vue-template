@@ -12,6 +12,7 @@ dj-database-url = "*"
 "psycopg2" = "*"
 django-environ = "*"
 django-redis = "*"
+djangorestframework-jwt = "*"
 
 [dev-packages]
 
