@@ -28,8 +28,7 @@ urlpatterns = [
     # http://localhost:8000/api/<router-viewsets>
     path('api/', include(router.urls)),
 
-    # http://localhost:8000/api/admin/
-    path('api/admin/', admin.site.urls),
+    path('api/admin/', admin.site.urls),	# http://localhost:8000/api/admin/
     path('api/jwt-auth/', obtain_jwt_token),
     path('favicon.ico', favicon_view),
 ]
