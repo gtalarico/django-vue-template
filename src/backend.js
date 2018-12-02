@@ -1,9 +1,13 @@
 import axios from 'axios'
+import Cookies from 'js-cookie'
 
 let $backend = axios.create({
   baseURL: '/api',
   timeout: 5000,
-  headers: {'Content-Type': 'application/json'}
+  headers: {
+    'Content-Type': 'application/json',
+    'X-CSRFToken': Cookies.get('csrftoken')
+  }
 })
 
 // Response Interceptor to handle and log errors
