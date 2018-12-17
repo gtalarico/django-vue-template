@@ -36,6 +36,7 @@ Prefer Flask? Checkout my [gtalarico/flask-vuejs-template](https://github.com/gt
 * Django Whitenoise, CDN Ready
 * Vue Cli 3
 * Vue Router
+* Vuex
 * Gunicorn
 * Configuration for Heroku Deployment
 

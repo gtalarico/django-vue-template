@@ -1,60 +1,51 @@
 <template>
   <div class="hello">
     <img src='@/assets/logo-django.png' style="width: 250px" />
-    <p>The data below is added/removed from the Postgres Database using Django's ORM and Restframork.</p>
+    <p>The data below is added/removed from the SQLite Database using Django's ORM and Rest Framework.</p>
     <br/>
     <p>Subject</p>
     <input type="text" placeholder="Hello" v-model="subject">
     <p>Message</p>
     <input type="text" placeholder="From the other side" v-model="msgBody">
     <br><br>
-    <input type="submit" value="Add" @click="postMessage" :disabled="!subject || !msgBody">
+    <input 
+      type="submit" 
+      value="Add" 
+      @click="addMessage({ subject: subject, body: msgBody })" 
+      :disabled="!subject || !msgBody">
 
     <hr/>
     <h3>Messages on Database</h3>
-    <p v-if="messages.length ===0">No Messages</p>
+    <p v-if="messages.length === 0">No Messages</p>
     <div class="msg" v-for="(msg, index) in messages" :key="index">
         <p class="msg-index">[{{index}}]</p>
         <p class="msg-subject" v-html="msg.subject"></p>
         <p class="msg-body" v-html="msg.body"></p>
-        <input type="submit" @click="deleteMsg(msg.pk)" value="Delete" />
+        <input type="submit" @click="deleteMessage(msg.pk)" value="Delete" />
     </div>
   </div>
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
+
 export default {
   name: "Messages",
   data() {
     return {
       subject: "",
       msgBody: "",
-      messages: []
     };
   },
-  mounted() {
-    this.fetchMessages();
-  },
-  methods: {
-    fetchMessages() {
-      this.$backend.$fetchMessages().then(responseData => {
-        this.messages = responseData;
-      });
-    },
-    postMessage() {
-      const payload = { subject: this.subject, body: this.msgBody };
-      this.$backend.$postMessage(payload).then(() => {
-        this.msgBody = ""
-        this.subject = ""
-        this.fetchMessages();
-      });
-    },
-    deleteMsg(msgId) {
-        this.$backend.$deleteMessage(msgId).then(() => {
-            this.messages = this.messages.filter(m => m.pk !== msgId)
-            this.fetchMessages();
-        });
-    }
+  computed: mapState({
+    messages: state => state.messages.messages
+  }),
+  methods: mapActions('messages', [
+    'addMessage',
+    'deleteMessage'
+  ]),
+  created() {
+    this.$store.dispatch('messages/getMessages')
   }
 };
 </script>
