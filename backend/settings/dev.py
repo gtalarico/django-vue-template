@@ -122,8 +122,12 @@ USE_TZ = True
 # In Production, it's recommended use an alternative approach such as:
 # http://whitenoise.evans.io/en/stable/django.html?highlight=django
 
+MIDDLEWARE_CLASSES = (
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+)
+
 STATIC_URL = '/static/'
-# Serve `dist` as is, built by webpack
+# Place static in the same location as webpack build files
 STATIC_ROOT = os.path.join(BASE_DIR, 'dist', 'static')
 STATICFILES_DIRS = []
 
