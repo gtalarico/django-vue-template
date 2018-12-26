@@ -18,6 +18,7 @@ DATABASES = {
 # SECURITY #
 ############
 
-DEBUG = False
+DEBUG = bool(os.getenv('DJANGO_DEBUG', ''))
+
 # Set to your Domain here (eg. 'django-vue-template-demo.herokuapp.com')
 ALLOWED_HOSTS = ['*']
