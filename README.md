@@ -3,17 +3,17 @@
 ![Vue Logo](/src/assets/logo-vue.png "Vue Logo")
 ![Django Logo](/src/assets/logo-django.png "Django Logo")
 
-This template is a minimal example for an application using VueJs and Django (RestFramework).
+This template is a minimal example for an application using Vue and Django.
 
-It's setup to have a clear separation: use Vue, Yarn, and Webpack to handle all frontend logic and asset bundling,
-and use Django and RestFramework to manage a Data Models, Web API, and serve static files.
+It's setup to have a clear separation: use Vue, Yarn, and Webpack to handle all frontend logic and assets bundling,
+and use Django with Django REST framework to manage a Data Models, Web API, and serve static files.
 
 While it's possible to add endpoints to serve django-rendered html responses, the intention is to use Django primarily for the backend, and have view rendering and routing and handled by Vue + Vue Router as a Single Page Application (SPA).
 
 Out of the box, Django will serve the application entry point (`index.html` + bundled assets) at `/` ,
 data at `/api/`, and static files at `/static/`. Django admin panel is also available at `/admin/` and can be extended as needed.
 
-The application templates from Vue Cli `create` and Django `createproject` are kept as close as possible to their
+The application templates from Vue CLI `create` and Django `createproject` are kept as close as possible to their
 original state, except where a different configuration is needed for better integration of the two frameworks.
 
 #### Alternatives
@@ -32,9 +32,9 @@ Prefer Flask? Checkout my [gtalarico/flask-vuejs-template](https://github.com/gt
 ### Includes
 
 * Django
-* Django Restframework
+* Django REST framework
 * Django Whitenoise, CDN Ready
-* Vue Cli 3
+* Vue CLI 3
 * Vue Router
 * Vuex
 * Gunicorn
@@ -58,22 +58,22 @@ Prefer Flask? Checkout my [gtalarico/flask-vuejs-template](https://github.com/gt
 
 Before getting started you should have the following installed and running:
 
-- [X] Yarn - [instructions](https://yarnpkg.com/en/docs/install#mac-stable)
-- [X] Vue Cli 3 - [instructions](https://cli.vuejs.org/guide/installation.html)
-- [X] Python 3
-- [X] Pipenv
+- [X] Yarn - [instructions](https://yarnpkg.com/en/docs/install)
+- [X] Vue CLI 3 - [instructions](https://cli.vuejs.org/guide/installation.html)
+- [X] Python 3 - [instructions](https://wiki.python.org/moin/BeginnersGuide)
+- [X] Pipenv - [instructions](https://pipenv.readthedocs.io/en/latest/install/#installing-pipenv)
 
 ## Setup Template
 
 ```
 $ git clone https://github.com/gtalarico/django-vue-template
-$ cd django-vue
+$ cd django-vue-template
 ```
 
 Setup
 ```
 $ yarn install
-$ pipenv install --dev & pipenv shell
+$ pipenv install --dev && pipenv shell
 $ python manage.py migrate
 ```
 
@@ -89,13 +89,13 @@ From another tab in the same directory:
 $ yarn serve
 ```
 
-The Vuejs application will be served from `localhost:8080` and the Django Api
-and static files will be served from `localhost:8000`.
+The Vue application will be served from [`localhost:8080`](http://localhost:8080/) and the Django API
+and static files will be served from [`localhost:8000`](http://localhost:8000/).
 
 The dual dev server setup allows you to take advantage of
 webpack's development server with hot module replacement.
-Proxy config in `vue.config.js` is used to route the requests
-back to django's Api on port 8000.
+Proxy config in [`vue.config.js`](/vue.config.js) is used to route the requests
+back to django's API on port 8000.
 
 If you would rather run a single dev server, you can run Django's
 development server only on `:8000`, but you have to build build the Vue app first
@@ -109,7 +109,7 @@ $ python manage.py runserver
 
 ## Deploy
 
-* Set `ALLOWED_HOSTS` on `backend.settings.prod.py`
+* Set `ALLOWED_HOSTS` on [`backend.settings.prod`](/backend/settings/prod.py)
 
 ### Heroku Server
 
@@ -120,17 +120,18 @@ $ heroku buildpacks:add --index 1 heroku/nodejs
 $ heroku buildpacks:add --index 2 heroku/python
 $ heroku addons:create heroku-postgresql:hobby-dev
 $ heroku config:set DJANGO_SETTINGS_MODULE=backend.settings.prod
+$ heroku config:set DJANGO_SECRET_KEY='...(your django SECRET_KEY value)...'
 
 $ git push heroku
 ```
 
-Heroku's nodejs buidlpack will handle install for all the dependencies from the `packages.json` file.
+Heroku's nodejs buildpack will handle install for all the dependencies from the [`packages.json`](/packages.json) file.
 It will then trigger the `postinstall` command which calls `yarn build`.
 This will create the bundled `dist` folder which will be served by whitenoise.
 
-The python buildpack will detect the `pipfile` and install all the python dependencies.
+The python buildpack will detect the [`Pipfile`](/Pipfile) and install all the python dependencies.
 
-The `Procfile` will run Django migrations and then launch Django'S app using gunicorn, as recommended by heroku.
+The [`Procfile`](/Procfile) will run Django migrations and then launch Django'S app using gunicorn, as recommended by heroku.
 
 ##### Heroku One Click Deploy
 
@@ -138,7 +139,7 @@ The `Procfile` will run Django migrations and then launch Django'S app using gun
 
 ## Static Assets
 
-See `settings.dev` and `vue.config.js` for notes on static assets strategy.
+See `settings.dev` and [`vue.config.js`](/vue.config.js) for notes on static assets strategy.
 
 This template implements the approach suggested by Whitenoise Django.
 For more details see [WhiteNoise Documentation](http://whitenoise.evans.io/en/stable/django.html)
@@ -146,7 +147,7 @@ For more details see [WhiteNoise Documentation](http://whitenoise.evans.io/en/st
 It uses Django Whitenoise to serve all static files and Vue bundled files at `/static/`.
 While it might seem inefficient, the issue is immediately solved by adding a CDN
 with Cloudfront or similar.
-Use `vue.config.js` > `baseUrl` option to set point all your assets to the CDN,
+Use [`vue.config.js`](/vue.config.js) > `baseUrl` option to set point all your assets to the CDN,
 and then set your CDN's origin back to your domains `/static` url.
 
 Whitenoise will serve static files to your CDN once, but then those assets are cached
