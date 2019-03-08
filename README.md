@@ -125,7 +125,7 @@ $ heroku config:set DJANGO_SECRET_KEY='...(your django SECRET_KEY value)...'
 $ git push heroku
 ```
 
-Heroku's nodejs buildpack will handle install for all the dependencies from the [`packages.json`](/packages.json) file.
+Heroku's nodejs buildpack will handle install for all the dependencies from the [`package.json`](/package.json) file.
 It will then trigger the `postinstall` command which calls `yarn build`.
 This will create the bundled `dist` folder which will be served by whitenoise.
 
