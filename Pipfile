@@ -4,14 +4,14 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = "*"
+django = ">=2.2"
 djangorestframework = "*"
 gunicorn = "*"
-whitenoise = "==4.0"
+whitenoise = ">=4.0"
 dj-database-url = "*"
 psycopg2-binary = "*"
 
 [dev-packages]
 
 [requires]
-python_version = "3.6"
+python_version = "3.7"
