@@ -10,6 +10,18 @@ const getters = {
   }
 }
 
+const mutations = {
+  setMessages (state, messages) {
+    state.messages = messages
+  },
+  addMessage (state, message) {
+    state.messages.push(message)
+  },
+  deleteMessage (state, msgId) {
+    state.messages = state.messages.filter(obj => obj.pk !== msgId)
+  }
+}
+
 const actions = {
   getMessages ({ commit }) {
     messageService.fetchMessages()
@@ -26,18 +38,6 @@ const actions = {
   deleteMessage ({ commit }, msgId) {
     messageService.deleteMessage(msgId)
     commit('deleteMessage', msgId)
-  }
-}
-
-const mutations = {
-  setMessages (state, messages) {
-    state.messages = messages
-  },
-  addMessage (state, message) {
-    state.messages.push(message)
-  },
-  deleteMessage (state, msgId) {
-    state.messages = state.messages.filter(obj => obj.pk !== msgId)
   }
 }
 

@@ -4,7 +4,8 @@
       <span id="logo">Django VueJs Template</span>
       <router-link :to="{ name: 'home' }">Vue</router-link> |
       <router-link :to="{ name: 'messages' }">Django Rest</router-link> |
-      <a href="/my404">Test 404</a>
+      <a href="/my404">Test 404</a> |
+      <a href="/admin/">Admin</a>
     </div>
     <router-view />
   </div>

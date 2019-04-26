@@ -10,7 +10,7 @@ export default {
       .then(response => response.data)
   },
   deleteMessage (msgId) {
-    return api.delete(`messages/${msgId}`)
+    return api.delete(`messages/${msgId}/`)
       .then(response => response.data)
   }
 }
