@@ -1,8 +1,8 @@
 {
-    "name": "Django VueJs Template",
+    "name": "Django Vue.js Template",
     "description": "",
-    "repository": "https://github.com/gtalarico/django-vue-template",
-    "keywords": ["django", "vue", "vuejs", "template", "django rest framework"],
+    "repository": "https://github.com/kevinqqnj/django-vue-template",
+    "keywords": ["django", "vue", "vuejs", "template", "django rest framework", "pwa"],
     "env": {
       "DJANGO_SETTINGS_MODULE": {
         "description": "Set Django Settings to Production",
@@ -10,8 +10,8 @@
       }
      },
      "engines": {
-        "yarn": "1.4.0",
-        "npm": "6.2.0"
+        "yarn": "1.15.2",
+        "npm": "6.4.1"
      },
     "addons": [
 
