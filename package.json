@@ -1,5 +1,5 @@
 {
-  "name": "django-vue",
+  "name": "django-vue-template",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,16 +10,25 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "core-js": "^2.6.5",
     "js-cookie": "^2.2.0",
-    "vue": "^2.5.17",
-    "vue-router": "^3.0.1",
+    "register-service-worker": "^1.6.2",
+    "vue": "^2.6.10",
+    "vue-router": "^3.0.3",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.0.0-rc.12",
-    "@vue/cli-plugin-eslint": "^3.0.0-rc.12",
-    "@vue/cli-service": "^3.0.0-rc.12",
-    "vue-template-compiler": "^2.5.17"
+    "@vue/cli-plugin-babel": "^3.6.0",
+    "@vue/cli-plugin-eslint": "^3.6.0",
+    "@vue/cli-plugin-pwa": "^3.6.0",
+    "@vue/cli-service": "^3.6.0",
+    "@vue/eslint-config-standard": "^4.0.0",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.16.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "node-sass": "^4.9.0",
+    "sass-loader": "^7.1.0",
+    "vue-template-compiler": "^2.5.21"
   },
   "babel": {
     "presets": [
@@ -33,9 +42,12 @@
     },
     "extends": [
       "plugin:vue/essential",
-      "eslint:recommended"
+      "@vue/standard"
     ],
-    "rules": {},
+    "rules": {
+      "no-console": "off",
+      "no-debugger": "off"
+    },
     "parserOptions": {
       "parser": "babel-eslint"
     }
