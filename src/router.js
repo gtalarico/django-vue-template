@@ -22,6 +22,6 @@ export default new Router({
       // which is lazy-loaded when the route is visited.
       component: () => import(/* webpackChunkName: "messages" */ './views/Messages.vue')
     },
-    { path: '*', component: My404 }
+    { path: '*', name: 'my404', component: My404 }
   ]
 })

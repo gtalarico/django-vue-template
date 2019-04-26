@@ -44,3 +44,7 @@ class MessageViewSet(viewsets.ModelViewSet):
     """
     queryset = Message.objects.all()
     serializer_class = MessageSerializer
+
+# from django.views.generic.base import RedirectView
+
+# favicon_view = RedirectView.as_view(url='/static/images/favicon.ico', permanent=True)
