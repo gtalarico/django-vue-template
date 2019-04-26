@@ -1,7 +1,6 @@
 <template>
   <div class="home">
-    <img alt="Django logo"
-        src="../assets/logo-django.png">
+    <img src='@/assets/logo-django.png' style="width: 250px" />
     <RestMessage />
   </div>
 </template>
