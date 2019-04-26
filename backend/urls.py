@@ -40,5 +40,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # support vue-router history mode
-    re_path(r'^([-\w]+)$', index_view, name='SPA_reload'),
+    re_path(r'^\S+$', index_view, name='SPA_reload'),
 ]
