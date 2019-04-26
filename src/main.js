@@ -1,22 +1,22 @@
 import Vue from 'vue'
-import App from '@/App.vue'
-// import Vuetify from 'vuetify'
-import Vuetify from 'vuetify/lib'
-import 'vuetify/src/stylus/app.styl'
-import 'vuetify/dist/vuetify.min.css' // Ensure you are using css-loader
+import App from './App.vue'
+import router from './router'
+import store from '@/store'
+import './registerServiceWorker'
 
-Vue.use(Vuetify)
-
-import router from '@/router'
-import $backend from '@/backend'
-Vue.prototype.$backend = $backend
 Vue.config.productionTip = false
 
-// Vue.use(VueRouter)
+if ('-ms-scroll-limit' in document.documentElement.style && '-ms-ime-align' in document.documentElement.style) {
+  window.addEventListener('hashchange', (event) => {
+    const currentPath = window.location.hash.slice(1)
+    if (router.path !== currentPath) {
+      router.push(currentPath)
+    }
+  }, false)
+}
 
-const vue = new Vue({
+new Vue({
   router,
+  store,
   render: h => h(App)
-})
-
-vue.$mount('#app')
+}).$mount('#app')

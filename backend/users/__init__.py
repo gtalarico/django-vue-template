@@ -1,1 +1,0 @@
-# https://wsvincent.com/django-custom-user-model-tutorial/

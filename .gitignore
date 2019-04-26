@@ -1,11 +1,14 @@
 .DS_Store
 node_modules
-db.sqlite3
 /dist
+db.sqlite3
+/venv
+__pycache__
 
 # local env files
 .env.local
 .env.*.local
+.env
 
 # Log files
 npm-debug.log*
@@ -19,4 +22,4 @@ yarn-error.log*
 *.ntvs*
 *.njsproj
 *.sln
-*.sw*
+*.sw?
