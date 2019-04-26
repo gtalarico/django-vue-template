@@ -1,0 +1,27 @@
+{
+    "name": "Django Vue.js Template",
+    "description": "",
+    "repository": "https://github.com/kevinqqnj/django-vue-template",
+    "keywords": ["django", "vue", "vuejs", "template", "django rest framework", "pwa"],
+    "env": {
+      "DJANGO_SETTINGS_MODULE": {
+        "description": "Set Django Settings to Production",
+        "value": "backend.settings.prod"
+      }
+     },
+     "engines": {
+        "yarn": "1.15.2",
+        "npm": "6.4.1"
+     },
+    "addons": [
+
+     ],
+     "buildpacks": [
+       {
+         "url": "heroku/nodejs"
+        },
+        {
+          "url": "heroku/python"
+        }
+    ]
+  }
