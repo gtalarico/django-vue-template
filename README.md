@@ -1,4 +1,4 @@
-# Django Vue Template ✌️ 🐍
+# Django Vue Template with PWA
 
 ![Vue Logo](/src/assets/logo-vue.png "Vue Logo")
 ![Django Logo](/src/assets/logo-django.png "Django Logo")
@@ -30,15 +30,18 @@ Prefer Flask? Checkout my [gtalarico/flask-vuejs-template](https://github.com/gt
 [Live Demo](https://django-vue-template-demo.herokuapp.com/)
 
 ### Includes
+(2019-4-26: updated to latest version)
 
-* Django
+* Django (==> 2.2)
 * Django REST framework
 * Django Whitenoise, CDN Ready
-* Vue CLI 3
+* Vue.js (==> 2.6+)
+* Vue CLI (==> 3.6+)
 * Vue Router
 * Vuex
 * Gunicorn
 * Configuration for Heroku Deployment
+* PWA (Progressive Web App) (==> new added)
 
 
 ### Template Structure
