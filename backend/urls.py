@@ -29,9 +29,9 @@ urlpatterns = [
 
     # serve static files for PWA
     path('index.html', index_view, name='index'),
-    re_path(r'^(?P<worker_name>[-\w]+).json$', serve_worker_view, name='manifest'),
+    re_path(r'^(?P<worker_name>manifest).json$', serve_worker_view, name='manifest'),
     re_path(r'^(?P<worker_name>[-\w\d.]+).js$', serve_worker_view, name='serve_worker'),
-    re_path(r'^(?P<worker_name>[\w]+).txt$', serve_worker_view, name='robots'),
+    re_path(r'^(?P<worker_name>robots).txt$', serve_worker_view, name='robots'),
 
     # http://localhost:8000/api/<router-viewsets>
     path('api/', include(router.urls)),
@@ -40,5 +40,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # support vue-router history mode
-    #re_path(r'^\S+$', index_view, name='SPA_reload'),
+    re_path(r'^\S+$', index_view, name='SPA_reload'),
 ]
