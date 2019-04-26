@@ -35,7 +35,7 @@ def serve_worker_view(request, worker_name):
 		with open(worker_path, 'r') as worker_file:
 			return HttpResponse(worker_file, content_type='application/javascript')
 	except IOError:
-		return HttpResponseNotFound('<h1>serviceWorkers not found</h1>')
+		return HttpResponseNotFound('serviceWorkers not found!')
 
 
 class MessageViewSet(viewsets.ModelViewSet):
