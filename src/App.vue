@@ -1,9 +1,10 @@
 <template>
   <div id="app">
-    <h1>Django VueJs Template</h1>
     <div id="nav">
-     <router-link :to="{ name: 'home' }">Vue</router-link> |
-     <router-link :to="{ name: 'messages' }">Django Rest</router-link>
+      <span id="logo">Django VueJs Template</span>
+      <router-link :to="{ name: 'home' }">Vue</router-link> |
+      <router-link :to="{ name: 'messages' }">Django Rest</router-link> |
+      <a href="/my404">Test 404</a>
     </div>
     <router-view />
   </div>
@@ -17,10 +18,15 @@
   text-align: center;
   color: #2c3e50;
 }
+#logo {
+  position: absolute;
+  left: 2rem;
+  font-weight: bold;
+}
 #nav {
   padding: 30px;
   a {
-    font-weight: bold;
+    font-weight: normal;
     color: #2c3e50;
     &.router-link-exact-active {
       color: #42b983;
