@@ -126,7 +126,8 @@ STATICFILES_DIRS = [
 # http://whitenoise.evans.io/en/stable/#quickstart-for-django-apps
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-DEFAULT_AUTHENTICATION_CLASSES= (
-    # 'rest_framework.authentication.SessionAuthentication',
-    'rest_framework.authentication.BasicAuthentication'
-),
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+            'rest_framework.authentication.SessionAuthentication',
+        )
+}
