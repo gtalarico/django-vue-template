@@ -105,7 +105,25 @@ and the page will not reload on changes.
 $ yarn build
 $ python manage.py runserver
 ```
+## Pycharm additional configuration
 
+Follow this guide to ensure you have pipenv setup
+
+https://www.jetbrains.com/help/pycharm/pipenv.html
+
+Click "Edit Configurations"
+
+Select Django Server under templates
+
+Click + to create a config from the templates
+
+In Environment variables add
+
+```
+PYTHONUNBUFFERED=1;DJANGO_SETTINGS_MODULE=backend.settings.dev
+```
+
+Click Apply then Ok
 
 ## Deploy
 
