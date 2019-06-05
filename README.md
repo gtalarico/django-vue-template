@@ -52,7 +52,7 @@ Prefer Flask? Checkout my [gtalarico/flask-vuejs-template](https://github.com/gt
 | `/src/main.js`       | JS Application Entry Point                 |
 | `/public/index.html` | Html Application Entry Point (`/`)         |
 | `/public/static`     | Static Assets                              |
-| `/dist/`             | Bundled Assets Output (generated at `yarn build` |
+| `/dist/`             | Bundled Assets Output (generated at `yarn build`) |
 
 ## Prerequisites
 
