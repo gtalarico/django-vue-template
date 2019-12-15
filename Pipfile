@@ -7,11 +7,11 @@ name = "pypi"
 django = "*"
 djangorestframework = "*"
 gunicorn = "*"
-whitenoise = "==4.0"
+whitenoise = ">=5"
 dj-database-url = "*"
 psycopg2-binary = "*"
 
 [dev-packages]
 
 [requires]
-python_version = "3.6"
+python_version = "3.7"
