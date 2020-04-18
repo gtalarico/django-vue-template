@@ -49,9 +49,9 @@ Prefer Flask? Checkout my [gtalarico/flask-vuejs-template](https://github.com/gt
 | `/backend/api`       | Django App (`/api`)                        |
 | `/src`               | Vue App .                                  |
 | `/src/main.js`       | JS Application Entry Point                 |
-| `/public/index.html` | Html Application Entry Point (`/`)         |
-| `/public/static`     | Static Assets                              |
+| `/src/assets/`       | Static Assets                              |
 | `/dist/`             | Bundled Assets Output (generated at `yarn build`) |
+| `/dist/index.html`   | Html Application Entry Point (`/`)         |
 
 ## Prerequisites
 
