@@ -97,7 +97,7 @@ Proxy config in [`vue.config.js`](/vue.config.js) is used to route the requests
 back to django's API on port 8000.
 
 If you would rather run a single dev server, you can run Django's
-development server only on `:8000`, but you have to build build the Vue app first
+development server only on `:8000`, and you have to build the Vue app first
 and the page will not reload on changes.
 
 ```
