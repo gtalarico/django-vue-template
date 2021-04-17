@@ -52,4 +52,15 @@ def fecth_profile(request):
         return JsonResponse(user_profile)
     
 def set_profile(request):
-    
+    if request.method == 'POST':
+        if request.FILES:
+            myFile =None
+            for i in request.FILES:
+                myFile = request.FILES[i]
+            if myFile:
+                dir = os.path.join(os.path.join(BASE_DIR, 'static'),'profiles')
+                destination = open(os.path.join(dir, myFile.name),'wb+')
+                for chunk in myFile.chunks():
+                    destination.write(chunk)
+                destination.close()
+    return HttpResponse('ok')
