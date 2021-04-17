@@ -12,6 +12,7 @@
     "cache-loader": "^4.1.0",
     "element-ui": "^2.4.5",
     "js-cookie": "^2.2.0",
+    "register-service-worker": "^1.7.2",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"

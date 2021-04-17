@@ -7,23 +7,8 @@
         :model="model"
         :rules="rules"
         ref="form"
-        @submit.native.prevent="login"
+        @submit.native.prevent="loginWithGoogle"
       >
-        <el-form-item prop="username">
-          <el-input
-            v-model="model.username"
-            placeholder="Username"
-            prefix-icon="fas fa-user"
-          ></el-input>
-        </el-form-item>
-        <el-form-item prop="password">
-          <el-input
-            v-model="model.password"
-            placeholder="Password"
-            type="password"
-            prefix-icon="fas fa-lock"
-          ></el-input>
-        </el-form-item>
         <el-form-item>
           <el-button
             :loading="loading"
@@ -31,13 +16,7 @@
             type="primary"
             native-type="submit"
             block
-            >Login</el-button
-          >
-        </el-form-item>
-        <div class="signup-buttons">
-          <div id="fb-root"></div>
-          <a href="#" class="google-signup" @click.prevent="loginWithGoogle">
-            <svg
+            ><svg
               xmlns="http://www.w3.org/2000/svg"
               width="18"
               height="18"
@@ -62,29 +41,10 @@
                   fill="#EA4335"
                   d="M9 3.5795c1.3214 0 2.5077.4541 3.4405 1.346l2.5813-2.5814C13.4632.8918 11.426 0 9 0 5.4818 0 2.4382 2.0168.9573 4.9582L3.964 7.29C4.6718 5.1627 6.6559 3.5795 9 3.5795z"
                 ></path>
-              </g>
-            </svg>
-            Google
-          </a>
-          <a
-            href="#"
-            class="facebook-signup"
-            @click.prevent="loginWithFacebook"
+              </g></svg
+            >Login With google</el-button
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="#3578E5"
-            >
-              <path
-                d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"
-              />
-            </svg>
-            Facebook
-          </a>
-        </div>
+        </el-form-item>
       </el-form>
     </el-card>
   </div>
