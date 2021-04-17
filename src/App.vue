@@ -1,17 +1,17 @@
 <template>
   <div id="app">
-    <div class="header">
-      <h2 class="logo">LOGO HERE</h2>
+    <div className="header">
+      <h2 className="logo">LOGO HERE</h2>
     </div>
-    <Login />
+    <Login/>
 
-    <div class="footer">
-      <div class="links">
+    <div className="footer">
+      <div className="links">
         <span>Feature 1</span>
         <span>Feature 2</span>
         <span>Feature 3</span>
       </div>
-      <div class="version">Version 1.02.05</div>
+      <div className="version">Version 1.02.05</div>
     </div>
   </div>
 </template>
@@ -22,8 +22,8 @@ import Login from "./components/Login";
 export default {
   name: "App",
   components: {
-    Login,
-  },
+    Login
+  }
 };
 </script>
 
@@ -60,9 +60,11 @@ body {
     padding: 0;
     margin: 0;
   }
+
   .links {
     display: flex;
     font-family: "Open Sans";
+
     span {
       padding: 0 10px;
       font-size: 18px;
@@ -80,8 +82,10 @@ body {
     margin-top: 5px;
   }
 }
+
 .header {
   padding: 10px 20px;
+
   .logo {
     font-family: "Open Sans";
     letter-spacing: 3px;
