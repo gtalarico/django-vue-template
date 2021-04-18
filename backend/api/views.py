@@ -3,6 +3,10 @@ from django.views.decorators.cache import never_cache
 from django.http import JsonResponse, HttpResponse
 from rest_framework import viewsets
 
+
+import yfinance as yf
+from google.oauth2 import id_token
+from google.auth.transport import requests
 import json
 import datetime
 
@@ -41,17 +45,45 @@ def get_profile(user_name):
         return default_profile
 
 def fecth_profile(request):
-    assert request.cookies != None
-    
-    user_name = request.cookies.name
-    
+
     user_profile = get_profile(user_name)
-    if user_profile["exist"] == 0:
-        return JsonResponse(user_profile) #No choiice, just renturn nothing.
-    else:
-        return JsonResponse(user_profile)
+
+    return JsonResponse(user_profile)
     
+
+def check_user():
+
+    try:
+        # Specify the CLIENT_ID of the app that accesses the backend:
+        idinfo = id_token.verify_oauth2_token(token, requests.Request(), CLIENT_ID)
+
+        # Or, if multiple clients access the backend server:
+        # idinfo = id_token.verify_oauth2_token(token, requests.Request())
+        # if idinfo['aud'] not in [CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]:
+        #     raise ValueError('Could not verify audience.')
+
+        # If auth request is from a G Suite domain:
+        # if idinfo['hd'] != GSUITE_DOMAIN_NAME:
+        #     raise ValueError('Wrong hosted domain.')
+
+        # ID token is valid. Get the user's Google Account ID from the decoded token.
+        userid = idinfo['sub']
+        redirect('set_profile')
+    except ValueError:
+        # Invalid token
+        pass
+
+
 def set_profile(request):
+    if request.method == 'POST':
+        data = request.body.decode("utf-8")
+        json_data = json.loads(data)
+        user_name = json_data.get("user_name")
+    else:
+        raise Exception()
+    
+    
+    '''
     if request.method == 'POST':
         if request.FILES:
             myFile =None
@@ -64,3 +96,12 @@ def set_profile(request):
                     destination.write(chunk)
                 destination.close()
     return HttpResponse('ok')
+    '''
+
+
+def get_stock_info(stock_code):
+    msft = yf.Ticker(stock_code)
+    # get stock info
+    #print(msft.info)
+    # get historical market data
+    #hist = msft.history(period="5d")

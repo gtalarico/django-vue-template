@@ -24,7 +24,7 @@ urlpatterns = [
     # http://localhost:8000/api/admin/
     path('api/admin/', admin.site.urls),
     
-    path('/profile/', get_profile),
+    path('/profile/', fetch_profile),
     
     path('/set_profile/', set_profile)
 ]
