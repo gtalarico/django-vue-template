@@ -8,7 +8,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 
-from .api.views import index_view, MessageViewSet, get_profile
+from .api.views import index_view, MessageViewSet, get_profile, set_profile, stock_detail
 
 router = routers.DefaultRouter()
 router.register('messages', MessageViewSet)
@@ -26,7 +26,9 @@ urlpatterns = [
     
     path('/profile/', fetch_profile),
     
-    path('/set_profile/', set_profile)
+    path('/set_profile/', set_profile),
+    
+    path('/stock_detail/', stock_detail),
 ]
 
 
