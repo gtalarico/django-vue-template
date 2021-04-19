@@ -2,7 +2,7 @@ from django.views.generic import TemplateView
 from django.views.decorators.cache import never_cache
 from django.http import JsonResponse, HttpResponse
 from rest_framework import viewsets
-
+from django.contrib.auth.decorators import login_required
 
 import yfinance as yf
 from google.oauth2 import id_token
@@ -49,7 +49,8 @@ def get_profile(user_name):
         return all_profile[user_name]
     else:
         return default_profile
-
+    
+@login_required(login_url='')
 def fecth_profile(request):
     user_name = request.user["email"]
     # have get user_name
@@ -103,7 +104,9 @@ def set_profile_storage(user_name, user_profile):
             json.dump(all_profile, f)
     return user_profile
 
+@login_required(login_url='')
 def set_profile(request):
+    user_name = request.user['email']
     if request.method == 'POST':
         data = request.body.decode("utf-8")
         json_data = json.loads(data)
@@ -181,7 +184,8 @@ def get_held_stock(user_name):
                 raise Exception("No user")
     except:
         raise Exception("Fail to get stock info")
-    
+
+@login_required(login_url='')
 def stock_detail(request):
     '''
         expect to recevie a json:
