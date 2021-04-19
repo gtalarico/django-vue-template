@@ -8,7 +8,7 @@ import './registerServiceWorker'
 import '@/assets/css/style.css'
 import GoogleAuth from '@/config/google_oAuth.js'
 const gauthOption = {
-  clientId: '707231563844-e5cpkqrlt62gncmj6b84of5sml9lp8g9.apps.googleusercontent.com',
+  clientId: '1052465622185-hl3qvsb6o5j432c95bb9fritksuuq4vh.apps.googleusercontent.com',
   scope: 'profile email',
   prompt: 'select_account'
 }
