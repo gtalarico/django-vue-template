@@ -203,7 +203,7 @@ def stock_detail(request):
     else:
         raise Exception()
     
-    current_stock_info = get_sotck_info(stock_list)
+    current_stock_info = get_stock_info(stock_list)
     held_stock_info = get_held_stock(user_name)
     
     stock_info = {}
