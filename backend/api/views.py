@@ -33,9 +33,6 @@ def get_profile(user_name):
         "short_tax_rate": None,
         "long_tax_rate": None,
         "stocks":{
-            'APPL':{
-                
-            }
         }, #Code of stocks
     }    
     # replace with DB request later. 
@@ -50,14 +47,14 @@ def get_profile(user_name):
     else:
         return default_profile
     
-@login_required(login_url='')
+#login_required(login_url='') ================================
 def fecth_profile(request):
     user_name = request.user["email"]
     # have get user_name
 
     user_profile = get_profile(user_name)
 
-    return JsonResponse(user_profile)
+    return user_profile#JsonResponse(user_profile)
     
 
 def check_user(request):
@@ -104,7 +101,7 @@ def set_profile_storage(user_name, user_profile):
             json.dump(all_profile, f)
     return user_profile
 
-@login_required(login_url='')
+#@login_required(login_url='') ===============================
 def set_profile(request):
     user_name = request.user['email']
     if request.method == 'POST':
@@ -127,7 +124,7 @@ def set_profile(request):
     
     set_profile_storage(user_name, previous_profile)
     
-    return JsonResponse(previous_profile)
+    return previous_profile#JsonResponse(previous_profile)
     
     
     '''
@@ -185,7 +182,7 @@ def get_held_stock(user_name):
     except:
         raise Exception("Fail to get stock info")
 
-@login_required(login_url='')
+#login_required(login_url='') ================================
 def stock_detail(request):
     '''
         expect to recevie a json:
@@ -213,5 +210,5 @@ def stock_detail(request):
     for stock in stock_list:
         stock_info[stock] = dict(held_stock_info[stock], **current_stock_info[stock]) 
     
-    return JsonResponse(sotck_info)
+    return sotck_info #JsonResponse(sotck_info)
     
