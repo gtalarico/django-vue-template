@@ -2,8 +2,8 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router/router'
 import store from './store/store'
-
-import '@/assets/css/style.css'
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css';
 import './registerServiceWorker'
 
 import GoogleAuth from '@/config/google_oAuth.js'
@@ -12,6 +12,7 @@ const gauthOption = {
   scope: 'profile email',
   prompt: 'select_account'
 }
+Vue.use(ElementUI)
 Vue.use(GoogleAuth, gauthOption)
 Vue.config.productionTip = false
 

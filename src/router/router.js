@@ -10,7 +10,7 @@ Vue.use(Router)
 let baseRoutes = [
   {
     path: '/',
-    redirect: '/login'
+    redirect: '/home'
   },
   {
     path: '/home',
@@ -46,6 +46,7 @@ router.beforeEach((to, from, next) => {
   const publicPages = ['/login', '/signup']
   const authRequired = !publicPages.includes(to.path)
   const loggedIn = localStorage.getItem('user')
+  // const loggedIn = window.sessionStorage.getItem('token')
 
   if (authRequired && !loggedIn) {
     return next('/login')
