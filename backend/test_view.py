@@ -1,7 +1,7 @@
 import unittest
 from unittest import TestCase
 # from django.test import TestCase
-import xmlrunner
+# import xmlrunner
 
 import json
 from api.views import fecth_profile, set_profile, stock_detail
@@ -71,22 +71,22 @@ class UserTestCase(TestCase):
 
         # print(update_profile)
 
-    def test_stock_detail(self):
-        request = Virtual_request(user={"email": "zhangsan@tamu.edu", },
-                                  method="",
-                                  body=json_convert(self.new_profile))
-        stock_info = stock_detail(request)
-        stock_name = stock_info.keys()
-        self.assertEqual(stock_name, self.new_profile["stocks"].keys())
+    # def test_stock_detail(self):
+    #     request = Virtual_request(user={"email": "zhangsan@tamu.edu", },
+    #                               method="",
+    #                               body=json_convert(self.new_profile))
+    #     stock_info = stock_detail(request)
+    #     stock_name = stock_info.keys()
+    #     self.assertEqual(stock_name, self.new_profile["stocks"].keys())
 
         # print(stock_info)
 
 
 if __name__ == '__main__':
-    # unittest.main()
-    test_suite = unittest.TestSuite()
-    test_suite.addTest(unittest.makeSuite(UserTestCase))
-    runner = xmlrunner.XMLTestRunner(output='report')
-    runner.run(test_suite)
+    unittest.main()
+    # test_suite = unittest.TestSuite()
+    # test_suite.addTest(unittest.makeSuite(UserTestCase))
+    # runner = xmlrunner.XMLTestRunner(output='report')
+    # runner.run(test_suite)
 
 

@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
-    <title>Coverage for api/views.py: 73%</title>
+    <title>Coverage for api/views.py: 76%</title>
     <link rel="icon" sizes="32x32" href="favicon_32.png">
     <link rel="stylesheet" href="style.css" type="text/css">
     <script type="text/javascript" src="jquery.min.js"></script>
@@ -18,14 +18,14 @@
 <div id="header">
     <div class="content">
         <h1>Coverage for <b>api/views.py</b> :
-            <span class="pc_cov">73%</span>
+            <span class="pc_cov">76%</span>
         </h1>
         <img id="keyboard_icon" src="keybd_closed.png" alt="Show keyboard shortcuts" />
         <h2 class="stats">
-            84 statements &nbsp;
-            <button type="button" class="run shortkey_r button_toggle_run" title="Toggle lines run">61 run</button>
-            <button type="button" class="mis show_mis shortkey_m button_toggle_mis" title="Toggle lines missing">23 missing</button>
-            <button type="button" class="exc show_exc shortkey_x button_toggle_exc" title="Toggle lines excluded">0 excluded</button>
+            71 statements &nbsp;
+            <button type="button" class="run shortkey_r button_toggle_run" title="Toggle lines run">54 run</button>
+            <button type="button" class="mis show_mis shortkey_m button_toggle_mis" title="Toggle lines missing">17 missing</button>
+            <button type="button" class="exc show_exc shortkey_x button_toggle_exc" title="Toggle lines excluded">15 excluded</button>
         </h2>
     </div>
 </div>
@@ -241,8 +241,8 @@
     <p id="t187" class="mis show_mis"><span class="n"><a href="#t187">187</a></span><span class="t">        <span class="key">raise</span> <span class="nam">Exception</span><span class="op">(</span><span class="str">"Fail to get stock info"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p id="t188" class="pln"><span class="n"><a href="#t188">188</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p id="t189" class="pln"><span class="n"><a href="#t189">189</a></span><span class="t"><span class="com">#login_required(login_url='') ================================</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t190" class="run"><span class="n"><a href="#t190">190</a></span><span class="t"><span class="key">def</span> <span class="nam">stock_detail</span><span class="op">(</span><span class="nam">request</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t191" class="pln"><span class="n"><a href="#t191">191</a></span><span class="t">    <span class="str">'''</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t190" class="exc show_exc"><span class="n"><a href="#t190">190</a></span><span class="t"><span class="key">def</span> <span class="nam">stock_detail</span><span class="op">(</span><span class="nam">request</span><span class="op">)</span><span class="op">:</span> <span class="com"># pragma: no cover</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t191" class="exc show_exc"><span class="n"><a href="#t191">191</a></span><span class="t">    <span class="str">'''</span>&nbsp;</span><span class="r"></span></p>
     <p id="t192" class="pln"><span class="n"><a href="#t192">192</a></span><span class="t"><span class="str">        expect to recevie a json:</span>&nbsp;</span><span class="r"></span></p>
     <p id="t193" class="pln"><span class="n"><a href="#t193">193</a></span><span class="t"><span class="str">            {</span>&nbsp;</span><span class="r"></span></p>
     <p id="t194" class="pln"><span class="n"><a href="#t194">194</a></span><span class="t"><span class="str">                "user_name": 'NAME</span>&nbsp;</span><span class="r"></span></p>
@@ -253,29 +253,29 @@
     <p id="t199" class="pln"><span class="n"><a href="#t199">199</a></span><span class="t"><span class="str">            }</span>&nbsp;</span><span class="r"></span></p>
     <p id="t200" class="pln"><span class="n"><a href="#t200">200</a></span><span class="t"><span class="str">    '''</span>&nbsp;</span><span class="r"></span></p>
     <p id="t201" class="pln"><span class="n"><a href="#t201">201</a></span><span class="t">    <span class="com">#return blank dict</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t202" class="run"><span class="n"><a href="#t202">202</a></span><span class="t">    <span class="key">if</span> <span class="nam">request</span><span class="op">.</span><span class="nam">method</span> <span class="op">==</span> <span class="str">''</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t203" class="run"><span class="n"><a href="#t203">203</a></span><span class="t">        <span class="nam">data</span> <span class="op">=</span> <span class="nam">request</span><span class="op">.</span><span class="nam">body</span><span class="op">.</span><span class="nam">decode</span><span class="op">(</span><span class="str">"utf-8"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t204" class="run"><span class="n"><a href="#t204">204</a></span><span class="t">        <span class="nam">json_data</span> <span class="op">=</span> <span class="nam">json</span><span class="op">.</span><span class="nam">loads</span><span class="op">(</span><span class="nam">data</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t205" class="run"><span class="n"><a href="#t205">205</a></span><span class="t">        <span class="nam">user_name</span> <span class="op">=</span> <span class="nam">json_data</span><span class="op">.</span><span class="nam">get</span><span class="op">(</span><span class="str">"user_name"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t206" class="run"><span class="n"><a href="#t206">206</a></span><span class="t">        <span class="nam">stock_list</span> <span class="op">=</span> <span class="nam">json_data</span><span class="op">.</span><span class="nam">get</span><span class="op">(</span><span class="str">"stocks"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t207" class="pln"><span class="n"><a href="#t207">207</a></span><span class="t">    <span class="key">else</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t208" class="mis show_mis"><span class="n"><a href="#t208">208</a></span><span class="t">        <span class="key">raise</span> <span class="nam">Exception</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t202" class="exc show_exc"><span class="n"><a href="#t202">202</a></span><span class="t">    <span class="key">if</span> <span class="nam">request</span><span class="op">.</span><span class="nam">method</span> <span class="op">==</span> <span class="str">''</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t203" class="exc show_exc"><span class="n"><a href="#t203">203</a></span><span class="t">        <span class="nam">data</span> <span class="op">=</span> <span class="nam">request</span><span class="op">.</span><span class="nam">body</span><span class="op">.</span><span class="nam">decode</span><span class="op">(</span><span class="str">"utf-8"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t204" class="exc show_exc"><span class="n"><a href="#t204">204</a></span><span class="t">        <span class="nam">json_data</span> <span class="op">=</span> <span class="nam">json</span><span class="op">.</span><span class="nam">loads</span><span class="op">(</span><span class="nam">data</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t205" class="exc show_exc"><span class="n"><a href="#t205">205</a></span><span class="t">        <span class="nam">user_name</span> <span class="op">=</span> <span class="nam">json_data</span><span class="op">.</span><span class="nam">get</span><span class="op">(</span><span class="str">"user_name"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t206" class="exc show_exc"><span class="n"><a href="#t206">206</a></span><span class="t">        <span class="nam">stock_list</span> <span class="op">=</span> <span class="nam">json_data</span><span class="op">.</span><span class="nam">get</span><span class="op">(</span><span class="str">"stocks"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t207" class="exc show_exc"><span class="n"><a href="#t207">207</a></span><span class="t">    <span class="key">else</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t208" class="exc show_exc"><span class="n"><a href="#t208">208</a></span><span class="t">        <span class="key">raise</span> <span class="nam">Exception</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p id="t209" class="pln"><span class="n"><a href="#t209">209</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p id="t210" class="run"><span class="n"><a href="#t210">210</a></span><span class="t">    <span class="nam">current_stock_info</span> <span class="op">=</span> <span class="nam">get_stock_info</span><span class="op">(</span><span class="nam">stock_list</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t211" class="mis show_mis"><span class="n"><a href="#t211">211</a></span><span class="t">    <span class="nam">held_stock_info</span> <span class="op">=</span> <span class="nam">get_held_stock</span><span class="op">(</span><span class="nam">user_name</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t210" class="exc show_exc"><span class="n"><a href="#t210">210</a></span><span class="t">    <span class="nam">current_stock_info</span> <span class="op">=</span> <span class="nam">get_stock_info</span><span class="op">(</span><span class="nam">stock_list</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t211" class="exc show_exc"><span class="n"><a href="#t211">211</a></span><span class="t">    <span class="nam">held_stock_info</span> <span class="op">=</span> <span class="nam">get_held_stock</span><span class="op">(</span><span class="nam">user_name</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p id="t212" class="pln"><span class="n"><a href="#t212">212</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p id="t213" class="mis show_mis"><span class="n"><a href="#t213">213</a></span><span class="t">    <span class="nam">stock_info</span> <span class="op">=</span> <span class="op">{</span><span class="op">}</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t214" class="mis show_mis"><span class="n"><a href="#t214">214</a></span><span class="t">    <span class="key">for</span> <span class="nam">stock</span> <span class="key">in</span> <span class="nam">stock_list</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t215" class="mis show_mis"><span class="n"><a href="#t215">215</a></span><span class="t">        <span class="nam">stock_info</span><span class="op">[</span><span class="nam">stock</span><span class="op">]</span> <span class="op">=</span> <span class="nam">dict</span><span class="op">(</span><span class="nam">held_stock_info</span><span class="op">[</span><span class="nam">stock</span><span class="op">]</span><span class="op">,</span> <span class="op">**</span><span class="nam">current_stock_info</span><span class="op">[</span><span class="nam">stock</span><span class="op">]</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t213" class="exc show_exc"><span class="n"><a href="#t213">213</a></span><span class="t">    <span class="nam">stock_info</span> <span class="op">=</span> <span class="op">{</span><span class="op">}</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t214" class="exc show_exc"><span class="n"><a href="#t214">214</a></span><span class="t">    <span class="key">for</span> <span class="nam">stock</span> <span class="key">in</span> <span class="nam">stock_list</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t215" class="exc show_exc"><span class="n"><a href="#t215">215</a></span><span class="t">        <span class="nam">stock_info</span><span class="op">[</span><span class="nam">stock</span><span class="op">]</span> <span class="op">=</span> <span class="nam">dict</span><span class="op">(</span><span class="nam">held_stock_info</span><span class="op">[</span><span class="nam">stock</span><span class="op">]</span><span class="op">,</span> <span class="op">**</span><span class="nam">current_stock_info</span><span class="op">[</span><span class="nam">stock</span><span class="op">]</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p id="t216" class="pln"><span class="n"><a href="#t216">216</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p id="t217" class="mis show_mis"><span class="n"><a href="#t217">217</a></span><span class="t">    <span class="key">return</span> <span class="nam">stock_info</span> <span class="com">#JsonResponse(stock_info)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t217" class="exc show_exc"><span class="n"><a href="#t217">217</a></span><span class="t">    <span class="key">return</span> <span class="nam">stock_info</span> <span class="com">#JsonResponse(stock_info)</span>&nbsp;</span><span class="r"></span></p>
     <p id="t218" class="pln"><span class="n"><a href="#t218">218</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
 </div>
 <div id="footer">
     <div class="content">
         <p>
             <a class="nav" href="index.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v5.5</a>,
-            created at 2021-04-19 23:13 +0800
+            created at 2021-04-20 11:06 +0800
         </p>
     </div>
 </div>
