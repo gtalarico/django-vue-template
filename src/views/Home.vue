@@ -1,22 +1,23 @@
 <template>
   <el-container class="home-container">
-    <el-aside width="200px">
-      <el-row>
-        <div class="avatar">
-          <el-avatar :size="50" :src="imageUrl"></el-avatar>
-        </div>
-      </el-row>
-      <el-row>
-        <div class="name">
-          <span fontsize="24px">{{ name }}</span>
-        </div>
-      </el-row>
-    </el-aside>
+    <el-header>
+      <span>Portfolio Assistant</span>
+      <el-button @click="logout">log out</el-button>
+    </el-header>
     <el-container>
-      <el-header
-        ><span>Portfolio Assistant</span>
-        <el-button type="primary" @click="logout">log out</el-button>
-      </el-header>
+      <el-aside width="200px">
+        <el-row>
+          <div class="avatar">
+            <el-avatar :size="60" :src="imageUrl"></el-avatar>
+          </div>
+        </el-row>
+        <el-row>
+          <div class="name">
+            <span fontsize="24px">{{ name }}</span>
+          </div>
+        </el-row>
+      </el-aside>
+
       <el-main>Main</el-main>
     </el-container>
   </el-container>
@@ -53,14 +54,14 @@ export default {
   margin: 0px
 
 .el-header
-  background-color: #fff
+  background-color: #252A2D
   display: flex
   padding-left: 0
   align-items: center
-  // color: #fff
+  color: #fff
   font-size: 24px
   font-weight: bold
-  box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)
+  box-shadow: 10px 10px 5px #888888
   justify-content: space-between
   // border-radius: 4px
 
@@ -71,9 +72,10 @@ export default {
     margin-left: 15px
 
 .el-aside
-  background-color: #409EFF
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1)
-  color: #fff
+  background-color: #fff
+  // background-color: #409EFF
+
+  // color: #fff
   // border-radius: 4px
 
 .el-main
@@ -81,9 +83,11 @@ export default {
 
 .avatar
   padding: 10px
+  padding-top: 30px
   text-align: center
 
 .name
+  padding-top: 10px
   text-align: center
-  font-size: 16px
+  font-size: 18px
 </style>
