@@ -13,7 +13,7 @@
     </el-table-column>
     <el-table-column
         fixed
-        prop="Code"
+        prop="code"
         label="Code"
         width="200"
         sortable>
