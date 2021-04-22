@@ -46,16 +46,16 @@ export default {
       email: getStore("user").email,
     };
   },
-  created() {
-    axios
-      .get("/profile?id=" + 123)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  },
+  // created() {
+  //   axios
+  //     .get("/profile?id=" + 123)
+  //     .then((res) => {
+  //       console.log(res);
+  //     })
+  //     .catch((err) => {
+  //       console.error(err);
+  //     });
+  // },
 };
 </script>
 

@@ -1,49 +1,64 @@
 <template>
   <el-table
-      :data="stock_data"
-      style="font-size: 20px"
-      width = "100%"
-      height="300"
+      :data="data"
+      style="width: 100%"
+      height="900"
+      :row-style="{fontSize: '20px'}"
       :default-sort="{prop: 'stock_code', order: 'ascending'}"
-      :header-cell-style="{fontSize: '24px'}" >
+      :header-cell-style="{fontSize: '24px', height:'100px'}" >
     <el-table-column
         fixed
-        prop="stock_code"
-        label="Code"
-        width="250"
-        >
+        width="50"
+    >
     </el-table-column>
     <el-table-column
-        prop="close_price"
+        fixed
+        label="Code"
+        width="200"
+        prop="stocks"
+        sortable>
+    </el-table-column>
+    <el-table-column
+        prop = "purchase_date"
+        label="Purchase Date"
+        width="250"
+        sortable>
+    </el-table-column>
+    <el-table-column
+        prop = "close_price"
         label="Close Price"
         width="250"
-        >
+        sortable>
     </el-table-column>
     <el-table-column
-        prop="purchase_price"
-        label="Purchase Price"
-        width="200"
-        style="font-size: 24px">
+        prop = "purchase_price"
+        label= "Purchase Price"
+        width="250"
+        sortable>
     </el-table-column>
     <el-table-column
-        prop="target_price"
+        prop = "target_price"
         label="Target Price"
-        width="200"
-       >
+        width="250"
+        sortable>
     </el-table-column>
     <el-table-column
-        prop="horizon"
-        label="Horizon"
-        width="200"
-        >
+        prop = "expect_return_rate"
+        label="Expect Return Rate"
+        width="300"
+        sortable>
     </el-table-column>
-    <el-table-column
-        prop="left_horizon"
-        label="Left Horizon"
-        width="200"
-      >
-    </el-table-column>
-    <el-table-column align="right">
+<!--    <el-table-column-->
+<!--        prop="horizon"-->
+<!--        label="Horizon"-->
+<!--        width="200">-->
+<!--    </el-table-column>-->
+<!--    <el-table-column-->
+<!--        prop="left_horizon"-->
+<!--        label="Left Horizon"-->
+<!--        width="200">-->
+<!--    </el-table-column>-->
+    <el-table-column label="Action">
       <template slot-scope="scope">
         <el-button
             size="medium"
@@ -58,26 +73,28 @@
 
 <script>
 
+import axios from "axios";
+
 export default {
-  data() {
-    return {
-      stock_data: [{
-        stock_code: "NIO",
-        close_price: 31.3,
-        purchase_price: 27.0,
-        target_price: 40.0,
-        horizon: 0,
-        left_horizon: 2,
-      },
-        {
-          stock_code: "APPL",
-          close_price: 100.0,
-          purchase_price: 98.0,
-          target_price: 110.0,
-          horizon: 0,
-          left_horizon: 1,
-        }]
+  data(){
+    return{
+      data: []
     }
+  },
+  created() {
+    axios
+        .get("/profile?id=" + 123)
+        .then((res) => {
+          let data = []
+          for(let i in res.data.stocks){
+            data.push(res.data.stocks[i])
+          }
+          this.data = data
+
+        })
+        .catch((err) => {
+          console.error(err);
+        });
   },
   filters: {
     rounding (value) {
@@ -86,13 +103,6 @@ export default {
   }
 }
 
-// Vue.component()
-// const axios = require('axios');
-// export default {
-//   mounted(){
-//     axios
-//         .get(baseUrl+'profile/stock_detail/id=123')
-//   }
 </script>
 
 <style lang="scss" scoped>
