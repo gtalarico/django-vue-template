@@ -60,4 +60,12 @@ export default {
     }
   }
 }
+
+// Vue.component()
+// const axios = require('axios');
+// export default {
+//   mounted(){
+//     axios
+//         .get(baseUrl+'profile/stock_detail/id=123')
+//   }
 </script>
