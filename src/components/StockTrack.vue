@@ -13,9 +13,9 @@
     </el-table-column>
     <el-table-column
         fixed
+        prop="Code"
         label="Code"
         width="200"
-        prop="stocks"
         sortable>
     </el-table-column>
     <el-table-column
