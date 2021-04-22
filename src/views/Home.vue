@@ -37,10 +37,9 @@ export default {
   },
   data() {
     return {
-      userProfile: getStore("user").google.Rs,
-      name: getStore("user").google.Rs.Se,
-      imageUrl: getStore("user").google.Rs.WI,
-      email: getStore("user").google.Rs.At,
+      name: getStore("user").name,
+      imageUrl: getStore("user").imageUrl,
+      email: getStore("user").email,
     };
   },
   created() {},

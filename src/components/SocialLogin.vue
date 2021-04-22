@@ -48,9 +48,13 @@ export default {
           console.log("getId", GoogleUser.getId());
           console.log("getBasicProfile", GoogleUser.getBasicProfile());
           console.log("getAuthResponse", GoogleUser.getAuthResponse());
+          var profile = GoogleUser.getBasicProfile();
           var userInfo = {
-            loginType: "google",
-            google: GoogleUser,
+            id: profile.getId(),
+            name: profile.getName(),
+            imageUrl: profile.getImageUrl(),
+            email: profile.getEmail(),
+            auth: GoogleUser.getAuthResponse(),
           };
           this.$store.commit("setLoginUser", userInfo);
           router.push("/home");
