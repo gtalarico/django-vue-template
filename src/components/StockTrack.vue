@@ -1,43 +1,63 @@
 <template>
   <el-table
       :data="stock_data"
-      style="width: 100%"
-      height="250">
+      style="font-size: 20px"
+      width = "100%"
+      height="300"
+      :default-sort="{prop: 'stock_code', order: 'ascending'}"
+      :header-cell-style="{fontSize: '24px'}" >
     <el-table-column
         fixed
         prop="stock_code"
         label="Code"
-        width="150">
+        width="250"
+        >
     </el-table-column>
     <el-table-column
         prop="close_price"
         label="Close Price"
-        width="120">
+        width="250"
+        >
     </el-table-column>
     <el-table-column
         prop="purchase_price"
         label="Purchase Price"
-        width="120">
+        width="200"
+        style="font-size: 24px">
     </el-table-column>
     <el-table-column
         prop="target_price"
         label="Target Price"
-        width="120">
+        width="200"
+       >
     </el-table-column>
     <el-table-column
         prop="horizon"
         label="Horizon"
-        width="120">
+        width="200"
+        >
     </el-table-column>
     <el-table-column
         prop="left_horizon"
         label="Left Horizon"
-        width="120">
+        width="200"
+      >
+    </el-table-column>
+    <el-table-column align="right">
+      <template slot-scope="scope">
+        <el-button
+            size="medium"
+            @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
+        <el-button
+            size="medium"
+            @click="handleDetails(scope.$index, scope.row)">Details</el-button>
+      </template>
     </el-table-column>
   </el-table>
 </template>
 
 <script>
+
 export default {
   data() {
     return {
@@ -58,6 +78,11 @@ export default {
           left_horizon: 1,
         }]
     }
+  },
+  filters: {
+    rounding (value) {
+      return value.toFixed(2)
+    }
   }
 }
 
@@ -69,3 +94,12 @@ export default {
 //         .get(baseUrl+'profile/stock_detail/id=123')
 //   }
 </script>
+
+<style lang="scss" scoped>
+  .el-table {
+    font-family: Helvetica;
+  }
+  .el-table__header-wrapper{
+    font-size: 30px;
+  }
+</style>
