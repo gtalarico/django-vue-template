@@ -17,7 +17,9 @@
         ><span>Portfolio Assistant</span>
         <el-button type="primary" @click="logout">log out</el-button>
       </el-header>
-      <el-main>Main</el-main>
+      <el-main>
+        <StockTrack/>
+      </el-main>
     </el-container>
   </el-container>
 </template>

@@ -12,6 +12,7 @@ const gauthOption = {
   scope: 'profile email',
   prompt: 'select_account'
 }
+var baseUrl="http://rap2api.taobao.org/app/mock/282070/"
 Vue.use(ElementUI)
 Vue.use(GoogleAuth, gauthOption)
 Vue.config.productionTip = false
