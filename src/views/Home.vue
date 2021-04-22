@@ -26,6 +26,7 @@
 <script>
 // import HomeMenu from "@/components/Menu";
 import { getStore, removeItem } from "@/config/utils";
+import axios from "axios";
 export default {
   name: "home",
   components: {},
@@ -42,7 +43,16 @@ export default {
       email: getStore("user").email,
     };
   },
-  created() {},
+  created() {
+    axios
+      .get("/profile?id=" + 123)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  },
 };
 </script>
 
