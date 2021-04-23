@@ -21,7 +21,8 @@ class Stock(models.Model):
     purchase_price = models.FloatField(default=-1.0)
     target_price = models.FloatField(default=0.0)
     expect_return_rate = models.FloatField(default=0.0)
-    purchase_date = models.DateTimeField("data purchase this stock.")
+    purchase_date = models.CharField(max_length=100)
+    #purchase_date = models.DateTimeField("data purchase this stock.")
 
 
 class MessageSerializer(serializers.HyperlinkedModelSerializer):

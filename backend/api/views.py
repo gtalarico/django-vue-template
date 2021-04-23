@@ -8,7 +8,7 @@ import yfinance as yf
 from google.oauth2 import id_token
 from google.auth.transport import grequests
 import json
-import datetime
+from datetime import datetime as pydate
 
 from .models import Message, MessageSerializer, Userprofile, Stock
 
@@ -53,7 +53,6 @@ def get_profile(request):
         return JsonResponse(user_profile)
     except:
         return HttpResponse("Get user failed!")
-
 
 
 def set_profile(request):
@@ -143,8 +142,11 @@ def stock_detail(request):
     
     close_price = yf_stock.history(period='1d')["Close"][0]
     
+    # wait...
     
-    stock_info = {}
+    stock_info = {
+        
+    }
 
     
     return JsonResponse(sotck_info)
