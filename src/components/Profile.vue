@@ -9,7 +9,7 @@
       <el-input v-model="form.email" :disabled="true" style="width: 50%"></el-input>
     </el-form-item>
 
-    <el-form :inline="true" ref="form" class="demo-form-inline">
+    <el-form :inline="true">
       <el-form-item label="Short Tax Rate" prop="short_tax_rate" label-width="120px">
         <el-input  v-model="form.short_tax_rate"></el-input>
       </el-form-item>
