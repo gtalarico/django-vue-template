@@ -18,7 +18,7 @@
         </el-row>
       </el-aside>
 
-      <el-main> <StockTrack/> </el-main>
+      <el-main> <MoreInfo/> </el-main>
     </el-container>
   </el-container>
 </template>
@@ -27,11 +27,12 @@
 // import HomeMenu from "@/components/Menu";
 import { getStore, removeItem } from "@/config/utils";
 import StockTrack from "@/components/StockTrack";
+import MoreInfo from "@/components/MoreInfo";
 import axios from "axios";
 export default {
   name: "home",
   components: {
-    StockTrack
+    MoreInfo
   },
   methods: {
     logout() {
