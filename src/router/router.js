@@ -4,7 +4,8 @@ import Home from '@/views/Home'
 import Login from '@/views/Login'
 import SignUp from '@/views/SignUp'
 import PageNotFound from '@/components/PageNotFound'
-
+import Profile from '@/components/Profile'
+import Setting from '@/components/Setting'
 Vue.use(Router)
 
 let baseRoutes = [
@@ -15,7 +16,19 @@ let baseRoutes = [
   {
     path: '/home',
     name: 'Home',
-    component: Home
+    component: Home,
+    children: [
+      {
+        path: 'profile',
+        name: 'Profile',
+        component: Profile
+      },
+      {
+        path: 'setting',
+        name: 'Setting',
+        component: Setting
+      }
+    ]
   },
   {
     path: '/login',

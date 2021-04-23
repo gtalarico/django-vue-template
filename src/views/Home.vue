@@ -8,17 +8,39 @@
       <el-aside width="200px">
         <el-row>
           <div class="avatar">
-            <el-avatar :size="60" :src="imageUrl"></el-avatar>
+            <el-avatar
+              :size="60"
+              :src="imageUrl"
+              @click.native="Profile"
+            ></el-avatar>
           </div>
         </el-row>
         <el-row>
           <div class="name">
-            <span fontsize="24px">{{ name }}</span>
+            <span>{{ name }}</span>
           </div>
         </el-row>
+        <el-row>
+          <el-menu default-active="1" class="el-menu-vertical-demo" router>
+            <el-menu-item index="1">
+              <i class="el-icon-menu"></i>
+              <span slot="title">My Stocks</span>
+            </el-menu-item>
+            <el-menu-item index="2" route="/home/profile">
+              <i class="el-icon-document"></i>
+              <span slot="title">Profile</span>
+            </el-menu-item>
+            <el-menu-item index="3" route="/home/setting">
+              <i class="el-icon-setting"></i>
+              <span slot="title">Settings</span>
+            </el-menu-item>
+          </el-menu>
+        </el-row>
       </el-aside>
-
-      <el-main>Main</el-main>
+      <el-main>
+        <div><router-view></router-view></div>
+        <!-- <router-view></router-view> -->
+      </el-main>
     </el-container>
   </el-container>
 </template>
@@ -35,12 +57,19 @@ export default {
       removeItem("user");
       this.$router.push("/login");
     },
+    Profile() {
+      this.$router.push("/profile");
+    },
   },
   data() {
     return {
       name: getStore("user").name,
       imageUrl: getStore("user").imageUrl,
       email: getStore("user").email,
+      investment_horizon: 0,
+      long_tax_rate: 0,
+      short_tax_rate: 0,
+      stocks: [],
     };
   },
   created() {
@@ -48,6 +77,9 @@ export default {
       .get("/profile?id=" + 123)
       .then((res) => {
         console.log(res);
+        this.investment_horizon = res.data.investment_horizon;
+        this.long_tax_rate = res.data.long_tax_rate;
+        this.short_tax_rate = res.data.short_tax_rate;
       })
       .catch((err) => {
         console.error(err);
@@ -90,14 +122,36 @@ export default {
 
 .el-main
   background-color: #ECEEF1
+  > div
+    padding: 15px
+    background-color: #fff
+    height: 100%
 
 .avatar
   padding: 10px
   padding-top: 30px
   text-align: center
+  > el-avatar :hover
+    box-shadow: 10px 10px 5px #888888
 
 .name
   padding-top: 10px
+  padding-bottom: 10px
   text-align: center
+  font-size: 20px
+  font-weight: bold
+
+.aside-text
+  padding-top: 50px
+  padding-left: 15px
   font-size: 18px
+  // font-weight: bold
+
+.aside-render-text
+  padding-top: 10px
+  padding-left: 15px
+  font-size: 18px
+  font-family: Arial
+  font-weight: bold
+  color: #01B0FF
 </style>
