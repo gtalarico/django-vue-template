@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 
 import yfinance as yf
 from google.oauth2 import id_token
-from google.auth.transport import grequests
+from google.auth.transport import requests as grequests
 import json
 from datetime import datetime as pydate
 
