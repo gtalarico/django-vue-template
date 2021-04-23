@@ -6,6 +6,8 @@ import SignUp from '@/views/SignUp'
 import PageNotFound from '@/components/PageNotFound'
 import Profile from '@/components/Profile'
 import Setting from '@/components/Setting'
+import StockTrack from '@/components/StockTrack'
+import AddStock from '@/components/AddStock'
 Vue.use(Router)
 
 let baseRoutes = [
@@ -19,6 +21,11 @@ let baseRoutes = [
     component: Home,
     children: [
       {
+        path: 'stocktrack',
+        name: 'StockTrack',
+        component: StockTrack
+      },
+      {
         path: 'profile',
         name: 'Profile',
         component: Profile
@@ -27,6 +34,11 @@ let baseRoutes = [
         path: 'setting',
         name: 'Setting',
         component: Setting
+      },
+      {
+        path: 'addstock',
+        name: 'AddStock',
+        component: AddStock
       }
     ]
   },

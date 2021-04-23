@@ -22,7 +22,7 @@
         </el-row>
         <el-row>
           <el-menu default-active="1" class="el-menu-vertical-demo" router>
-            <el-menu-item index="1">
+            <el-menu-item index="1" route="/home/stocktrack">
               <i class="el-icon-menu"></i>
               <span slot="title">My Stocks</span>
             </el-menu-item>
@@ -34,12 +34,15 @@
               <i class="el-icon-setting"></i>
               <span slot="title">Settings</span>
             </el-menu-item>
+            <el-menu-item index="4" route="/home/addstock">
+              <i class="el-icon-plus"></i>
+              <span slot="title">Add stocks</span>
+            </el-menu-item>
           </el-menu>
         </el-row>
       </el-aside>
       <el-main>
         <div><router-view></router-view></div>
-        <!-- <router-view></router-view> -->
       </el-main>
     </el-container>
   </el-container>
@@ -48,13 +51,9 @@
 <script>
 // import HomeMenu from "@/components/Menu";
 import { getStore, removeItem } from "@/config/utils";
-import StockTrack from "@/components/StockTrack";
 import axios from "axios";
 export default {
   name: "home",
-  components: {
-    StockTrack,
-  },
   methods: {
     logout() {
       removeItem("user");
@@ -99,7 +98,7 @@ export default {
   margin: 0px
 
 .el-header
-  background-color: #252A2D
+  background-color: #1A89FA
   display: flex
   padding-left: 0
   align-items: center
