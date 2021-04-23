@@ -1,7 +1,7 @@
 <template>
   <div>
   <el-table
-      :data="data.slice((currentPage-1)*pagesize,currentPage*pagesize)"
+      :data="data"
       style="width: 100%"
       height="900"
       :row-style="{fontSize: '20px'}"
@@ -77,9 +77,7 @@ import axios from "axios";
 export default {
   data(){
     return{
-      data: [],
-      pagesize:10,
-      currentPage:1
+      data: []
     }
   },
   created() {
@@ -97,9 +95,7 @@ export default {
           console.error(err);
         });
   },
-  current_change:function(currentPage){
-    this.currentPage = currentPage;
-  },
+
   filters: {
     rounding (value) {
       return value.toFixed(2)
