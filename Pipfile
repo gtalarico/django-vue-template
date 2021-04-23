@@ -10,6 +10,8 @@ gunicorn = "*"
 whitenoise = "==4.0"
 dj-database-url = "*"
 psycopg2-binary = "*"
+yfinance = "*"
+google = "*"
 
 [dev-packages]
 
