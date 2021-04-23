@@ -48,10 +48,13 @@
 <script>
 // import HomeMenu from "@/components/Menu";
 import { getStore, removeItem } from "@/config/utils";
+import StockTrack from "@/components/StockTrack";
 import axios from "axios";
 export default {
   name: "home",
-  components: {},
+  components: {
+    StockTrack,
+  },
   methods: {
     logout() {
       removeItem("user");
