@@ -1,6 +1,7 @@
 <template>
+  <div>
   <el-table
-      :data="data"
+      :data="data.slice((currentPage-1)*pagesize,currentPage*pagesize)"
       style="width: 100%"
       height="900"
       :row-style="{fontSize: '20px'}"
@@ -62,13 +63,11 @@
       <template slot-scope="scope">
         <el-button
             size="medium"
-            @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
-        <el-button
-            size="medium"
             @click="handleDetails(scope.$index, scope.row)">Details</el-button>
       </template>
     </el-table-column>
   </el-table>
+  </div>
 </template>
 
 <script>
@@ -78,7 +77,9 @@ import axios from "axios";
 export default {
   data(){
     return{
-      data: []
+      data: [],
+      pagesize:10,
+      currentPage:1
     }
   },
   created() {
@@ -95,6 +96,9 @@ export default {
         .catch((err) => {
           console.error(err);
         });
+  },
+  current_change:function(currentPage){
+    this.currentPage = currentPage;
   },
   filters: {
     rounding (value) {
