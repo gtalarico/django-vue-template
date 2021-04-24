@@ -7,6 +7,7 @@ import PageNotFound from '@/components/PageNotFound'
 import Profile from '@/components/Profile'
 import Setting from '@/components/Setting'
 import StockTrack from '@/components/StockTrack'
+import StockDetails from '@/components/StockDetails'
 import AddStock from '@/components/AddStock'
 Vue.use(Router)
 
@@ -39,6 +40,11 @@ let baseRoutes = [
         path: 'addstock',
         name: 'AddStock',
         component: AddStock
+      },
+      {
+        path: 'stockdetails',
+        name: 'StockDetails',
+        component: StockDetails
       }
     ]
   },

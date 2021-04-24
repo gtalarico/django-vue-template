@@ -34,7 +34,8 @@
 
 <script>
 import axios from "axios";
-import { getStore, removeItem } from "@/config/utils";
+import { getStore } from "@/config/utils";
+
 export default {
   name: "stocktrack",
   data() {
@@ -60,6 +61,16 @@ export default {
       .catch((err) => {
         console.error(err);
       });
+  },
+  methods: {
+    handleDetails(index, row) {
+      console.log(index, row);
+      let stock_code, user_id;
+      stock_code = stockData[index].code;
+      user_id = getStore("user").user_id.get("/profile/stock_detail", {
+        data: { s_code: stock_code, id: user_id },
+      });
+    },
   },
   filters: {
     rounding(value) {
