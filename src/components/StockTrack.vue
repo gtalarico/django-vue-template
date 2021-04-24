@@ -41,6 +41,7 @@
 <script>
 import axios from "axios";
 import { getStore } from "@/config/utils";
+import router from "@/router/router";
 
 export default {
   name: "stocktrack",
@@ -72,11 +73,12 @@ export default {
     handleDetails(index, row) {
       console.log(index, row);
       let stock_code, user_id;
-      stock_code = stockData[index].code;
+      stock_code = this.stockData[index].code;
       user_id = getStore("user").user_id;
-    },
-    handleDelete(index, row) {
-      // var stock_code = stockData[index].code;
+      router.push({
+        name: "StockDetails",
+        query: { stock_code: stock_code, user_id: user_id },
+      });
     },
   },
   filters: {

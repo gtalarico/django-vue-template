@@ -70,33 +70,20 @@ import axios from "axios";
 export default {
   data() {
     return {
-      form:{
-        stock_code: "NIO",
-        stock_name: "NIO.Inc",
-        purchase_price: 27.0,
-        purchase_date: "2020-11-19",
-        target_price: 40.0,
-        expect_return_rate: 1.5, // means 150%
-        close_price: 31.3,
-        close_date: "2021-4-19",
-        horizon: 0, // less than 1 year yet.
-        opportunity_cost: 0.1,
-        left_horizon: 2,
-        short_return: 0.2,
-        long_return: 0.1
-      },
+      form:{},
     };
   },
-  // created() {
-  //   axios
-  //       .get("/profile?id=" + 123)
-  //       .then((res) => {
-  //         this.form = res.data;
-  //       })
-  //       .catch((err) => {
-  //         console.error(err);
-  //       });
-  // },
+  created() {
+    let user_id=this.$route.query.user_id, stock_code=this.$route.query.stock_code
+    axios
+        .get("/profile/stock_detail", {
+          data: {s_code: stock_code, id: user_id},
+        })
+        .then((res) => {
+          console.log(res)
+          this.form = res.data
+        })
+  },
 
   // methods: {
   //   Edit(formName) {
