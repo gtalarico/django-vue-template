@@ -27,7 +27,10 @@ class MessageViewSet(viewsets.ModelViewSet):
 
 def get_profile(request):
     #include stock info
-    u_id = request.GET.get("id")
+    # u_id = request.GET.get("id")
+    raw_data = request.body.decode("utf-8") # assume: send by json 
+    json_data = json.loads(raw_data)
+    u_id = json_data.get('id')
     try:
         user = Userprofile.objects.get(user_id=u_id)
         stocks = {}

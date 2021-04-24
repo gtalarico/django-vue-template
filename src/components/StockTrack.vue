@@ -34,7 +34,7 @@
 
 <script>
 import axios from "axios";
-
+import { getStore, removeItem } from "@/config/utils";
 export default {
   name: "stocktrack",
   data() {
@@ -44,8 +44,14 @@ export default {
   },
   created() {
     axios
-      .get("/profile?id=" + 123)
+      .get("/profile", {
+        data: { id: getStore("user").id },
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      })
       .then((res) => {
+        console.log(res);
         let data = [];
         for (let key in res.data.stocks) {
           var stock = res.data.stocks[key];

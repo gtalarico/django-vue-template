@@ -82,21 +82,7 @@ export default {
       stocks: [],
     };
   },
-  created() {
-    axios
-      .get("/profile", {
-        params: { id: getStore("user").id },
-      })
-      .then((res) => {
-        console.log(res);
-        this.investment_horizon = res.data.investment_horizon;
-        this.long_tax_rate = res.data.long_tax_rate;
-        this.short_tax_rate = res.data.short_tax_rate;
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  },
+  created() {},
 };
 </script>
 
