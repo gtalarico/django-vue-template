@@ -132,7 +132,10 @@ def stock_detail(request):
     user = Userprofile.objects.get(user_id=u_id)
     stock = user.stocks.get(code=s_code)
     yf_stock = yf.Ticker(s_code)
-    
+
+    # import pdb
+    # pdb.set_trace()
+
     purchase_date = stock.purchase_date
     full_horizon = user.invest_horizon
     p0 = stock.purchase_price 
@@ -161,7 +164,6 @@ def stock_detail(request):
         "short_return": a_s,
         "long_return": a_l,
     }
-
     return JsonResponse(stock_info)
 
 def delete_stock(request):

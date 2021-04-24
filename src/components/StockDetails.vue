@@ -80,14 +80,14 @@
 
     <el-form :inline="true">
       <el-form-item label="Horizon" prop="horizon" label-width="150px">
-        <el-input v-model="form.horizon"></el-input>
+        <el-input v-model="form.horizon" disabled></el-input>
       </el-form-item>
       <el-form-item
         label="Left Horizon"
         prop="left_horizon"
         label-width="120px"
       >
-        <el-input v-model="form.left_horizon"></el-input>
+        <el-input v-model="form.left_horizon" disabled></el-input>
       </el-form-item>
     </el-form>
 
@@ -130,27 +130,49 @@ export default {
     let user_id = this.$route.query.user_id,
       stock_code = this.$route.query.stock_code;
     axios
-      .get("/profile/stock_detail", {
-        data: { s_code: stock_code, id: user_id },
+      .post("/profile/stock_detail/", {
+        s_code: stock_code,
+        id: user_id,
       })
       .then((res) => {
         console.log(res);
         this.form = res.data;
+        this.form.horizon = this.form.horizon.toFixed(2);
+        this.form.left_horizon = this.form.left_horizon.toFixed(2);
+        this.form.close_price = this.form.close_price.toFixed(3);
       });
   },
 
   methods: {
-    handleSave() {
+    Save() {
       axios
         .post("/profile/set_stock/", {
           id: this.$route.query.user_id,
           s_code: this.$route.query.stock_code,
           purchase_date: this.form.purchase_date,
+          purchase_price: this.form.purchase_price,
           target_price: this.form.target_price,
           expect_return_rate: this.form.expect_return_rate,
         })
+        .then((res) => {
+          if (res.data == "Setting Stock Succeeded!") {
+            this.$message({
+              message: "The Stock has been reset!",
+              type: "success",
+            });
+          } else {
+            this.$message({
+              message: "something went wrong...",
+              type: "error",
+            });
+          }
+        })
         .catch((err) => {
-          console.error(err);
+          // console.error(err);
+          this.$message({
+            message: "something went wrong...",
+            type: "error",
+          });
         });
     },
   },

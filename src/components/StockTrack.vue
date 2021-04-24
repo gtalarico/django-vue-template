@@ -57,7 +57,8 @@ export default {
       stockData: [],
     };
   },
-  created() {
+  created() {},
+  mounted() {
     axios
       .post("/profile/", {
         id: getStore("user").user_id,
