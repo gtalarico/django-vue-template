@@ -18,7 +18,7 @@ Vue.use(ElementUI)
 Vue.use(GoogleAuth, gauthOption)
 Vue.prototype.$ajax = axios
 Vue.config.productionTip = false
-axios.defaults.baseURL = 'http://rap2api.taobao.org/app/mock/282070/'
+axios.defaults.baseURL = 'http://localhost:8000/'
 
 new Vue({
   router,

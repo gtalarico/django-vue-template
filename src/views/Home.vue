@@ -56,8 +56,16 @@ export default {
   name: "home",
   methods: {
     logout() {
-      removeItem("user");
-      this.$router.push("/login");
+      axios
+        .post("/logout/")
+        .then((res) => {
+          console.log(res);
+          removeItem("user");
+          this.$router.push("/login");
+        })
+        .catch((err) => {
+          console.error(err);
+        });
     },
     Profile() {
       this.$router.push("/profile");
@@ -76,7 +84,9 @@ export default {
   },
   created() {
     axios
-      .get("/profile?id=" + 123)
+      .get("/profile", {
+        params: { id: getStore("user").id },
+      })
       .then((res) => {
         console.log(res);
         this.investment_horizon = res.data.investment_horizon;

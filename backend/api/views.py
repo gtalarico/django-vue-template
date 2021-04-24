@@ -198,12 +198,13 @@ def add_new_stock(request):
 def google_login(request): 
     if request.method == "POST":
         try:
-            #raw_data = request.body.decode("utf-8") # assume: send by json 
-            #json_data = json.loads(raw_data)
+            raw_data = request.body.decode("utf-8") # assume: send by json 
+            json_data = json.loads(raw_data)
+            token = json_data.get('id_token')
             #token = json_data.get("access_token")
-            token = request.data.get("id_token")
+            # token = request.data.get("id_token")
             # Specify the CLIENT_ID of the app that accesses the backend:
-            idinfo = id_token.verify_oauth2_token(token, grequests.Request(), "MY CLIENT ID")
+            idinfo = id_token.verify_oauth2_token(token, grequests.Request(), "1052465622185-hl3qvsb6o5j432c95bb9fritksuuq4vh.apps.googleusercontent.com")
             user_id = idinfo['sub']
             '''
                 {
@@ -232,7 +233,7 @@ def google_login(request):
             except:
                 new_user = Userprofile(user_id=user_id, 
                                        email_address=idinfo["email"], 
-                                       name=idinfo["name"])
+                                       user_name=idinfo["name"])
                 new_user.save()
 
             request.session['user_id'] = user_id
