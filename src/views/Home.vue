@@ -68,7 +68,7 @@ export default {
         });
     },
     Profile() {
-      this.$router.push("/profile");
+      this.$router.push("/home/profile");
     },
   },
   data() {

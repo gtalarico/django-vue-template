@@ -1,77 +1,119 @@
 <template>
-
-  <el-form :model="form" ref="form" class="demo-form" label-position="left" >
+  <el-form :model="form" ref="form" class="demo-form" label-position="left">
     <el-form-item label="Name" prop="name" label-width="50px" class="item_name">
-      <el-input  v-model="form.name" :disabled="true" style="width: 50%"></el-input>
+      <el-input
+        v-model="form.name"
+        :disabled="true"
+        style="width: 50%"
+      ></el-input>
     </el-form-item>
 
     <el-form-item label="Email" prop="email" label-width="50px">
-      <el-input v-model="form.email" :disabled="true" style="width: 50%"></el-input>
+      <el-input
+        v-model="form.email"
+        :disabled="true"
+        style="width: 50%"
+      ></el-input>
     </el-form-item>
 
     <el-form :inline="true">
-      <el-form-item label="Short Tax Rate" prop="short_tax_rate" label-width="120px">
-        <el-input  v-model="form.short_tax_rate"></el-input>
+      <el-form-item
+        label="Short Tax Rate"
+        prop="short_tax_rate"
+        label-width="120px"
+      >
+        <el-input v-model="form.short_tax_rate"></el-input>
       </el-form-item>
-      <el-form-item label="Long Tax Rate" prop="long_tax_rate" label-width="120px">
-        <el-input  v-model="form.long_tax_rate"></el-input>
+      <el-form-item
+        label="Long Tax Rate"
+        prop="long_tax_rate"
+        label-width="120px"
+      >
+        <el-input v-model="form.long_tax_rate"></el-input>
       </el-form-item>
     </el-form>
 
-    <el-form-item label="Investment Horizon" prop="investment_horizon" label-width="140px" style="width: 50%">
-      <el-input v-model="form.investment_horizon" ></el-input>
+    <el-form-item
+      label="Investment Horizon"
+      prop="investment_horizon"
+      label-width="140px"
+      style="width: 50%"
+    >
+      <el-input v-model="form.investment_horizon"></el-input>
     </el-form-item>
 
-  <el-form-item>
-    <el-button type="primary" @click="Save">Save</el-button>
-  </el-form-item>
+    <el-form-item>
+      <el-button type="primary" @click="Save">Save</el-button>
+    </el-form-item>
   </el-form>
 </template>
 
 
 <script>
 import axios from "axios";
-import {getStore} from "@/config/utils";
+import { getStore } from "@/config/utils";
 export default {
   data() {
     return {
-      form:{
-        name: '',
-        email: '',
-        short_tax_rate: '',
-        long_tax_rate: '',
-        investment_horizon: ''
+      form: {
+        name: "",
+        email: "",
+        short_tax_rate: "",
+        long_tax_rate: "",
+        investment_horizon: "",
       },
     };
   },
-  created() {
-    axios
-        .get("/profile?id=" + 123)
+  methods: {
+    Save() {
+      axios
+        .post("/profile/set/", {
+          id: getStore("user").user_id,
+          short_tax_rate: this.form.short_tax_rate,
+          long_tax_rate: this.form.long_tax_rate,
+          investment_horizon: this.form.investment_horizon,
+        })
         .then((res) => {
-          this.form = res.data;
-          this.form.name = getStore("user").name;
-          this.form.email = getStore("user").email;
+          console.log(res);
+          if (res.data.state == "success") {
+            this.$message({
+              message: "Your profile has been updated!",
+              type: "success",
+            });
+          } else {
+            this.$message({
+              message: "Something went wrong...",
+              type: "error",
+            });
+          }
         })
         .catch((err) => {
           console.error(err);
+          this.$message({
+            message: "Something went wrong...",
+            type: "error",
+          });
         });
+    },
   },
-
-  // methods: {
-  //   Edit(formName) {
-  //     this.$refs[formName].validate((valid) => {
-  //       if (valid) {
-  //         alert('submit!');
-  //       } else {
-  //         console.log('error submit!!');
-  //         return false;
-  //       }
-  //     });
-  //   },
-  //   Back(formName) {
-  //     this.$refs[formName].resetFields();
-  //   }
-  // }
-}
+  created() {
+    axios
+      .post("/profile/", {
+        id: getStore("user").user_id,
+      })
+      .then((res) => {
+        // this.form = res.data;
+        // console.log(res);
+        this.form.name = getStore("user").name;
+        this.form.email = getStore("user").email;
+        this.form.short_tax_rate = res.data.short_tax_rate;
+        this.form.long_tax_rate = res.data.long_tax_rate;
+        this.form.investment_horizon = res.data.investment_horizon;
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  },
+};
 </script>
 

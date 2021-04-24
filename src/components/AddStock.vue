@@ -49,10 +49,17 @@ export default {
         })
         .then((res) => {
           console.log(res);
-          this.$message({
-            message: "You have added the stock! Good luck!",
-            type: "success",
-          });
+          if (res.data == "Adding Succeeded!") {
+            this.$message({
+              message: "You have added the stock! Good luck!",
+              type: "success",
+            });
+          } else {
+            this.$message({
+              message: "something wrong when trying to add the stock...",
+              type: "error",
+            });
+          }
         })
         .catch((err) => {
           console.error(err);

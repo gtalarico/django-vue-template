@@ -31,7 +31,6 @@ def get_profile(request):
         data = request.body.decode("utf-8")
         json_data = json.loads(data)
         u_id = json_data.get("id")
-        print(u_id)
         user = Userprofile.objects.get(user_id=u_id)
         stocks = {}
         for s in user.stocks.all():
@@ -93,6 +92,7 @@ def set_profile(request):
         '''
         stocks = {}
         user_profile = {
+            "state": 'success',
             "user_id": u_id,
             "user_name": user.user_name,
             "short_tax_rate": user.short_tax_rate,
@@ -101,7 +101,7 @@ def set_profile(request):
             "stocks": stocks
         }
         user.save()
-        return JsonResponse(previous_profile)
+        return JsonResponse(user_profile)
     except:
         return HttpResponse("Set failed!")
 
@@ -179,11 +179,9 @@ def add_new_stock(request):
             json_data = json.loads(data)
         # else:
         #     raise Exception()
-        import pdb
         
         u_id = json_data.get("id")
         user = Userprofile.objects.get(user_id=u_id)
-        pdb.set_trace()
         for k,v in json_data.get("added_stocks").items():
             user.stocks.create( code=k,
                                 name=yf.Ticker(k).info["longName"],
