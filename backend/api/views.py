@@ -27,11 +27,10 @@ class MessageViewSet(viewsets.ModelViewSet):
 
 def get_profile(request):
     #include stock info
-    # u_id = request.GET.get("id")
-    raw_data = request.body.decode("utf-8") # assume: send by json 
-    json_data = json.loads(raw_data)
-    u_id = json_data.get('id')
     try:
+        data = request.body.decode("utf-8")
+        json_data = json.loads(data)
+        u_id = json_data.get("id")
         user = Userprofile.objects.get(user_id=u_id)
         stocks = {}
         for s in user.stocks:
@@ -60,15 +59,14 @@ def get_profile(request):
 
 def set_profile(request):
     try:
-        u_id = request.GET.get("id")
-        user = Userprofile.objects.get(user_id=u_id)
-
         if request.method == 'POST':
             data = request.body.decode("utf-8")
             json_data = json.loads(data)
         else:
             raise Exception()
         
+        u_id = json_data.get("id")
+        user = Userprofile.objects.get(user_id=u_id)
         user.short_tax_rate = json_data.get("short_tax_rate")
         user.long_tax_rate = json_data.get("long_tax_rate")
         user.invest_horizon = json_data.get("investment_horizon")
@@ -104,41 +102,13 @@ def set_profile(request):
 
 
 
-def get_stock_info(stock_code_list):
-    """
-        There’re some limitations by making the call to Yahoo Finance API:
-            Using the Public API (without authentication), you are limited to 2,000 requests per hour per IP (or up to a total of 48,000 requests a day).
-            I’m not sure it’s precisely for Financial data. But please use time.sleep(1) to avoid your IP getting blocked.
-    """
-    detail_info = {}
-    for code in stock_code_list:
-        sotck = yf.Ticker(code)
-        try:
-            close_price = sotck.history(period='1d')["Close"][0]
-            stock_name = sotck.info['longName']
-            current_date = datetime.datetime.now()
-        except:
-            raise Exception("No such stock in the market.")
-        
-        detail_info[code] = {
-            'close': close_price,
-            'name': stock_name,
-            'current_date': current_date
-        }
-    
-    return detail_info
-        
-    #print(msft.info)
-    # get historical market data
-    #hist = msft.history(period="5d")
-
-
-
 def stock_detail(request):
     #return blank dict
-    u_id = request.GET.get("id")
-    s_code = request.GET.get("s_code") # 也可以从json中？   
+    data = request.body.decode("utf-8")
+    json_data = json.loads(data)
     
+    u_id = json_data.get("id")
+    s_code = json_data.get("s_code")
     user = Userprofile.objects.get(user_id=u_id)
     stock = user.stocks.get(code=s_code)
     yf_stock = yf.Ticker(s_code)
@@ -152,19 +122,18 @@ def stock_detail(request):
     }
 
     
-    return JsonResponse(sotck_info)
+    return JsonResponse(stock_info)
 
 def delete_stock(request):
     try:
-        u_id = request.GET.get("id")
-        user = Userprofile.objects.get(user_id=u_id)
-        
         if request.method == 'POST':
             data = request.body.decode("utf-8")
             json_data = json.loads(data)
         else:
             raise Exception()
         
+        u_id = json_data.get("id")
+        user = Userprofile.objects.get(user_id=u_id)
         delete_list = json_data.get("deleted_stocks")
         for code in delete_list:
             user.stocks.get(code=code).delete()
@@ -174,15 +143,15 @@ def delete_stock(request):
         return HttpResponse("Deleting failed!")
 
 def add_new_stock(request):
-    try:
-        u_id = request.GET.get("id")
-        user = Userprofile.objects.get(user_id=u_id)
-        
+    try:        
         if request.method == 'POST':
             data = request.body.decode("utf-8")
             json_data = json.loads(data)
         else:
             raise Exception()
+        
+        u_id = json_data.get("id")
+        user = Userprofile.objects.get(user_id=u_id)
         
         for k,v in json_data.get("added_stocks").items():
             user.stocks.create( code=k,
@@ -206,7 +175,7 @@ def google_login(request):
             token = json_data.get('id_token')
             #token = json_data.get("access_token")
             # token = request.data.get("id_token")
-            # Specify the CLIENT_ID of the app that accesses the backend:
+            # # Specify the CLIENT_ID of the app that accesses the backend:
             idinfo = id_token.verify_oauth2_token(token, grequests.Request(), "1052465622185-hl3qvsb6o5j432c95bb9fritksuuq4vh.apps.googleusercontent.com")
             user_id = idinfo['sub']
             '''
@@ -242,10 +211,13 @@ def google_login(request):
             request.session['user_id'] = user_id
             request.session['is_login'] = True
             request.session.set_expiry(20*60) # 20 minutes
-            return JsonResponse({"user_id": user_id})
+            # state
+            return JsonResponse({"user_id": user_id,
+                                 "state": True})
         except ValueError:
             # Invalid token
-            return HttpResponse("Login failed. Invalid access token.")
+            # 失败原因，state。
+            return JsonResponse({"state": False})
             pass
 
 def google_logout(request):
