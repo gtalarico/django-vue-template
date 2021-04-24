@@ -8,7 +8,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 
-from .api.views import index_view, MessageViewSet, get_profile, set_profile, stock_detail, google_login, google_logout, add_new_stock, delete_stock, stock_detail
+from .api.views import index_view, MessageViewSet, get_profile, set_profile, stock_detail, google_login, google_logout, add_new_stock, delete_stock, stock_detail, set_stock
 
 router = routers.DefaultRouter()
 router.register('messages', MessageViewSet)

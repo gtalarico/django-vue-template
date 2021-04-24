@@ -3,12 +3,14 @@ from django.views.decorators.cache import never_cache
 from django.http import JsonResponse, HttpResponse
 from rest_framework import viewsets
 from django.contrib.auth.decorators import login_required
+from django.utils import timezone
 
 import yfinance as yf
 from google.oauth2 import id_token
 from google.auth.transport import requests as grequests
 import json
 from datetime import datetime as pydate
+import datetime
 
 from .models import Message, MessageSerializer, Userprofile, Stock
 
@@ -39,7 +41,7 @@ def get_profile(request):
                 "code": s.code,
                 "close_price": close_price,
                 "purchase_price": s.purchase_price,
-                "purchase_date": s.purchase_date,
+                "purchase_date": s.purchase_date.isoformat()[:10],
                 "target_price": s.target_price,
                 "expect_return_rate": s.expect_return_rate 
             }
@@ -100,15 +102,27 @@ def set_profile(request):
             "stocks": stocks
         }
         user.save()
-        return JsonResponse(previous_profile)
+        return JsonResponse(user_profile)
     except:
         return HttpResponse("Set failed!")
 
 
-def compute_return():
+def compute_return(ts, tl, p0, pl, ps, r):
+    # wait    
+    return 2.0
+
+    
 
 def stock_detail(request):
-    #return blank dict
+    
+    def compute_short_return():    
+        #wait
+        return 0.0
+    
+    def compute_long_return():
+        #wait
+        return 0.0
+    
     data = request.body.decode("utf-8")
     json_data = json.loads(data)
     
@@ -118,15 +132,33 @@ def stock_detail(request):
     stock = user.stocks.get(code=s_code)
     yf_stock = yf.Ticker(s_code)
     
-    close_price = yf_stock.history(period='1d')["Close"][0]
-    
+    purchase_date = stock.purchase_date
+    full_horizon = user.invest_horizon
+    p0 = stock.purchase_price 
+    pl = stock.target_price
+    ps = yf_stock.history(period='1d')["Close"][0]
+    hs = ((timezone.now() - purchase_date).days) / 365     # in year
+    r = 0.001 # 基准利率？
+    left_horizon = full_horizon - hs
+    a_s = compute_short_return()
+    a_l = compute_long_return()
     # wait...
     
-    
-    
+    close_date = yf_stock.history(period='1d').index[0].isoformat()[:10]
     stock_info = {
-        "":,
-        "":,
+        "stock_code": s_code,
+        "stock_name": stock.name,
+        "purchase_price": p0,
+        "purchase_date": purchase_date.isoformat()[:10],
+        "target_price": pl,
+        "expect_return_rate": stock.expect_return_rate,
+        "close_price": ps,
+        "close_date": close_date,
+        "horizon": hs,
+        "opportunity_cost": r,
+        "left_horizon": left_horizon,
+        "short_return": a_s,
+        "long_return": a_l,
     }
 
     
@@ -162,7 +194,7 @@ def set_stock(request):
         s_code = json_data.get("s_code")
         user = Userprofile.objects.get(user_id=u_id)
         modified_stock = user.stocks.get(code=s_code)
-        modified_stock.purchase_date = json_data.get("purchase_date")
+        modified_stock.purchase_date = datetime.date.fromisoformat(json_data.get("purchase_date")[:10])
         modified_stock.purchase_price = json_data.get("purchase_price")
         modified_stock.target_price = json_data.get("target_price")
         modified_stock.expect_return_rate = json_data.get("expect_return_rate")
@@ -177,8 +209,6 @@ def add_new_stock(request):
         if request.method == 'POST':
             data = request.body.decode("utf-8")
             json_data = json.loads(data)
-        else:
-            raise Exception()
         
         u_id = json_data.get("id")
         user = Userprofile.objects.get(user_id=u_id)
@@ -187,13 +217,12 @@ def add_new_stock(request):
             user.stocks.create( code=k,
                                 name=yf.Ticker(k).info["longName"],
                                 purchase_price=v["purchase_price"],
-                                purchase_date=v["purchase_date"],
+                                purchase_date=datetime.date.fromisoformat(v["purchase_date"][:10]),
                                 target_price=v["target_price"],   # may fail for the format as str.
                                 expect_return_rate=v["expect_return_rate"])
         
         return HttpResponse("Adding Succeeded!")
-        
-    except:
+    except Exception as e:
         return HttpResponse("Adding failed!")
 
 
