@@ -31,9 +31,10 @@ def get_profile(request):
         data = request.body.decode("utf-8")
         json_data = json.loads(data)
         u_id = json_data.get("id")
+        print(u_id)
         user = Userprofile.objects.get(user_id=u_id)
         stocks = {}
-        for s in user.stocks:
+        for s in user.stocks.all():
             close_price =  yf.Ticker(s.code).history(period='1d')["Close"][0]
             stocks[s.code] = {
                 "code": s.code,
@@ -53,7 +54,8 @@ def get_profile(request):
             "stocks": stocks
         }
         return JsonResponse(user_profile)
-    except:
+    except Exception as e:
+        print(e)
         return HttpResponse("Get user failed!")
 
 

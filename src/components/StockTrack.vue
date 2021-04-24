@@ -44,11 +44,8 @@ export default {
   },
   created() {
     axios
-      .get("/profile", {
-        data: { id: getStore("user").id },
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
+      .post("/profile/", {
+        id: getStore("user").user_id,
       })
       .then((res) => {
         console.log(res);
