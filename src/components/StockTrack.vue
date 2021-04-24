@@ -128,8 +128,8 @@ export default {
       } else if (row.column.label === "Close Price ($)") {
         // console.log(row);
         if (
-          this.stockData[row.rowIndex]["close_price"] >=
-          this.stockData[row.rowIndex]["purchase_price"]
+          parseFloat(this.stockData[row.rowIndex]["close_price"]) >=
+          parseFloat(this.stockData[row.rowIndex]["purchase_price"])
         ) {
           return "font-size:16px; color: green";
         } else {
