@@ -25,8 +25,7 @@
           size="medium"
           type="primary"
           @click="handleDetails(scope.$index, scope.row)"
-          >Details</el-button
-        >
+          >Details</el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -35,6 +34,7 @@
 <script>
 import axios from "axios";
 import {getStore} from "@/config/utils";
+import router from "@/router/router";
 
 export default {
   name: "stocktrack",
@@ -59,24 +59,24 @@ export default {
         console.error(err);
       });
   },
-  methods:{
-    handleDetails(index, row){
+  methods: {
+    handleDetails(index, row) {
       console.log(index, row)
       let stock_code, user_id;
-      stock_code = stockData[index].code
-      user_id = getStore("user").user_id
-      .get("/profile/stock_detail", {
-          data: {s_code: stock_code, id: user_id },
-        })
-
-    }
+      stock_code = this.stockData[index].code;
+      user_id = getStore("user").user_id;
+      router.push({
+        name: 'StockDetails',
+        query: {stock_code: stock_code, user_id: user_id}
+      });
+    },
   },
   filters: {
     rounding(value) {
       return value.toFixed(2);
     },
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>
