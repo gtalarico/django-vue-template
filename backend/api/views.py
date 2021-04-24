@@ -73,6 +73,8 @@ def set_profile(request):
         user.long_tax_rate = json_data.get("long_tax_rate")
         user.invest_horizon = json_data.get("investment_horizon")
         
+        
+        '''
         stocks = json_data.get("stocks")
         # require all stocks haven't been in DB.
         for k, v in stocks.items():
@@ -88,7 +90,8 @@ def set_profile(request):
                                         expect_return_rate=v["expect_return_rate"])
             stocks[k]["code"] = k
             stocks[k]["close_price"] = close_price
-        
+        '''
+        stocks = {}
         user_profile = {
             "user_id": u_id,
             "user_name": user.user_name,
@@ -103,7 +106,8 @@ def set_profile(request):
         return HttpResponse("Set failed!")
 
 
-
+def compute_return():
+    pass
 def stock_detail(request):
     #return blank dict
     data = request.body.decode("utf-8")
@@ -119,11 +123,13 @@ def stock_detail(request):
     
     # wait...
     
+    
+    
     stock_info = {
-        
+        # "":,
+        # "":,
     }
 
-    
     return JsonResponse(stock_info)
 
 def delete_stock(request):
@@ -144,17 +150,40 @@ def delete_stock(request):
     except:
         return HttpResponse("Deleting failed!")
 
-def add_new_stock(request):
-    try:        
+def set_stock(request):
+    try:
         if request.method == 'POST':
             data = request.body.decode("utf-8")
             json_data = json.loads(data)
         else:
             raise Exception()
+            
+        u_id = json_data.get("id")
+        s_code = json_data.get("s_code")
+        user = Userprofile.objects.get(user_id=u_id)
+        modified_stock = user.stocks.get(code=s_code)
+        modified_stock.purchase_date = json_data.get("purchase_date")
+        modified_stock.purchase_price = json_data.get("purchase_price")
+        modified_stock.target_price = json_data.get("target_price")
+        modified_stock.expect_return_rate = json_data.get("expect_return_rate")
+        modified_stock.save()
+        
+        return HttpResponse("Setting Stock Succeeded!")
+    except:
+        return HttpResponse("Setting Stock failed!")
+    
+def add_new_stock(request):
+    try:        
+        if request.method == 'POST':
+            data = request.body.decode("utf-8")
+            json_data = json.loads(data)
+        # else:
+        #     raise Exception()
+        import pdb
         
         u_id = json_data.get("id")
         user = Userprofile.objects.get(user_id=u_id)
-        
+        pdb.set_trace()
         for k,v in json_data.get("added_stocks").items():
             user.stocks.create( code=k,
                                 name=yf.Ticker(k).info["longName"],
@@ -165,7 +194,7 @@ def add_new_stock(request):
         
         return HttpResponse("Adding Succeeded!")
         
-    except:
+    except Exception as e:
         return HttpResponse("Adding failed!")
 
 

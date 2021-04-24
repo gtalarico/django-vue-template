@@ -22,11 +22,17 @@
     <el-table-column label="Action">
       <template slot-scope="scope">
         <el-button
-          size="medium"
           type="primary"
+          icon="el-icon-edit"
+          circle
           @click="handleDetails(scope.$index, scope.row)"
-          >Details</el-button
-        >
+        ></el-button>
+        <el-button
+          icon="el-icon-delete"
+          type="danger"
+          circle
+          @click="handleDelete(scope.$index, scope.row)"
+        ></el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -67,9 +73,10 @@ export default {
       console.log(index, row);
       let stock_code, user_id;
       stock_code = stockData[index].code;
-      user_id = getStore("user").user_id.get("/profile/stock_detail", {
-        data: { s_code: stock_code, id: user_id },
-      });
+      user_id = getStore("user").user_id;
+    },
+    handleDelete(index, row) {
+      // var stock_code = stockData[index].code;
     },
   },
   filters: {
