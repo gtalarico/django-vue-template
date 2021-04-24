@@ -33,7 +33,7 @@ def get_profile(request):
         u_id = json_data.get("id")
         user = Userprofile.objects.get(user_id=u_id)
         stocks = {}
-        for s in user.stocks:
+        for s in user.stocks.all():
             close_price =  yf.Ticker(s.code).history(period='1d')["Close"][0]
             stocks[s.code] = {
                 "code": s.code,
@@ -54,6 +54,7 @@ def get_profile(request):
         }
         return JsonResponse(user_profile)
     except:
+        
         return HttpResponse("Get user failed!")
 
 
@@ -71,6 +72,8 @@ def set_profile(request):
         user.long_tax_rate = json_data.get("long_tax_rate")
         user.invest_horizon = json_data.get("investment_horizon")
         
+        
+        '''
         stocks = json_data.get("stocks")
         # require all stocks haven't been in DB.
         for k, v in stocks.items():
@@ -86,7 +89,8 @@ def set_profile(request):
                                         expect_return_rate=v["expect_return_rate"])
             stocks[k]["code"] = k
             stocks[k]["close_price"] = close_price
-        
+        '''
+        stocks = {}
         user_profile = {
             "user_id": u_id,
             "user_name": user.user_name,
@@ -95,12 +99,13 @@ def set_profile(request):
             "investment_horizon": user.invest_horizon,
             "stocks": stocks
         }
-        
+        user.save()
         return JsonResponse(previous_profile)
     except:
         return HttpResponse("Set failed!")
 
 
+def compute_return():
 
 def stock_detail(request):
     #return blank dict
@@ -117,8 +122,11 @@ def stock_detail(request):
     
     # wait...
     
+    
+    
     stock_info = {
-        
+        "":,
+        "":,
     }
 
     
@@ -142,6 +150,28 @@ def delete_stock(request):
     except:
         return HttpResponse("Deleting failed!")
 
+def set_stock(request):
+    try:
+        if request.method == 'POST':
+            data = request.body.decode("utf-8")
+            json_data = json.loads(data)
+        else:
+            raise Exception()
+            
+        u_id = json_data.get("id")
+        s_code = json_data.get("s_code")
+        user = Userprofile.objects.get(user_id=u_id)
+        modified_stock = user.stocks.get(code=s_code)
+        modified_stock.purchase_date = json_data.get("purchase_date")
+        modified_stock.purchase_price = json_data.get("purchase_price")
+        modified_stock.target_price = json_data.get("target_price")
+        modified_stock.expect_return_rate = json_data.get("expect_return_rate")
+        modified_stock.save()
+        
+        return HttpResponse("Setting Stock Succeeded!")
+    except:
+        return HttpResponse("Setting Stock failed!")
+    
 def add_new_stock(request):
     try:        
         if request.method == 'POST':
@@ -172,7 +202,7 @@ def google_login(request):
         try:
             raw_data = request.body.decode("utf-8") # assume: send by json 
             json_data = json.loads(raw_data)
-            token = json_data.get("access_token")
+            token = json_data.get("id_token")
             #token = request.data.get("id_token")
             # Specify the CLIENT_ID of the app that accesses the backend:
             idinfo = id_token.verify_oauth2_token(token, grequests.Request(), "MY CLIENT ID")

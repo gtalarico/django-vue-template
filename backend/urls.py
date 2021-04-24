@@ -32,6 +32,8 @@ urlpatterns = [
     
     path('profile/add_stock/', add_new_stock),
     
+    path('profile/set_stock/', set_stock),
+    
     path('profile/delete/', delete_stock),
     
     path('profile/stock_detail/', stock_detail), #id, s_code
