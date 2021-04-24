@@ -97,7 +97,7 @@ def set_profile(request):
             "investment_horizon": user.invest_horizon,
             "stocks": stocks
         }
-        
+        user.save()
         return JsonResponse(previous_profile)
     except:
         return HttpResponse("Set failed!")
