@@ -160,6 +160,7 @@ export default {
               message: "The Stock has been reset!",
               type: "success",
             });
+            this.$router.push("/home/stocktrack");
           } else {
             this.$message({
               message: "something went wrong...",

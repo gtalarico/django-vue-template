@@ -58,6 +58,7 @@ export default {
     };
   },
   created() {},
+  inject: ["reload"],
   mounted() {
     axios
       .post("/profile/", {
@@ -92,6 +93,7 @@ export default {
       });
     },
     handleDelete(index, row) {
+      let self = this;
       let stock_code, user_id;
       stock_code = this.stockData[index].code;
       user_id = getStore("user").user_id;
@@ -106,13 +108,12 @@ export default {
               message: "The stock has been deleted",
               type: "success",
             });
-            this.$router.push("/home/stocktrack");
+            self.reload();
           } else {
             this.$message({
               message: "Something went wrong...",
               type: "error",
             });
-            this.$router.push("/home/stocktrack");
           }
         })
         .catch((err) => {
@@ -120,7 +121,6 @@ export default {
             message: "Something went wrong...",
             type: "error",
           });
-          this.$router.push("/home/stocktrack");
         });
     },
     set_cell_style(row, column, rowIndex, columnIndex) {

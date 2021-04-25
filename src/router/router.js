@@ -20,6 +20,7 @@ let baseRoutes = [
     path: '/home',
     name: 'Home',
     component: Home,
+    redirect: '/home/stocktrack',
     children: [
       {
         path: 'stocktrack',

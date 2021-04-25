@@ -54,6 +54,7 @@ export default {
               message: "You have added the stock! Good luck!",
               type: "success",
             });
+            this.$router.push("/home/stocktrack/");
           } else {
             this.$message({
               message: "something wrong when trying to add the stock...",
