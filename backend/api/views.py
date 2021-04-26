@@ -12,12 +12,22 @@ import json
 from datetime import datetime as pydate
 import datetime
 
-from .models import Message, MessageSerializer #, Userprofile, Stock
-from .test_models import Userprofile, Stock
+from .models import Message, MessageSerializer
+# from .models import Userprofile, Stock
+import importlib
 
+backend_models = importlib.import_module(".models", package="backend.api")
+Userprofile = backend_models.Userprofile
 
 # Serve Vue Application
 index_view = never_cache(TemplateView.as_view(template_name='index.html')) # pragma: no cover
+
+
+def import_test_models():
+    global Userprofile
+    backend_test_models = importlib.import_module(".test_models", package="backend.api")
+    Userprofile = backend_test_models.Userprofile
+    # print(Userprofile)
 
 
 class MessageViewSet(viewsets.ModelViewSet): # pragma: no cover
@@ -30,18 +40,16 @@ class MessageViewSet(viewsets.ModelViewSet): # pragma: no cover
 
 def get_profile(request):
     #include stock info
+    # print("Userprofile", Userprofile)
     try:
         data = request.body.decode("utf-8")
         json_data = json.loads(data)
-
         # print("json_data", json_data)
 
         u_id = json_data.get("id")
-
         # print("u_id", u_id)
 
         user = Userprofile.objects.get(user_id=u_id)
-
         # print("user", user)
 
         stocks = {}
@@ -64,7 +72,7 @@ def get_profile(request):
             "investment_horizon": user.invest_horizon,
             "stocks": stocks
         }
-        return user_profile # JsonResponse(user_profile)
+        return JsonResponse(user_profile) # user_profile #
     except Exception as e:
         print(e)
         return HttpResponse("Get user failed!")
@@ -114,7 +122,7 @@ def set_profile(request):
         }
         # print("user_profile in", user_profile)
         user.save()
-        return user_profile # JsonResponse(user_profile)
+        return JsonResponse(user_profile) # user_profile #
     except:
         return HttpResponse("Set failed!")
 

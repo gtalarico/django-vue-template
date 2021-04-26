@@ -10,10 +10,13 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.settings.dev')
 django.setup()
 
 import json
+
+from backend.api.views import import_test_models
 from backend.api.views import get_profile, set_profile, delete_stock, set_stock
 from backend.api.views import add_new_stock, google_login, google_logout
-
 from backend.api.test_models import USER1, USER2, STOCK1
+from backend.api.test_models import Userprofile, Stock
+
 
 def json_convert(input_dict):
     str_json = json.dumps(input_dict, indent=2)
@@ -40,8 +43,9 @@ class UserTestCase(TestCase):
 
         # request = Virtual_request(user={"email": "zhangsan@tamu.edu", })
         user_profile = get_profile(request)
-        # print("user_profile", user_profile)
-        self.assertEqual(user_profile, USER1.user_profile())
+        user_profile_json = json.loads(user_profile.content)
+
+        self.assertEqual(user_profile_json, USER1.user_profile())
 
     def test_set_profile(self):
 
@@ -50,9 +54,10 @@ class UserTestCase(TestCase):
                                   body=json_convert(USER1.user_request()))
 
         user_profile = set_profile(request)
-        user_profile.pop("state")
+        user_profile_json = json.loads(user_profile.content)
+        user_profile_json.pop("state")
         # print("user_profile", user_profile)
-        self.assertEqual(user_profile, USER1.user_profile())
+        self.assertEqual(user_profile_json, USER1.user_profile())
 
     def test_delete_stock(self):
 
@@ -79,7 +84,9 @@ class UserTestCase(TestCase):
     #     add_new_stock(request)
 
 
+
 if __name__ == '__main__':
+    import_test_models()
     unittest.main()
     # test_suite = unittest.TestSuite()
     # test_suite.addTest(unittest.makeSuite(UserTestCase))
