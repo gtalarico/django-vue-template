@@ -1,4 +1,4 @@
-from django.views.generic import TemplateView 
+from django.views.generic import TemplateView
 from django.views.decorators.cache import never_cache
 from django.http import JsonResponse, HttpResponse
 from rest_framework import viewsets
@@ -18,6 +18,7 @@ import importlib
 
 backend_models = importlib.import_module(".models", package="backend.api")
 Userprofile = backend_models.Userprofile
+
 
 # Serve Vue Application
 index_view = never_cache(TemplateView.as_view(template_name='index.html')) # pragma: no cover
@@ -40,18 +41,11 @@ class MessageViewSet(viewsets.ModelViewSet): # pragma: no cover
 
 def get_profile(request):
     #include stock info
-    # print("Userprofile", Userprofile)
     try:
         data = request.body.decode("utf-8")
         json_data = json.loads(data)
-        # print("json_data", json_data)
-
         u_id = json_data.get("id")
-        # print("u_id", u_id)
-
         user = Userprofile.objects.get(user_id=u_id)
-        # print("user", user)
-
         stocks = {}
         for s in user.stocks.all():
             close_price =  yf.Ticker(s.code).history(period='1d')["Close"][0]
@@ -63,7 +57,7 @@ def get_profile(request):
                 "target_price": s.target_price,
                 "expect_return_rate": s.expect_return_rate 
             }
-
+        
         user_profile = {
             "user_id": u_id,
             "user_name": user.user_name,
@@ -72,26 +66,26 @@ def get_profile(request):
             "investment_horizon": user.invest_horizon,
             "stocks": stocks
         }
-        return JsonResponse(user_profile) # user_profile #
+        return JsonResponse(user_profile)
     except Exception as e:
         print(e)
         return HttpResponse("Get user failed!")
 
 
 def set_profile(request):
-
     try:
         if request.method == 'POST':
             data = request.body.decode("utf-8")
             json_data = json.loads(data)
         else:
             raise Exception()
-
+        
         u_id = json_data.get("id")
         user = Userprofile.objects.get(user_id=u_id)
         user.short_tax_rate = json_data.get("short_tax_rate")
         user.long_tax_rate = json_data.get("long_tax_rate")
         user.invest_horizon = json_data.get("investment_horizon")
+        
         
         '''
         stocks = json_data.get("stocks")
@@ -120,9 +114,8 @@ def set_profile(request):
             "investment_horizon": user.invest_horizon,
             "stocks": stocks
         }
-        # print("user_profile in", user_profile)
         user.save()
-        return JsonResponse(user_profile) # user_profile #
+        return JsonResponse(user_profile)
     except:
         return HttpResponse("Set failed!")
 
@@ -233,9 +226,7 @@ def add_new_stock(request): # pragma: no cover
         
         u_id = json_data.get("id")
         user = Userprofile.objects.get(user_id=u_id)
-        # print(user)
         for k,v in json_data.get("added_stocks").items():
-            # print(k,v)
             user.stocks.create( code=k,
                                 name=yf.Ticker(k).info["longName"],
                                 purchase_price=v["purchase_price"],
