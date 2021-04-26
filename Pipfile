@@ -11,9 +11,9 @@ whitenoise = "==4.0"
 dj-database-url = "*"
 psycopg2-binary = "*"
 yfinance = "*"
-google = "*"
+google-oauth2-tool = "*"
 
 [dev-packages]
 
 [requires]
-python_version = "3.6"
+python_version = "3.7"
