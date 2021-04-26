@@ -12,6 +12,7 @@ dj-database-url = "*"
 psycopg2-binary = "*"
 yfinance = "*"
 google-oauth2-tool = "*"
+django-cors-headers = "*"
 
 [dev-packages]
 
