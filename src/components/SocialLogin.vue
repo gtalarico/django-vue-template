@@ -35,6 +35,7 @@
 
 <script>
 import router from "@/router/router";
+import axios from "axios";
 export default {
   name: "login_signup_social",
   mounted() {},
@@ -44,16 +45,32 @@ export default {
         .signIn()
         .then((GoogleUser) => {
           // on success do something
-          console.log("GoogleUser", GoogleUser);
-          console.log("getId", GoogleUser.getId());
-          console.log("getBasicProfile", GoogleUser.getBasicProfile());
-          console.log("getAuthResponse", GoogleUser.getAuthResponse());
-          var userInfo = {
-            loginType: "google",
-            google: GoogleUser,
-          };
-          this.$store.commit("setLoginUser", userInfo);
-          router.push("/home");
+          // console.log("GoogleUser", GoogleUser);
+          // console.log("getId", GoogleUser.getId());
+          // console.log("getBasicProfile", GoogleUser.getBasicProfile());
+          // console.log("getAuthResponse", GoogleUser.getAuthResponse());
+          var id_token = GoogleUser.getAuthResponse().id_token;
+          axios
+            .post("/login/", {
+              id_token: id_token,
+            })
+            .then((res) => {
+              console.log(res);
+              var profile = GoogleUser.getBasicProfile();
+              var userInfo = {
+                id: profile.getId(),
+                name: profile.getName(),
+                imageUrl: profile.getImageUrl(),
+                email: profile.getEmail(),
+                auth: GoogleUser.getAuthResponse(),
+                user_id: res.data.user_id,
+              };
+              this.$store.commit("setLoginUser", userInfo);
+              router.push("/home");
+            })
+            .catch((err) => {
+              console.error(err);
+            });
         })
         .catch((error) => {
           console.log("error", error);

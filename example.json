@@ -1,0 +1,40 @@
+{
+    "short_tax_rate": 0.5,
+    "long_tax_rate": 0.01,
+    "stocks":[
+        "APPL",
+        "TSLA",
+        "NIO"
+    ], //Code of stocks
+}
+// Json of Profile
+
+{
+    "name": "Apple",
+    "price": 123,
+    "change": 2.1,
+    "total_change": -3.1,
+    "capital": 1230,
+    "profit": -31,
+    "target": 140,
+    "horizon": 1000, //From a certain date.
+    "alert": "P1ending"
+}
+// Json of stock info
+
+{
+    "stocks":[
+        {
+            "name": "Apple",
+            "price": 123,
+            "change": 2.1,
+            "total_change": -3.1,
+            "capital": 1230,
+            "profit": -31,
+            "target": 140,
+            "horizon": 1000, //From a certain date.
+            "alert": "P1ending"
+        },
+    ]
+}
+//parts of returned json
