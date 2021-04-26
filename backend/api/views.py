@@ -289,7 +289,7 @@ def google_login(request): # pragma: no cover
         except ValueError:
             # Invalid token
             # 失败原因，state。
-            return JsonResponse({"state": False})
+            return JsonResponse({"state": False}, )
             pass
 
 def google_logout(request): # pragma: no cover
