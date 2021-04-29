@@ -97,7 +97,7 @@ export default {
           }
         })
         .catch((err) => {
-          console.error(err);
+          // console.error(err);
           this.$message({
             message: "Something went wrong...",
             type: "error",
@@ -121,7 +121,7 @@ export default {
         this.form.investment_horizon = res.data.investment_horizon;
       })
       .catch((err) => {
-        console.error(err);
+        // console.error(err);
       });
   },
 };

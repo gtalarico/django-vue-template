@@ -129,7 +129,7 @@ export default {
       user_id = getStore("user").user_id;
       router.push({
         name: "StockDetails",
-        query: { stock_code: stock_code, user_id: user_id },
+        param: { stock_code: stock_code, user_id: user_id },
       });
     },
     handleDelete(index, row) {
