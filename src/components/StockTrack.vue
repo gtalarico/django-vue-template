@@ -8,7 +8,7 @@
       style="width: 100%"
       :default-sort="{ prop: 'stock_code', order: 'ascending' }"
     >
-      <el-table-column prop="name" label="Name"></el-table-column>
+      <el-table-column prop="code" label="Code"></el-table-column>
       <el-table-column prop="purchase_date" label="Purchase Date" sortable>
       </el-table-column>
       <el-table-column prop="close_price" label="Close Price ($)" sortable>
@@ -82,7 +82,7 @@ export default {
         let data = [];
         for (let key in res.data.stocks) {
           var stock = res.data.stocks[key];
-          stock["name"] = key;
+          stock["code"] = key;
           stock["close_price"] = stock["close_price"].toFixed(2);
           stock["purchase_price"] = stock["purchase_price"].toFixed(2);
           stock["target_price"] = stock["target_price"].toFixed(2);
@@ -98,21 +98,19 @@ export default {
     exportExcel() {
       try {
         const $e = this.$refs["stockTable"].$el;
-        // 如果表格加了fixed属性，则导出的文件会生产两份一样的数据，所以可在这里判断一下
         let $table = $e.querySelector(".el-table__fixed");
         if (!$table) {
           $table = $e;
         }
-        // 为了返回单元格原始字符串，设置{ raw: true }
         const wb = XLSX.utils.table_to_book($table, { raw: true });
         const wbout = XLSX.write(wb, {
-          bookType: "xlsx",
+          bookType: "csv",
           bookSST: true,
           type: "array",
         });
         FileSaver.saveAs(
           new Blob([wbout], { type: "application/octet-stream" }),
-          "stocks.xlsx"
+          "stocks.csv"
         );
       } catch (e) {
         if (typeof console !== "undefined") console.error(e);
