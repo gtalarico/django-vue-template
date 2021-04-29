@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-table :data="tableData" style="width: 100%">
+    <el-table :data="tableData" style="width: 100%" v-loading="loading">
       <el-table-column prop="code" label="Stock Code"> </el-table-column>
       <el-table-column prop="purchase_price" label="Purchase Price">
       </el-table-column>
@@ -130,13 +130,15 @@ export default {
           expect_return_rate: stock.expect_return_rate,
         };
       });
+      this.loading = true;
       axios
         .post("/profile/add_stock/", {
           id: getStore("user").user_id,
           added_stocks,
         })
         .then((res) => {
-          console.log(res);
+          // console.log(res);
+          loading = false;
           if (res.data == "Adding Succeeded!") {
             this.$message({
               message: "You have added the stock! Good luck!",
@@ -151,7 +153,8 @@ export default {
           }
         })
         .catch((err) => {
-          console.error(err);
+          this.loading = false;
+          // console.error(err);
           this.$message({
             message: "something went wrong when trying to add the stock...",
             type: "error",
@@ -225,6 +228,7 @@ export default {
       tableData: [],
       dialogAddVisible: false,
       dialogUploadVisible: false,
+      loading: false,
     };
   },
 };

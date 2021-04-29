@@ -1,5 +1,11 @@
 <template>
-  <el-form :model="form" ref="form" class="demo-form" label-position="left">
+  <el-form
+    :model="form"
+    ref="form"
+    class="demo-form"
+    label-position="left"
+    v-loading="loading"
+  >
     <el-form-item label="Name" prop="name" label-width="50px" class="item_name">
       <el-input
         v-model="form.name"
@@ -62,10 +68,12 @@ export default {
         long_tax_rate: "",
         investment_horizon: "",
       },
+      loading: true,
     };
   },
   methods: {
     Save() {
+      this.loading = true;
       axios
         .post("/profile/set/", {
           id: getStore("user").user_id,
@@ -74,7 +82,8 @@ export default {
           investment_horizon: this.form.investment_horizon,
         })
         .then((res) => {
-          console.log(res);
+          this.loading = false;
+          // console.log(res);
           if (res.data.state == "success") {
             this.$message({
               message: "Your profile has been updated!",
@@ -102,6 +111,7 @@ export default {
         id: getStore("user").user_id,
       })
       .then((res) => {
+        this.loading = false;
         // this.form = res.data;
         // console.log(res);
         this.form.name = getStore("user").name;

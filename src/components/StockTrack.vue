@@ -7,6 +7,7 @@
       :cell-style="set_cell_style"
       style="width: 100%"
       :default-sort="{ prop: 'stock_code', order: 'ascending' }"
+      v-loading="loading"
     >
       <el-table-column prop="code" label="Code"></el-table-column>
       <el-table-column prop="purchase_date" label="Purchase Date" sortable>
@@ -36,7 +37,7 @@
         <template slot-scope="scope">
           <el-button
             type="primary"
-            icon="el-icon-edit"
+            icon="el-icon-view"
             circle
             @click="handleDetails(scope.$index, scope.row)"
           ></el-button>
@@ -50,7 +51,10 @@
       </el-table-column>
     </el-table>
     <div class="export">
-      <el-button type="primary" @click="exportExcel()"
+      <el-button
+        type="primary"
+        @click="exportExcel()"
+        style="margin-top: 30px; margin-right: 10px; float: right"
         >Export<i class="el-icon-download el-icon--right"></i
       ></el-button>
     </div>
@@ -68,6 +72,7 @@ export default {
   data() {
     return {
       stockData: [],
+      loading: true,
     };
   },
   created() {},
@@ -89,6 +94,7 @@ export default {
           data.push(stock);
         }
         this.stockData = data;
+        this.loading = false;
       })
       .catch((err) => {
         // console.error(err);
