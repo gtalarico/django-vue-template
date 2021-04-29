@@ -223,7 +223,6 @@ def add_new_stock(request): # pragma: no cover
         if request.method == 'POST':
             data = request.body.decode("utf-8")
             json_data = json.loads(data)
-        
         u_id = json_data.get("id")
         user = Userprofile.objects.get(user_id=u_id)
         for k,v in json_data.get("added_stocks").items():

@@ -1,60 +1,78 @@
 <template>
-  <el-table
-    :data="stockData"
-    stripe
-    :cell-style="set_cell_style"
-    style="width: 100%"
-    :default-sort="{ prop: 'stock_code', order: 'ascending' }"
-  >
-    <el-table-column prop="name" label="Name"></el-table-column>
-    <el-table-column prop="purchase_date" label="Purchase Date" sortable>
-    </el-table-column>
-    <el-table-column prop="close_price" label="Close Price ($)" sortable>
-    </el-table-column>
-    <el-table-column prop="purchase_price" label="Purchase Price ($)" sortable>
-    </el-table-column>
-    <el-table-column
-      prop="target_price"
-      label="Target Price ($)"
-      class="target_price"
-      sortable
+  <div>
+    <el-table
+      ref="stockTable"
+      :data="stockData"
+      stripe
+      :cell-style="set_cell_style"
+      style="width: 100%"
+      :default-sort="{ prop: 'stock_code', order: 'ascending' }"
+      v-loading="loading"
     >
-    </el-table-column>
-    <el-table-column
-      prop="expect_return_rate"
-      label="Expect Return Rate"
-      sortable
-    >
-    </el-table-column>
-    <el-table-column label="Action">
-      <template slot-scope="scope">
-        <el-button
-          type="primary"
-          icon="el-icon-edit"
-          circle
-          @click="handleDetails(scope.$index, scope.row)"
-        ></el-button>
-        <el-button
-          icon="el-icon-delete"
-          type="danger"
-          circle
-          @click="handleDelete(scope.$index, scope.row)"
-        ></el-button>
-      </template>
-    </el-table-column>
-  </el-table>
+      <el-table-column prop="code" label="Code"></el-table-column>
+      <el-table-column prop="purchase_date" label="Purchase Date" sortable>
+      </el-table-column>
+      <el-table-column prop="close_price" label="Close Price ($)" sortable>
+      </el-table-column>
+      <el-table-column
+        prop="purchase_price"
+        label="Purchase Price ($)"
+        sortable
+      >
+      </el-table-column>
+      <el-table-column
+        prop="target_price"
+        label="Target Price ($)"
+        class="target_price"
+        sortable
+      >
+      </el-table-column>
+      <el-table-column
+        prop="expect_return_rate"
+        label="Expect Return Rate"
+        sortable
+      >
+      </el-table-column>
+      <el-table-column label="Action">
+        <template slot-scope="scope">
+          <el-button
+            type="primary"
+            icon="el-icon-view"
+            circle
+            @click="handleDetails(scope.$index, scope.row)"
+          ></el-button>
+          <el-button
+            icon="el-icon-delete"
+            type="danger"
+            circle
+            @click="handleDelete(scope.$index, scope.row)"
+          ></el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+    <div class="export">
+      <el-button
+        type="primary"
+        @click="exportExcel()"
+        style="margin-top: 30px; margin-right: 10px; float: right"
+        >Export<i class="el-icon-download el-icon--right"></i
+      ></el-button>
+    </div>
+  </div>
 </template>
 
 <script>
 import axios from "axios";
 import { getStore } from "@/config/utils";
 import router from "@/router/router";
-
+import FileSaver from "file-saver";
+import XLSX from "xlsx";
 export default {
   name: "stocktrack",
   data() {
     return {
       stockData: [],
+      loading: true,
     };
   },
   created() {},
@@ -69,19 +87,41 @@ export default {
         let data = [];
         for (let key in res.data.stocks) {
           var stock = res.data.stocks[key];
-          stock["name"] = key;
+          stock["code"] = key;
           stock["close_price"] = stock["close_price"].toFixed(2);
           stock["purchase_price"] = stock["purchase_price"].toFixed(2);
           stock["target_price"] = stock["target_price"].toFixed(2);
           data.push(stock);
         }
         this.stockData = data;
+        this.loading = false;
       })
       .catch((err) => {
         // console.error(err);
       });
   },
   methods: {
+    exportExcel() {
+      try {
+        const $e = this.$refs["stockTable"].$el;
+        let $table = $e.querySelector(".el-table__fixed");
+        if (!$table) {
+          $table = $e;
+        }
+        const wb = XLSX.utils.table_to_book($table, { raw: true });
+        const wbout = XLSX.write(wb, {
+          bookType: "csv",
+          bookSST: true,
+          type: "array",
+        });
+        FileSaver.saveAs(
+          new Blob([wbout], { type: "application/octet-stream" }),
+          "stocks.csv"
+        );
+      } catch (e) {
+        if (typeof console !== "undefined") console.error(e);
+      }
+    },
     handleDetails(index, row) {
       console.log(index, row);
       let stock_code, user_id;
@@ -89,7 +129,7 @@ export default {
       user_id = getStore("user").user_id;
       router.push({
         name: "StockDetails",
-        query: { stock_code: stock_code, user_id: user_id },
+        param: { stock_code: stock_code, user_id: user_id },
       });
     },
     handleDelete(index, row) {
@@ -154,4 +194,7 @@ export default {
 <style lang="sass" scoped>
 .el-table .target_price
   background: oldlace
+
+.export
+  padding-top: 10px
 </style>
