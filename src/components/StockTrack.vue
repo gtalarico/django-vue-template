@@ -1,55 +1,68 @@
 <template>
-  <el-table
-    :data="stockData"
-    stripe
-    :cell-style="set_cell_style"
-    style="width: 100%"
-    :default-sort="{ prop: 'stock_code', order: 'ascending' }"
-  >
-    <el-table-column prop="name" label="Name"></el-table-column>
-    <el-table-column prop="purchase_date" label="Purchase Date" sortable>
-    </el-table-column>
-    <el-table-column prop="close_price" label="Close Price ($)" sortable>
-    </el-table-column>
-    <el-table-column prop="purchase_price" label="Purchase Price ($)" sortable>
-    </el-table-column>
-    <el-table-column
-      prop="target_price"
-      label="Target Price ($)"
-      class="target_price"
-      sortable
+  <div>
+    <el-table
+      ref="stockTable"
+      :data="stockData"
+      stripe
+      :cell-style="set_cell_style"
+      style="width: 100%"
+      :default-sort="{ prop: 'stock_code', order: 'ascending' }"
     >
-    </el-table-column>
-    <el-table-column
-      prop="expect_return_rate"
-      label="Expect Return Rate"
-      sortable
-    >
-    </el-table-column>
-    <el-table-column label="Action">
-      <template slot-scope="scope">
-        <el-button
-          type="primary"
-          icon="el-icon-edit"
-          circle
-          @click="handleDetails(scope.$index, scope.row)"
-        ></el-button>
-        <el-button
-          icon="el-icon-delete"
-          type="danger"
-          circle
-          @click="handleDelete(scope.$index, scope.row)"
-        ></el-button>
-      </template>
-    </el-table-column>
-  </el-table>
+      <el-table-column prop="name" label="Name"></el-table-column>
+      <el-table-column prop="purchase_date" label="Purchase Date" sortable>
+      </el-table-column>
+      <el-table-column prop="close_price" label="Close Price ($)" sortable>
+      </el-table-column>
+      <el-table-column
+        prop="purchase_price"
+        label="Purchase Price ($)"
+        sortable
+      >
+      </el-table-column>
+      <el-table-column
+        prop="target_price"
+        label="Target Price ($)"
+        class="target_price"
+        sortable
+      >
+      </el-table-column>
+      <el-table-column
+        prop="expect_return_rate"
+        label="Expect Return Rate"
+        sortable
+      >
+      </el-table-column>
+      <el-table-column label="Action">
+        <template slot-scope="scope">
+          <el-button
+            type="primary"
+            icon="el-icon-edit"
+            circle
+            @click="handleDetails(scope.$index, scope.row)"
+          ></el-button>
+          <el-button
+            icon="el-icon-delete"
+            type="danger"
+            circle
+            @click="handleDelete(scope.$index, scope.row)"
+          ></el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+    <div class="export">
+      <el-button type="primary" @click="exportExcel()"
+        >Export<i class="el-icon-download el-icon--right"></i
+      ></el-button>
+    </div>
+  </div>
 </template>
 
 <script>
 import axios from "axios";
 import { getStore } from "@/config/utils";
 import router from "@/router/router";
-
+import FileSaver from "file-saver";
+import XLSX from "xlsx";
 export default {
   name: "stocktrack",
   data() {
@@ -82,6 +95,29 @@ export default {
       });
   },
   methods: {
+    exportExcel() {
+      try {
+        const $e = this.$refs["stockTable"].$el;
+        // 如果表格加了fixed属性，则导出的文件会生产两份一样的数据，所以可在这里判断一下
+        let $table = $e.querySelector(".el-table__fixed");
+        if (!$table) {
+          $table = $e;
+        }
+        // 为了返回单元格原始字符串，设置{ raw: true }
+        const wb = XLSX.utils.table_to_book($table, { raw: true });
+        const wbout = XLSX.write(wb, {
+          bookType: "xlsx",
+          bookSST: true,
+          type: "array",
+        });
+        FileSaver.saveAs(
+          new Blob([wbout], { type: "application/octet-stream" }),
+          "stocks.xlsx"
+        );
+      } catch (e) {
+        if (typeof console !== "undefined") console.error(e);
+      }
+    },
     handleDetails(index, row) {
       console.log(index, row);
       let stock_code, user_id;
@@ -154,4 +190,7 @@ export default {
 <style lang="sass" scoped>
 .el-table .target_price
   background: oldlace
+
+.export
+  padding-top: 10px
 </style>
