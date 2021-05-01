@@ -93,6 +93,11 @@ def set_profile(request):
         user.login_notify = 1.0 if json_data.get("login_notification") else 0.0
         user.sell_notify = 1.0 if json_data.get("sell_notification") else 0.0
         
+        #reset send tag
+        for s in user.stocks.all():
+            s._sended = 0.0
+            s.save()
+        
         stocks = {}
         user_profile = {
             "state": 'success',
@@ -139,7 +144,6 @@ def stock_detail(request): # pragma: no cover
     ps = yf_stock.history(period='1d')["Close"][0]
     hs = ((timezone.now() - purchase_date).days) / 365     # in year
     left_horizon = full_horizon - hs if (full_horizon - hs) > 0 else 0
-    # wait...
     
     close_date = yf_stock.history(period='1d').index[0].isoformat()[:10]
     stock_info = {
