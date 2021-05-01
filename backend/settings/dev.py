@@ -194,6 +194,6 @@ EMAIL_PORT = 587
 
 
 CRONJOBS = [
-    ('*/1 * * * *', 'backend.api.cron.my_task', '>>./test.txt')
+    ('*/1 * * * *', 'backend.settings.corn.my_task', '>>./test.txt')
 ]
  
