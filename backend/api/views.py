@@ -12,14 +12,26 @@ import json
 from datetime import datetime as pydate
 import datetime
 
-from .models import Message, MessageSerializer, Userprofile, Stock
+from .models import Message, MessageSerializer
+# from .models import Userprofile, Stock
+import importlib
+
+backend_models = importlib.import_module(".models", package="backend.api")
+Userprofile = backend_models.Userprofile
 
 
 # Serve Vue Application
-index_view = never_cache(TemplateView.as_view(template_name='index.html'))
+index_view = never_cache(TemplateView.as_view(template_name='index.html')) # pragma: no cover
 
 
-class MessageViewSet(viewsets.ModelViewSet):
+def import_test_models():
+    global Userprofile
+    backend_test_models = importlib.import_module(".test_models", package="backend.api")
+    Userprofile = backend_test_models.Userprofile
+    # print(Userprofile)
+
+
+class MessageViewSet(viewsets.ModelViewSet): # pragma: no cover
     """
     API endpoint that allows messages to be viewed or edited.
     """
@@ -55,8 +67,8 @@ def get_profile(request):
             "stocks": stocks
         }
         return JsonResponse(user_profile)
-    except:
-        
+    except Exception as e:
+        print(e)
         return HttpResponse("Get user failed!")
 
 
@@ -94,6 +106,7 @@ def set_profile(request):
         '''
         stocks = {}
         user_profile = {
+            "state": 'success',
             "user_id": u_id,
             "user_name": user.user_name,
             "short_tax_rate": user.short_tax_rate,
@@ -107,13 +120,13 @@ def set_profile(request):
         return HttpResponse("Set failed!")
 
 
-def compute_return(ts, tl, p0, pl, ps, r):
+def compute_return(ts, tl, p0, pl, ps, r): # pragma: no cover
     # wait    
     return 2.0
 
     
 
-def stock_detail(request):
+def stock_detail(request): # pragma: no cover
     
     def compute_short_return():    
         #wait
@@ -131,7 +144,10 @@ def stock_detail(request):
     user = Userprofile.objects.get(user_id=u_id)
     stock = user.stocks.get(code=s_code)
     yf_stock = yf.Ticker(s_code)
-    
+
+    # import pdb
+    # pdb.set_trace()
+
     purchase_date = stock.purchase_date
     full_horizon = user.invest_horizon
     p0 = stock.purchase_price 
@@ -160,9 +176,7 @@ def stock_detail(request):
         "short_return": a_s,
         "long_return": a_l,
     }
-
-    
-    return JsonResponse(sotck_info)
+    return JsonResponse(stock_info)
 
 def delete_stock(request):
     try:
@@ -204,15 +218,13 @@ def set_stock(request):
     except:
         return HttpResponse("Setting Stock failed!")
     
-def add_new_stock(request):
+def add_new_stock(request): # pragma: no cover
     try:        
         if request.method == 'POST':
             data = request.body.decode("utf-8")
             json_data = json.loads(data)
-        
         u_id = json_data.get("id")
         user = Userprofile.objects.get(user_id=u_id)
-        
         for k,v in json_data.get("added_stocks").items():
             user.stocks.create( code=k,
                                 name=yf.Ticker(k).info["longName"],
@@ -226,15 +238,16 @@ def add_new_stock(request):
         return HttpResponse("Adding failed!")
 
 
-def google_login(request): 
+def google_login(request): # pragma: no cover
     if request.method == "POST":
         try:
             raw_data = request.body.decode("utf-8") # assume: send by json 
             json_data = json.loads(raw_data)
-            token = json_data.get("id_token")
-            #token = request.data.get("id_token")
-            # Specify the CLIENT_ID of the app that accesses the backend:
-            idinfo = id_token.verify_oauth2_token(token, grequests.Request(), "MY CLIENT ID")
+            token = json_data.get('id_token')
+            #token = json_data.get("access_token")
+            # token = request.data.get("id_token")
+            # # Specify the CLIENT_ID of the app that accesses the backend:
+            idinfo = id_token.verify_oauth2_token(token, grequests.Request(), "1052465622185-hl3qvsb6o5j432c95bb9fritksuuq4vh.apps.googleusercontent.com")
             user_id = idinfo['sub']
             '''
                 {
@@ -275,10 +288,10 @@ def google_login(request):
         except ValueError:
             # Invalid token
             # 失败原因，state。
-            return JsonResponse({"state": False})
+            return JsonResponse({"state": False}, )
             pass
 
-def google_logout(request):
+def google_logout(request): # pragma: no cover
     try:
         request.session.flush()
         return HttpResponse("You're logged out.")

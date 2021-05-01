@@ -1,27 +1,26 @@
 {
-    "name": "Django VueJs Template",
-    "description": "",
-    "repository": "https://github.com/gtalarico/django-vue-template",
-    "keywords": ["django", "vue", "vuejs", "template", "django rest framework"],
-    "env": {
-      "DJANGO_SETTINGS_MODULE": {
-        "description": "Set Django Settings to Production",
-        "value": "backend.settings.prod"
-      }
-     },
-     "engines": {
-        "yarn": "1.4.0",
-        "npm": "6.2.0"
-     },
-    "addons": [
+  "name": "Django VueJs Template",
+  "description": "none",
+  "repository": "https://github.com/gtalarico/django-vue-template",
+  "keywords": ["django", "vue", "vuejs", "template", "django rest framework"],
+  "env": {
+    "DJANGO_SETTINGS_MODULE": {
+      "description": "Set Django Settings to Production",
+      "value": "backend.settings.prod"
+    }
+  },
+  "engines": {
+    "yarn": "1.4.0",
+    "npm": "6.2.0"
+  },
+  "addons": [
 
-     ],
-     "buildpacks": [
-       {
-         "url": "heroku/nodejs"
-        },
-        {
-          "url": "heroku/python"
-        }
-    ]
-  }
+  ],
+  "buildpacks": [{
+      "url": "heroku/nodejs"
+    },
+    {
+      "url": "heroku/python"
+    }
+  ]
+}
