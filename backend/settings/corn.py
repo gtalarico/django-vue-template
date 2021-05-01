@@ -39,8 +39,6 @@ def my_task():
                 ps = yf_stock.history(period='1d')["Close"][0]
                 hs = ((timezone.now() - purchase_date).days) / 365     # in year
                 left_horizon = full_horizon - hs if (full_horizon - hs) > 0 else 0
-                a_s = compute_short_return()
-                a_l = compute_long_return()
                 close_date = yf_stock.history(period='1d').index[0].isoformat()[:10]
                 D = compute_D(tax_l, tax_s, pl, ps, p0, opp_r, left_horizon, hs)
                 if D < 0:
