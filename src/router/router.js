@@ -9,6 +9,7 @@ import Setting from '@/components/Setting'
 import StockTrack from '@/components/StockTrack'
 import StockDetails from '@/components/StockDetails'
 import AddStock from '@/components/AddStock'
+import Introduction from '@/components/Introduction'
 Vue.use(Router)
 
 let baseRoutes = [
@@ -46,6 +47,11 @@ let baseRoutes = [
         path: 'stockdetails',
         name: 'StockDetails',
         component: StockDetails
+      },
+      {
+        path: 'introduction',
+        name: 'Introduction',
+        component: Introduction
       }
     ]
   },

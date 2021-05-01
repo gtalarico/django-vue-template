@@ -59,9 +59,12 @@
         <div class="el-upload__text">
           Drag the file here, or <em>click to upload</em>
         </div>
-        <div class="el-upload__tip" slot="tip">Only .csv is allowed</div>
+        <div class="el-upload__tip" slot="tip">Only .CSV is allowed</div>
       </el-upload>
       <div slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="Template()" style="float: left"
+          >Template</el-button
+        >
         <el-button @click="dialogUploadVisible = false">Cancle</el-button>
         <el-button type="primary" @click="Upload()">Confirm</el-button>
       </div>
@@ -117,6 +120,7 @@ import axios from "axios";
 import { getStore } from "@/config/utils";
 import moment from "moment";
 import Papa from "papaparse";
+import XLSX from "xlsx";
 export default {
   name: "addstock",
   methods: {
@@ -213,6 +217,20 @@ export default {
     },
     Delete(index, row) {
       this.tableData.splice(index, 1);
+    },
+    Template() {
+      const worksheet = XLSX.utils.json_to_sheet([this.form]);
+      const csvOutput = XLSX.utils.sheet_to_csv(worksheet);
+      function s2ab(s) {
+        var buf = new ArrayBuffer(s.length);
+        var view = new Uint8Array(buf);
+        for (var i = 0; i != s.length; ++i) view[i] = s.charCodeAt(i) & 0xff;
+        return buf;
+      }
+      saveAs(
+        new Blob([s2ab(csvOutput)], { type: "application/octet-stream" }),
+        "Stock_template.csv"
+      );
     },
   },
   data() {

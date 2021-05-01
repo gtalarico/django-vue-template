@@ -38,16 +38,22 @@
         <el-input v-model="form.long_tax_rate"></el-input>
       </el-form-item>
     </el-form>
-
-    <el-form-item
-      label="Investment Horizon"
-      prop="investment_horizon"
-      label-width="140px"
-      style="width: 50%"
-    >
-      <el-input v-model="form.investment_horizon"></el-input>
-    </el-form-item>
-
+    <el-form :inline="true"
+      ><el-form-item label="Investment Horizon" prop="investment_horizon">
+        <el-input v-model="form.investment_horizon"></el-input>
+      </el-form-item>
+      <el-form-item label="Opportunity Cost" prop="opp_cost"
+        ><el-input v-model="form.opp_cost"></el-input
+      ></el-form-item>
+    </el-form>
+    <el-form :inline="true">
+      <el-form-item label="Login Notification"
+        ><el-switch v-model="form.login_notification"></el-switch
+      ></el-form-item>
+      <el-form-item label="Sell Notification"
+        ><el-switch v-model="form.sell_notication"></el-switch
+      ></el-form-item>
+    </el-form>
     <el-form-item>
       <el-button type="primary" @click="Save">Save</el-button>
     </el-form-item>
@@ -67,6 +73,9 @@ export default {
         short_tax_rate: "",
         long_tax_rate: "",
         investment_horizon: "",
+        opp_cost: "",
+        login_notification: "",
+        sell_notication: "",
       },
       loading: true,
     };
@@ -80,6 +89,9 @@ export default {
           short_tax_rate: this.form.short_tax_rate,
           long_tax_rate: this.form.long_tax_rate,
           investment_horizon: this.form.investment_horizon,
+          opp_cost: this.form.opp_cost,
+          login_notification: this.form.login_notification,
+          sell_notication: this.form.sell_notication,
         })
         .then((res) => {
           this.loading = false;
@@ -119,6 +131,9 @@ export default {
         this.form.short_tax_rate = res.data.short_tax_rate;
         this.form.long_tax_rate = res.data.long_tax_rate;
         this.form.investment_horizon = res.data.investment_horizon;
+        this.form.opp_cost = res.data.opp_cost;
+        this.form.login_notification = res.data.login_notification;
+        this.form.sell_notication = res.data.sell_notication;
       })
       .catch((err) => {
         // console.error(err);

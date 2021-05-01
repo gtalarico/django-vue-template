@@ -30,13 +30,13 @@
               <i class="el-icon-document"></i>
               <span slot="title">Profile</span>
             </el-menu-item>
-            <!-- <el-menu-item index="3" route="/home/setting">
-              <i class="el-icon-setting"></i>
-              <span slot="title">Settings</span>
-            </el-menu-item> -->
             <el-menu-item index="3" route="/home/addstock">
               <i class="el-icon-plus"></i>
               <span slot="title">Add stocks</span>
+            </el-menu-item>
+            <el-menu-item index="4" route="/home/introduction">
+              <i class="el-icon-chat-square"></i>
+              <span slot="title">Introduction</span>
             </el-menu-item>
           </el-menu>
         </el-row>
