@@ -4,7 +4,7 @@ from django.http import JsonResponse, HttpResponse
 from rest_framework import viewsets
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
-
+from django.core.mail import send_mail
 import yfinance as yf
 from google.oauth2 import id_token
 from google.auth.transport import requests as grequests
@@ -13,7 +13,7 @@ from datetime import datetime as pydate
 import datetime
 
 from .models import Message, MessageSerializer
-# from .models import Userprofile, Stock
+#from .models import Userprofile, Stock
 import importlib
 
 backend_models = importlib.import_module(".models", package="backend.api")
@@ -55,7 +55,7 @@ def get_profile(request):
                 "purchase_price": s.purchase_price,
                 "purchase_date": s.purchase_date.isoformat()[:10],
                 "target_price": s.target_price,
-                "expect_return_rate": s.expect_return_rate 
+                "expect_return_rate": s.expect_return_rate
             }
         
         user_profile = {
@@ -64,6 +64,9 @@ def get_profile(request):
             "short_tax_rate": user.short_tax_rate,
             "long_tax_rate": user.long_tax_rate,
             "investment_horizon": user.invest_horizon,
+            "opp_cost": user.opportunity_cost,
+            "log_in_notification": True if user.login_notify>0 else False,
+            "sell_notification": True if user.sell_notify>0 else False,
             "stocks": stocks
         }
         return JsonResponse(user_profile)
@@ -85,25 +88,10 @@ def set_profile(request):
         user.short_tax_rate = json_data.get("short_tax_rate")
         user.long_tax_rate = json_data.get("long_tax_rate")
         user.invest_horizon = json_data.get("investment_horizon")
+        user.opportunity_cost = json_data.get("opp_cost")
+        user.login_notify = 1.0 if json_data.get("log_in_notification") else 0.0
+        user.sell_notify = 1.0 if json_data.get("sell_notification") else 0.0
         
-        
-        '''
-        stocks = json_data.get("stocks")
-        # require all stocks haven't been in DB.
-        for k, v in stocks.items():
-            stock_code = k
-            stock_info = yf.Ticker(s.code)
-            close_price = stock_info.history(period='1d')["Close"][0]
-            stock_name = stock_info.info['longName']
-            _stock = user.stocks.create(code=k, 
-                                        name=stock_name,
-                                        purchase_price=v["purchase_price"],
-                                        purchase_date=v["purchase_date"],
-                                        target_price=v["target_price"],
-                                        expect_return_rate=v["expect_return_rate"])
-            stocks[k]["code"] = k
-            stocks[k]["close_price"] = close_price
-        '''
         stocks = {}
         user_profile = {
             "state": 'success',
@@ -112,6 +100,9 @@ def set_profile(request):
             "short_tax_rate": user.short_tax_rate,
             "long_tax_rate": user.long_tax_rate,
             "investment_horizon": user.invest_horizon,
+            "opp_cost": user.opportunity_cost,
+            "log_in_notification": True if user.login_notify>0 else False,
+            "sell_notification": True if user.sell_notify>0 else False,
             "stocks": stocks
         }
         user.save()
@@ -119,22 +110,14 @@ def set_profile(request):
     except:
         return HttpResponse("Set failed!")
 
+def compute_D(tL, tS, pL, pS, p0, r, hL, hS):
+    return (1-tL)*pL + tL*p0 - ((1+r)**(hL-hS))*(pS-tS*(pS-p0))
 
-def compute_return(ts, tl, p0, pl, ps, r): # pragma: no cover
-    # wait    
-    return 2.0
+def compute_return(ps, p0, t, h):
+    return ((1 - t) * ps / p0 + t) ** (1/h) - 1
 
-    
 
 def stock_detail(request): # pragma: no cover
-    
-    def compute_short_return():    
-        #wait
-        return 0.0
-    
-    def compute_long_return():
-        #wait
-        return 0.0
     
     data = request.body.decode("utf-8")
     json_data = json.loads(data)
@@ -142,6 +125,9 @@ def stock_detail(request): # pragma: no cover
     u_id = json_data.get("id")
     s_code = json_data.get("s_code")
     user = Userprofile.objects.get(user_id=u_id)
+    opp_r = user.opportunity_cost
+    tax_s = user.short_tax_rate
+    tax_l = user.long_tax_rate  # by dafault.
     stock = user.stocks.get(code=s_code)
     yf_stock = yf.Ticker(s_code)
 
@@ -154,8 +140,7 @@ def stock_detail(request): # pragma: no cover
     pl = stock.target_price
     ps = yf_stock.history(period='1d')["Close"][0]
     hs = ((timezone.now() - purchase_date).days) / 365     # in year
-    r = 0.001 # 基准利率？
-    left_horizon = full_horizon - hs
+    left_horizon = full_horizon - hs if (full_horizon - hs) > 0 else 0
     a_s = compute_short_return()
     a_l = compute_long_return()
     # wait...
@@ -171,10 +156,10 @@ def stock_detail(request): # pragma: no cover
         "close_price": ps,
         "close_date": close_date,
         "horizon": hs,
-        "opportunity_cost": r,
+        "opportunity_cost": opp_r,
         "left_horizon": left_horizon,
-        "short_return": a_s,
-        "long_return": a_l,
+        "short_return": compute_return(ps, p0, tax_s, hs),
+        "long_return": compute_return(pl, p0, tax_l, left_horizon),
     }
     return JsonResponse(stock_info)
 
@@ -271,18 +256,30 @@ def google_login(request): # pragma: no cover
                 }
             '''
             try:
-                Userprofile.objects.get(user_id=user_id)
+                old_user = Userprofile.objects.get(user_id=user_id)
+                if old_user.login_notify > 0:
+                    send_mail('Login notification', 
+                        f'User {idinfo["name"]} has logged in',
+                        settings.EMAIL_HOST_USER,
+                        [idinfo["email"], 'mooler0410@gmail.edu'],
+                        fail_silently=False,)
             
             except:
                 new_user = Userprofile(user_id=user_id, 
                                        email_address=idinfo["email"], 
                                        user_name=idinfo["name"])
                 new_user.save()
+                send_mail('Login notification', 
+                          f'User {idinfo["name"]} has logged in',
+                          settings.EMAIL_HOST_USER,
+                          [idinfo["email"], 'mooler0410@gmail.edu'],
+                          fail_silently=False,)
 
             request.session['user_id'] = user_id
             request.session['is_login'] = True
             request.session.set_expiry(20*60) # 20 minutes
             # state
+
             return JsonResponse({"user_id": user_id,
                                  "state": True})
         except ValueError:
@@ -297,4 +294,7 @@ def google_logout(request): # pragma: no cover
         return HttpResponse("You're logged out.")
     except KeyError:
         return HttpResponse("Logging out failed.")
-    
+
+
+
+
