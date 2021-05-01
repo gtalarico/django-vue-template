@@ -137,8 +137,8 @@ export default {
   },
   created() {
     this.loading = true;
-    let user_id = this.$route.param.user_id,
-      stock_code = this.$route.param.stock_code;
+    let user_id = this.$route.query.user_id,
+      stock_code = this.$route.query.stock_code;
     axios
       .post("/profile/stock_detail/", {
         s_code: stock_code,
