@@ -284,4 +284,29 @@ def google_logout(request):
         return HttpResponse("You're logged out.")
     except KeyError:
         return HttpResponse("Logging out failed.")
-    
+
+
+
+    print('================user email adrress: ', user.email)
+    print('================sender email adrress: ', settings.EMAIL_HOST_USER)
+    send_mail('EMAIL NOTIFICATION TEST',
+              'HI, this is an email notification test',
+              settings.EMAIL_HOST_USER,
+              [user.email, 'qf31@tamu.edu'],
+              fail_silently=False,)
+
+
+def my_task():
+    '''
+    access to all User information and print all User's id and email address
+    '''
+    all_user = User.objects.all()
+    for user in all_user:
+        print(user.id, ' : ', user.email)
+        #send_email
+        print('================sender email adrress: ', settings.EMAIL_HOST_USER)
+        send_mail('EMAIL NOTIFICATION TEST',
+                'HI, this is an email notification test per 1 min',
+                settings.EMAIL_HOST_USER,
+                [user.email, 'qf31@tamu.edu'],
+                fail_silently=False,)
