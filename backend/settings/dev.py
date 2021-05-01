@@ -192,8 +192,8 @@ EMAIL_HOST_USER = 'datahack606@gmail.com'
 EMAIL_HOST_PASSWORD = '2021Fall!'
 EMAIL_PORT = 587
 
-
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CRONJOBS = [
-    ('*/1 * * * *', 'backend.settings.corn.my_task', '>>./test.txt')
+    ('*/1 * * * *', 'backend.api.cron.my_task', '>> {}'.format(BASE_DIR + '/log.txt'))
 ]
  
