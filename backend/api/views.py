@@ -92,6 +92,11 @@ def set_profile(request):
         user.login_notify = 1.0 if json_data.get("login_notification") else 0.0
         user.sell_notify = 1.0 if json_data.get("sell_notification") else 0.0
         
+        #reset send tag
+        for s in user.stocks.all():
+            s._sended = 0.0
+            s.save()
+        
         stocks = {}
         user_profile = {
             "state": 'success',
