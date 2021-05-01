@@ -15,7 +15,8 @@ from .views import compute_D
 from .forms import ProfileForm
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-
+from django.utils import timezone
+import yfinance as yf
 
 def my_task():
     '''
@@ -39,8 +40,6 @@ def my_task():
                 ps = yf_stock.history(period='1d')["Close"][0]
                 hs = ((timezone.now() - purchase_date).days) / 365     # in year
                 left_horizon = full_horizon - hs if (full_horizon - hs) > 0 else 0
-                a_s = compute_short_return()
-                a_l = compute_long_return()
                 close_date = yf_stock.history(period='1d').index[0].isoformat()[:10]
                 D = compute_D(tax_l, tax_s, pl, ps, p0, opp_r, left_horizon, hs)
                 if D < 0:
@@ -48,7 +47,7 @@ def my_task():
                         send_mail('SELL NOTIFICATION',
                                   f'Time to sell {s.name}',
                                   settings.EMAIL_HOST_USER,
-                                  [user.email, 'qf31@tamu.edu'],
+                                  [user.email],
                                   fail_silently=False,)
                     s._sended = 1.0 # sended now
                 else:

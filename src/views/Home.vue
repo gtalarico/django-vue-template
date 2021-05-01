@@ -59,12 +59,11 @@ export default {
       axios
         .post("/logout/")
         .then((res) => {
-          console.log(res);
           removeItem("user");
           this.$router.push("/login");
         })
-        .catch((err) => {
-          console.error(err);
+        .catch(() => {
+          // console.error(err);
         });
     },
     Profile() {

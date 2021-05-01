@@ -151,6 +151,8 @@ export default {
         this.form.horizon = this.form.horizon.toFixed(2);
         this.form.left_horizon = this.form.left_horizon.toFixed(2);
         this.form.close_price = this.form.close_price.toFixed(3);
+        this.form.short_return = this.form.short_return.toFixed(3);
+        this.form.long_return = this.form.long_return.toFixed(3);
       })
       .catch((err) => {
         // console.error(err);

@@ -55,7 +55,7 @@ export default {
               id_token: id_token,
             })
             .then((res) => {
-              console.log(res);
+              // console.log(res);
               var profile = GoogleUser.getBasicProfile();
               var userInfo = {
                 id: profile.getId(),

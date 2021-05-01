@@ -141,8 +141,8 @@ export default {
           added_stocks,
         })
         .then((res) => {
-          // console.log(res);
-          loading = false;
+          console.log(res);
+          this.loading = false;
           if (res.data == "Adding Succeeded!") {
             this.$message({
               message: "You have added the stock! Good luck!",

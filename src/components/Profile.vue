@@ -51,7 +51,7 @@
         ><el-switch v-model="form.login_notification"></el-switch
       ></el-form-item>
       <el-form-item label="Sell Notification"
-        ><el-switch v-model="form.sell_notication"></el-switch
+        ><el-switch v-model="form.sell_notification"></el-switch
       ></el-form-item>
     </el-form>
     <el-form-item>
@@ -75,7 +75,7 @@ export default {
         investment_horizon: "",
         opp_cost: "",
         login_notification: "",
-        sell_notication: "",
+        sell_notification: "",
       },
       loading: true,
     };
@@ -91,7 +91,7 @@ export default {
           investment_horizon: this.form.investment_horizon,
           opp_cost: this.form.opp_cost,
           login_notification: this.form.login_notification,
-          sell_notication: this.form.sell_notication,
+          sell_notification: this.form.sell_notification,
         })
         .then((res) => {
           this.loading = false;
@@ -125,7 +125,7 @@ export default {
       .then((res) => {
         this.loading = false;
         // this.form = res.data;
-        // console.log(res);
+        console.log(res);
         this.form.name = getStore("user").name;
         this.form.email = getStore("user").email;
         this.form.short_tax_rate = res.data.short_tax_rate;
@@ -133,7 +133,7 @@ export default {
         this.form.investment_horizon = res.data.investment_horizon;
         this.form.opp_cost = res.data.opp_cost;
         this.form.login_notification = res.data.login_notification;
-        this.form.sell_notication = res.data.sell_notication;
+        this.form.sell_notification = res.data.sell_notification;
       })
       .catch((err) => {
         // console.error(err);

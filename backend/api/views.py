@@ -11,10 +11,11 @@ from google.auth.transport import requests as grequests
 import json
 from datetime import datetime as pydate
 import datetime
-
+from django.conf import settings
 from .models import Message, MessageSerializer
 #from .models import Userprofile, Stock
 import importlib
+from django.core.exceptions import ObjectDoesNotExist
 
 backend_models = importlib.import_module(".models", package="backend.api")
 Userprofile = backend_models.Userprofile
@@ -65,7 +66,7 @@ def get_profile(request):
             "long_tax_rate": user.long_tax_rate,
             "investment_horizon": user.invest_horizon,
             "opp_cost": user.opportunity_cost,
-            "log_in_notification": True if user.login_notify>0 else False,
+            "login_notification": True if user.login_notify>0 else False,
             "sell_notification": True if user.sell_notify>0 else False,
             "stocks": stocks
         }
@@ -89,7 +90,7 @@ def set_profile(request):
         user.long_tax_rate = json_data.get("long_tax_rate")
         user.invest_horizon = json_data.get("investment_horizon")
         user.opportunity_cost = json_data.get("opp_cost")
-        user.login_notify = 1.0 if json_data.get("log_in_notification") else 0.0
+        user.login_notify = 1.0 if json_data.get("login_notification") else 0.0
         user.sell_notify = 1.0 if json_data.get("sell_notification") else 0.0
         
         stocks = {}
@@ -101,7 +102,7 @@ def set_profile(request):
             "long_tax_rate": user.long_tax_rate,
             "investment_horizon": user.invest_horizon,
             "opp_cost": user.opportunity_cost,
-            "log_in_notification": True if user.login_notify>0 else False,
+            "login_notification": True if user.login_notify>0 else False,
             "sell_notification": True if user.sell_notify>0 else False,
             "stocks": stocks
         }
@@ -131,9 +132,6 @@ def stock_detail(request): # pragma: no cover
     stock = user.stocks.get(code=s_code)
     yf_stock = yf.Ticker(s_code)
 
-    # import pdb
-    # pdb.set_trace()
-
     purchase_date = stock.purchase_date
     full_horizon = user.invest_horizon
     p0 = stock.purchase_price 
@@ -141,8 +139,6 @@ def stock_detail(request): # pragma: no cover
     ps = yf_stock.history(period='1d')["Close"][0]
     hs = ((timezone.now() - purchase_date).days) / 365     # in year
     left_horizon = full_horizon - hs if (full_horizon - hs) > 0 else 0
-    a_s = compute_short_return()
-    a_l = compute_long_return()
     # wait...
     
     close_date = yf_stock.history(period='1d').index[0].isoformat()[:10]
@@ -261,18 +257,18 @@ def google_login(request): # pragma: no cover
                     send_mail('Login notification', 
                         f'User {idinfo["name"]} has logged in',
                         settings.EMAIL_HOST_USER,
-                        [idinfo["email"], 'mooler0410@gmail.edu'],
+                        [idinfo["email"]],
                         fail_silently=False,)
             
-            except:
+            except ObjectDoesNotExist as e:
                 new_user = Userprofile(user_id=user_id, 
                                        email_address=idinfo["email"], 
                                        user_name=idinfo["name"])
                 new_user.save()
                 send_mail('Login notification', 
-                          f'User {idinfo["name"]} has logged in',
+                          f'User {idinfo["name"]} has logged in Portfolio Assistant',
                           settings.EMAIL_HOST_USER,
-                          [idinfo["email"], 'mooler0410@gmail.edu'],
+                          [idinfo["email"]],
                           fail_silently=False,)
 
             request.session['user_id'] = user_id
@@ -282,8 +278,8 @@ def google_login(request): # pragma: no cover
 
             return JsonResponse({"user_id": user_id,
                                  "state": True})
-        except ValueError:
-            # Invalid token
+        except:
+            # Invalid token || Fail to send email
             # 失败原因，state。
             return JsonResponse({"state": False}, )
             pass
