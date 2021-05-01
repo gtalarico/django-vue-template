@@ -13,6 +13,9 @@ class Userprofile(models.Model):
     short_tax_rate = models.FloatField(default=0.0)
     long_tax_rate = models.FloatField(default=0.0)
     invest_horizon = models.FloatField(default=0.0)
+    opportunity_cost = models.FloatField(default=0.0)
+    login_notify = models.FloatField(default=0.0)
+    sell_notify = models.FloatField(default=0.0)
     
 class Stock(models.Model):
     user = models.ForeignKey(Userprofile, on_delete=models.CASCADE, related_name="stocks")
@@ -23,6 +26,7 @@ class Stock(models.Model):
     expect_return_rate = models.FloatField(default=0.0)
     #purchase_date = models.CharField(max_length=100)
     purchase_date = models.DateTimeField("data purchase this stock.")
+    _sended = models.FloatField(default=0.0)
             
     class Meta:
         unique_together = ("user", "code") #这是重点

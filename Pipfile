@@ -15,6 +15,7 @@ django_heroku = "*"
 yfinance = "*"
 google-oauth2-tool = "*"
 django-cors-headers = "*"
+django-crontab = "*"
 
 [dev-packages]
 
