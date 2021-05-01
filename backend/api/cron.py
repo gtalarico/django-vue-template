@@ -55,8 +55,4 @@ def my_task():
             else:
                 pass # No action
     except Exception as e:
-        send_mail('SELL NOTIFICATION',
-                                    f'{str(e)}',
-                                    settings.EMAIL_HOST_USER,
-                                    [user.email_address],
-                                    fail_silently=False,)
+        pass
