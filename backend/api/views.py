@@ -86,6 +86,12 @@ def set_profile(request):
         
         u_id = json_data.get("id")
         user = Userprofile.objects.get(user_id=u_id)
+        
+        old_s_t = user.short_tax_rate
+        old_l_t = user.long_tax_rate
+        old_h = user.invest_horizon
+        old_r = user.opportunity_cost
+        
         user.short_tax_rate = json_data.get("short_tax_rate")
         user.long_tax_rate = json_data.get("long_tax_rate")
         user.invest_horizon = json_data.get("investment_horizon")
@@ -94,9 +100,13 @@ def set_profile(request):
         user.sell_notify = 1.0 if json_data.get("sell_notification") else 0.0
         
         #reset send tag
-        for s in user.stocks.all():
-            s._sended = 0.0
-            s.save()
+        if not (old_s_t == user.short_tax_rate and
+                old_l_t == user.long_tax_rate  and
+                old_h == user.invest_horizon   and
+                old_r == user.opportunity_cost):
+            for s in user.stocks.all():
+                s._sended = 0.0
+                s.save()
         
         stocks = {}
         user_profile = {
@@ -193,10 +203,20 @@ def set_stock(request):
         s_code = json_data.get("s_code")
         user = Userprofile.objects.get(user_id=u_id)
         modified_stock = user.stocks.get(code=s_code)
+        old_d = modified_stock.purchase_date 
+        old_p = modified_stock.purchase_price
+        old_t = modified_stock.target_price
+        
         modified_stock.purchase_date = datetime.date.fromisoformat(json_data.get("purchase_date")[:10])
         modified_stock.purchase_price = json_data.get("purchase_price")
         modified_stock.target_price = json_data.get("target_price")
         modified_stock.expect_return_rate = json_data.get("expect_return_rate")
+        
+        if not (old_d == modified_stock.purchase_date, 
+                old_p == modified_stock.purchase_price,
+                old_t == modified_stock.target_price):
+            modified_stock._sended = 0.0
+
         modified_stock.save()
         
         return HttpResponse("Setting Stock Succeeded!")
