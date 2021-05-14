@@ -1,17 +1,28 @@
 import Vue from 'vue'
-import App from '@/App.vue'
+import App from './App.vue'
+import router from './router/router'
+import store from './store/store'
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css';
+import './registerServiceWorker'
+import '@/assets/css/style.css'
+import GoogleAuth from '@/config/google_oAuth.js'
+import axios from 'axios'
+const gauthOption = {
+  clientId: '1052465622185-hl3qvsb6o5j432c95bb9fritksuuq4vh.apps.googleusercontent.com',
+  scope: 'profile email',
+  prompt: 'select_account'
+}
 
-import store from '@/store' 
-import router from '@/router'
-
+Vue.use(ElementUI)
+Vue.use(GoogleAuth, gauthOption)
+Vue.prototype.$ajax = axios
 Vue.config.productionTip = false
+axios.defaults.baseURL = 'http://localhost:8000'
+// axios.defaults.baseURL = 'http://rap2api.taobao.org/app/mock/282070/'
 
-// Vue.use(VueRouter)
-
-const vue = new Vue({
+new Vue({
   router,
   store,
   render: h => h(App)
-})
-
-vue.$mount('#app')
+}).$mount('#app')

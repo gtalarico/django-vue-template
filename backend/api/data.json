@@ -1,0 +1,39 @@
+{
+    "user1":{
+        "exist": 1,
+        "user_name": "GC",
+        "short_tax_rate": 0.4,
+        "long_tax_rate": 0.01,
+        "stocks": {
+            "AAPL":{
+               "purchase_price": 100.0,
+               "purchase_date": "2020-10-21",
+               "target_price": 200.0 
+            },
+            "NIO":{
+                "purchase_price": 27.0,
+                "purchase_date": "2020-11-19",
+                "target_price": 40.0 
+            }
+        }
+    },
+    "user2":{
+        "exist": 1,
+        "user_name": "HY",
+        "short_tax_rate": 0.3,
+        "long_tax_rate": 0.02,
+        "stocks": {
+            "TSLA":{
+                "purchase_price": 500.0,
+                "purchase_date": "2021-1-21",
+                "target_price": 1000.0 
+            },
+            "BA":{
+                "purchase_price": 100.0,
+                "purchase_date": "2020-5-21",
+                "target_price": 200.0 
+            }
+        }
+    }
+}
+
