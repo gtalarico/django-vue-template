@@ -1,4 +1,4 @@
-# Django Vue Template ✌️ 🐍
+# Django Vue Template with PWA
 
 ![Vue Logo](/src/assets/logo-vue.png "Vue Logo")
 ![Django Logo](/src/assets/logo-django.png "Django Logo")
@@ -26,18 +26,22 @@ Prefer Flask? Checkout my [gtalarico/flask-vuejs-template](https://github.com/gt
 
 ### Demo
 
-[Live Demo](https://django-vue-template-demo.herokuapp.com/)
+[Live Demo](https://django-vue-pwa.herokuapp.com/)
+You can disconnect WiFi or Mobile Data, then refresh site again to see that PWA works.
 
 ### Includes
+(2019-4-26: updated to latest version)
 
-* Django
+* Django (==> 2.2)
 * Django REST framework
 * Django Whitenoise, CDN Ready
-* Vue CLI 3
+* Vue.js (==> 2.6+)
+* Vue CLI (==> 3.6+)
 * Vue Router
 * Vuex
 * Gunicorn
 * Configuration for Heroku Deployment
+* PWA (Progressive Web App) (==> new added)
 
 
 ### Template Structure
@@ -57,10 +61,12 @@ Prefer Flask? Checkout my [gtalarico/flask-vuejs-template](https://github.com/gt
 
 Before getting started you should have the following installed and running:
 
-- [X] Yarn - [instructions](https://yarnpkg.com/en/docs/install)
+- [X] Yarn 1.15+ - [instructions](https://yarnpkg.com/en/docs/install)
 - [X] Vue CLI 3 - [instructions](https://cli.vuejs.org/guide/installation.html)
 - [X] Python 3 - [instructions](https://wiki.python.org/moin/BeginnersGuide)
 - [X] Pipenv - [instructions](https://pipenv.readthedocs.io/en/latest/install/#installing-pipenv)
+- [X] node.js 10.15+
+- [X] npm 6.4+
 
 ## Setup Template
 
@@ -152,7 +158,7 @@ The [`Procfile`](/Procfile) will run Django migrations and then launch Django'S 
 
 ##### Heroku One Click Deploy
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/gtalarico/django-vue-template)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/kevinqqnj/django-vue-template)
 
 ## Static Assets
 
