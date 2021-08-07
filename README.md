@@ -21,6 +21,7 @@ If this setup is not what you are looking for, you might want look at other simi
 
 * [ariera/django-vue-template](https://github.com/ariera/django-vue-template)
 * [vchaptsev/cookiecutter-django-vue](https://github.com/vchaptsev/cookiecutter-django-vue)
+* [wemake-django-template](https://github.com/wemake-services/wemake-django-template) + [wemake-vue-template](https://github.com/wemake-services/wemake-vue-template)
 
 Prefer Flask? Checkout my [gtalarico/flask-vuejs-template](https://github.com/gtalarico/flask-vuejs-template)
 
