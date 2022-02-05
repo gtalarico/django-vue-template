@@ -8,11 +8,11 @@ from django.conf.urls import url, include
 from django.contrib import admin
 # from django.urls import path
 from rest_framework import routers
-
-from .api.views import index_view, MessageViewSet
+from .api.post.views import PostAPIView, PostRudView
+# from .api.views import index_view, MessageViewSet
 
 router = routers.DefaultRouter()
-router.register('messages', MessageViewSet)
+router.register('post', PostAPIView.as_view(),'post')
 
 urlpatterns = [
 
