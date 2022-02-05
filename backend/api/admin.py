@@ -1,3 +1,7 @@
 from django.contrib import admin
 
-# Register your models here.
+from backend.api.models import Message
+class MessageAdmin(admin.ModelAdmin):
+    list_display=('user','title','text')
+
+admin.site.register(Message, MessageAdmin)
