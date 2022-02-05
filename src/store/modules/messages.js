@@ -26,6 +26,10 @@ const actions = {
   deleteMessage( { commit }, msgId) {
     messageService.deleteMessage(msgId)
     commit('deleteMessage', msgId)
+  },
+  editMessage( { commit }, msgId){
+    messageService.editMessage(msgId)
+    commit('editMessage', msgId)
   }
 }
 
@@ -38,6 +42,9 @@ const mutations = {
   },
   deleteMessage(state, msgId) {
     state.messages = state.messages.filter(obj => obj.pk !== msgId)
+  },
+  editMessage(state, msgId) {
+      state.message.push(message)
   }
 }
 
