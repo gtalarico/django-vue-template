@@ -1,4 +1,5 @@
 from django.db.models import Q
+from backend.api.post.permissions import IsOwnerOrReadOnly
 from backend.api.post.serializers import PostSerializer
 from rest_framework import generics,mixins
 from backend.api.models import Message
@@ -22,6 +23,7 @@ class PostAPIView(mixins.CreateModelMixin, generics.ListAPIView):
 class PostRudView(generics.RetrieveUpdateDestroyAPIView):
     lookup_field = 'pk'
     serializer_class = PostSerializer
+    # permission_classes = [IsOwnerOrReadOnly]
 
     def get_queryset(self):
         return Message.objects.all()

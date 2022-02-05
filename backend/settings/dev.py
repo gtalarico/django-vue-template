@@ -143,12 +143,12 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # http://whitenoise.evans.io/en/stable/django.html#make-sure-staticfiles-is-configured-correctly
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': {
+    'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
-    },
-    'DEFAULT_AUTHENTICATION_CLASSES': {
-        'rest_framework_jwt.authentication.JSONwebTokenAuthentication',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
-    },
+    ),
 }

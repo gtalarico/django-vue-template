@@ -1,7 +1,7 @@
-from ast import Str
+from __future__ import unicode_literals
+from datetime import datetime
 from django.conf import settings
 from django.db import models
-from django.conf import settings
 
 class Message(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -12,6 +12,9 @@ class Message(models.Model):
     def __str__(self):
         return str(self.user.username)
 
+    @property
+    def owner(self):
+        return self.user
 
 # class MessageSerializer(serializers.HyperlinkedModelSerializer):
 #     class Meta:

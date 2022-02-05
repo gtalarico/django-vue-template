@@ -1,13 +1,12 @@
 from backend.api.models import Message
 from rest_framework import serializers
-from backend.api.models import Message
 
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Message
-        fields = [
+        fields = (
             'pk', 'user', 'title', 'text', 'timestamp'
-        ]
+        )
         read_only_fields = ['user']
 
     def validate_title(self, value):
