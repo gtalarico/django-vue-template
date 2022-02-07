@@ -1,4 +1,4 @@
-from backend.api.models import Message
+from post.models import Message
 from rest_framework import serializers
 
 class PostSerializer(serializers.ModelSerializer):

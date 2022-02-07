@@ -2,15 +2,16 @@ import api from '@/services/api'
 
 export default {
   fetchMessages() {
-    return api.get(`messages/`)
+    return api.get(`/post/`)
               .then(response => response.data)
-  },
+    },
   postMessage(payload) {
-    return api.post(`messages/`, payload)
+    console.log(payload)
+    return api.post(`/post/`, payload)
               .then(response => response.data)
   },
   deleteMessage(msgId) {
-    return api.delete(`messages/${msgId}`)
+    return api.delete(`/post/${msgId}`)
               .then(response => response.data)
   }
 }

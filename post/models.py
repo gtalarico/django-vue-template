@@ -1,8 +1,7 @@
-from __future__ import unicode_literals
-from datetime import datetime
-from django.conf import settings
 from django.db import models
+from django.conf import settings
 
+# Create your models here.
 class Message(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     title = models.CharField(max_length=200, null=True, blank=True)
@@ -15,8 +14,3 @@ class Message(models.Model):
     @property
     def owner(self):
         return self.user
-
-# class MessageSerializer(serializers.HyperlinkedModelSerializer):
-#     class Meta:
-#         model = Message
-#         fields = ('url', 'subject', 'body', 'pk')
